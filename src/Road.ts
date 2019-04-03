@@ -1,12 +1,9 @@
 import {vec3, vec2, mat3, vec4, quat, glMatrix} from 'gl-matrix';
 import Turtle from './turtle';
 import TurtleStack from './turtleStack'
-import Map from './map'
 import Edge from './edge';
 import Intersection from './intersection'
-import {worley} from './noiseFunctions';
 import { gl } from './globals';
-import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from 'constants';
 
 class Road {
     turtleStack: TurtleStack = new TurtleStack();
@@ -394,7 +391,6 @@ class Road {
         //     return false;
         // }
         if (this.getTerrain(newEdge.origin[0], newEdge.origin[1]) < 0.5 || this.getTerrain(newEdge.endpoint[0], newEdge.endpoint[1]) < 0.5) {
-            console.log("under the sea");
             return false;
         } else {
             if (this.outOfBounds(newEdge.endpoint[0], newEdge.endpoint[1])) {
@@ -489,6 +485,63 @@ class Road {
 
         let population: number = this.mapTexture[4.0 * (x + this.mapWidth * y) + 3.0];
         return population;
+    }
+
+    rasterize(width: number) : Array<number> {
+        let grid = new Array<number>(this.mapWidth * this.mapHeight);
+        for (var i = 0; i < this.mapWidth; i++) {
+            for (var j = 0; j < this.mapHeight; j++) {
+                let index = i + this.mapWidth * j;
+                if (this.getTerrain(2.0 * (i / this.mapWidth) - 1.0, 2.0 * (j /  this.mapHeight) - 1.0) < 0.5) {
+                    grid[index] = 0;
+                    // console.log("water case!");
+                } else {
+                    grid[index] = 1;
+                }
+                
+            }
+        }
+
+        for (var i = 0; i < this.edges.length; i++) {
+            let e = this.edges[i];
+            let endpoint = e.endpoint;
+            let origin = e.origin;
+            let ymin = Math.min((endpoint[1] + 1.0) * this.mapHeight * 0.5, (origin[1] + 1.0) * this.mapHeight * 0.5);
+            let ymax = Math.max((endpoint[1] + 1.0) * this.mapHeight * 0.5, (origin[1] + 1.0) * this.mapHeight * 0.5);
+            let xmin = Math.min((endpoint[0] + 1.0) * this.mapWidth  * 0.5, (origin[0] + 1.0) * this.mapWidth  * 0.5);
+            let xmax = Math.max((endpoint[0] + 1.0) * this.mapWidth  * 0.5, (origin[0] + 1.0) * this.mapWidth  * 0.5);
+
+            if (ymin == ymax) {
+                // Horizontal line case
+                for (var x = Math.floor(xmin); x <= Math.ceil(xmax); x++) {
+                    for (var y = Math.floor(ymin - width); y <= Math.floor(ymax + width); y++) {
+                        // console.log("horizontal line case!");
+                        grid[x + this.mapWidth * y] = 0;
+                    }
+                }
+            } else if (xmin == xmax) {
+                // Vertical line case
+                for (var x = Math.floor(xmin - width); x <= Math.floor(xmax + width); x++) {
+                    for (var y = Math.floor(ymin); y <= Math.ceil(ymax); y++) {
+                        // console.log("vertical line case!");
+                        grid[x + this.mapWidth * y] = 0;
+                    }
+                }
+            } else {
+                let m = ((endpoint[1] + 1.0) * this.mapHeight * 0.5 - (origin[1] + 1.0) * this.mapHeight * 0.5) / ((endpoint[0] + 1.0) * this.mapWidth  * 0.5 - (origin[0] + 1.0) * this.mapWidth  * 0.5);
+                let x1 = (origin[0] + 1.0) * this.mapWidth  * 0.5;
+                let y1 = (origin[1] + 1.0) * this.mapHeight * 0.5;
+
+                for (var y = Math.floor(ymin); y <= Math.ceil(ymax); y++) {
+                    let xInt = x1 + (y - y1) / m;
+                    for (var x = Math.floor(xInt - width); x <= Math.ceil(xInt + width); x++) {
+                        // console.log("regular line case!");
+                        grid[x + this.mapWidth * y] = 0;
+                    }
+                }
+            }
+        }
+        return grid;
     }
 }
 

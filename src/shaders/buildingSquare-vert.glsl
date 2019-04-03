@@ -28,17 +28,18 @@ void main()
     fs_Pos = vs_Pos;
     // fs_Nor = vec4(0.0, 0.0, 1.0, 0.0);
 
-    mat3 transformation = mat3(vs_Transform1, vs_Transform2, vs_Transform3);
+    // mat3 transformation = mat3(vs_Transform1, vs_Transform2, vs_Transform3);
 
     
-    vec3 instancedPos = transformation * vs_Pos.rga;
-    vec3 rotatedPos = instancedPos;
-    rotatedPos.y = instancedPos.z;
-    rotatedPos.z = instancedPos.y;
-    rotatedPos *= 4.0;
+    vec3 instancedPos = 0.008 * vs_Pos.rag + vs_Translate;
 
-    float x = 0.5 * (rotatedPos.x + 4.0) / 4.0;
-    float y = 0.5 * (rotatedPos.z + 4.0) / 4.0;
+    // vec3 rotatedPos = instancedPos;
+    // rotatedPos.y = instancedPos.z;
+    // rotatedPos.z = instancedPos.y;
+    // rotatedPos *= 4.0;
+
+    float x = 0.5 * (instancedPos.x + 4.0) / 4.0;
+    float y = 0.5 * (instancedPos.z + 4.0) / 4.0;
     vec4 textureColor = texture(u_RenderedTexture, vec2(x,  y));
 
     float height = textureColor.r * 12.0;
@@ -49,12 +50,12 @@ void main()
         height = 1.1;
     }
 
-    rotatedPos.y = height + 0.05;
+    instancedPos.y = height + 0.06;
 
 
     // fs_LightVec = lightPos - instancedPos;  // Compute the direction in which the light source lies
 
-    gl_Position = u_ViewProj * vec4(rotatedPos.xyz, 1.0);
+    gl_Position = u_ViewProj * vec4(instancedPos.xyz, 1.0);
 
 
 }

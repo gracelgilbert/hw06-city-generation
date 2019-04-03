@@ -14,10 +14,10 @@ out vec4 out_Col;
 
 void main() {
 
-  float x = 0.5 * (fs_Pos.x + 1.0);
-  float y = 0.5 * (fs_Pos.y + 1.0);
+  float x = 0.5 * (fs_Pos.x + 4.0) / 4.0;
+  float y = 0.5 * (fs_Pos.y + 4.0) / 4.0;
 
-  vec4 textureColor = texture(u_RenderedTexture, vec2( x,  y));
+  vec4 textureColor = texture(u_RenderedTexture, vec2(x,  y));
 
   vec3 finalColor = vec3(0.0);
   if (u_TerrainToggle == 1.0) {
@@ -30,5 +30,6 @@ void main() {
     finalColor = vec3(1.0);
   }
     out_Col = vec4(finalColor, 1.0);
+  // out_Col = vec4(0.0, 0.0, 1.0, 1.0);
 
 }

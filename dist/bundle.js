@@ -60,11 +60,49 @@
 /******/ 	__webpack_require__.p = "dist/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 23);
+/******/ 	return __webpack_require__(__webpack_require__.s = 22);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__gl_matrix_common_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__gl_matrix_mat2_js__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__gl_matrix_mat2d_js__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__gl_matrix_mat3_js__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__gl_matrix_mat4_js__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__gl_matrix_quat_js__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__gl_matrix_quat2_js__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__gl_matrix_vec2_js__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__gl_matrix_vec3_js__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__gl_matrix_vec4_js__ = __webpack_require__(10);
+/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__gl_matrix_common_js__; });
+/* unused harmony reexport mat2 */
+/* unused harmony reexport mat2d */
+/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_3__gl_matrix_mat3_js__; });
+/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_4__gl_matrix_mat4_js__; });
+/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "d", function() { return __WEBPACK_IMPORTED_MODULE_5__gl_matrix_quat_js__; });
+/* unused harmony reexport quat2 */
+/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "e", function() { return __WEBPACK_IMPORTED_MODULE_7__gl_matrix_vec2_js__; });
+/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "f", function() { return __WEBPACK_IMPORTED_MODULE_8__gl_matrix_vec3_js__; });
+/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "g", function() { return __WEBPACK_IMPORTED_MODULE_9__gl_matrix_vec4_js__; });
+
+
+
+
+
+
+
+
+
+
+
+
+
+/***/ }),
+/* 1 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -117,44 +155,6 @@ function toRadian(a) {
 function equals(a, b) {
   return Math.abs(a - b) <= EPSILON * Math.max(1.0, Math.abs(a), Math.abs(b));
 }
-
-/***/ }),
-/* 1 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__gl_matrix_common_js__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__gl_matrix_mat2_js__ = __webpack_require__(24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__gl_matrix_mat2d_js__ = __webpack_require__(25);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__gl_matrix_mat3_js__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__gl_matrix_mat4_js__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__gl_matrix_quat_js__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__gl_matrix_quat2_js__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__gl_matrix_vec2_js__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__gl_matrix_vec3_js__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__gl_matrix_vec4_js__ = __webpack_require__(9);
-/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__gl_matrix_common_js__; });
-/* unused harmony reexport mat2 */
-/* unused harmony reexport mat2d */
-/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_3__gl_matrix_mat3_js__; });
-/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_4__gl_matrix_mat4_js__; });
-/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "d", function() { return __WEBPACK_IMPORTED_MODULE_5__gl_matrix_quat_js__; });
-/* unused harmony reexport quat2 */
-/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "e", function() { return __WEBPACK_IMPORTED_MODULE_7__gl_matrix_vec2_js__; });
-/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "f", function() { return __WEBPACK_IMPORTED_MODULE_8__gl_matrix_vec3_js__; });
-/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "g", function() { return __WEBPACK_IMPORTED_MODULE_9__gl_matrix_vec4_js__; });
-
-
-
-
-
-
-
-
-
-
-
-
 
 /***/ }),
 /* 2 */
@@ -231,6 +231,142 @@ function invert(out, a) {
 
 /***/ }),
 /* 4 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__globals__ = __webpack_require__(2);
+
+class Drawable {
+    constructor() {
+        this.count = 0;
+        this.idxGenerated = false;
+        this.posGenerated = false;
+        this.norGenerated = false;
+        this.colGenerated = false;
+        this.translateGenerated = false;
+        this.transform1Generated = false;
+        this.transform2Generated = false;
+        this.transform3Generated = false;
+        this.uvGenerated = false;
+        this.numInstances = 0; // How many instances of this Drawable the shader program should draw
+    }
+    destory() {
+        __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].deleteBuffer(this.bufIdx);
+        __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].deleteBuffer(this.bufPos);
+        __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].deleteBuffer(this.bufNor);
+        __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].deleteBuffer(this.bufCol);
+        __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].deleteBuffer(this.bufTranslate);
+        __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].deleteBuffer(this.bufTransform1);
+        __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].deleteBuffer(this.bufTransform2);
+        __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].deleteBuffer(this.bufTransform3);
+        __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].deleteBuffer(this.bufUV);
+    }
+    generateIdx() {
+        this.idxGenerated = true;
+        this.bufIdx = __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].createBuffer();
+    }
+    generatePos() {
+        this.posGenerated = true;
+        this.bufPos = __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].createBuffer();
+    }
+    generateNor() {
+        this.norGenerated = true;
+        this.bufNor = __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].createBuffer();
+    }
+    generateCol() {
+        this.colGenerated = true;
+        this.bufCol = __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].createBuffer();
+    }
+    generateTranslate() {
+        this.translateGenerated = true;
+        this.bufTranslate = __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].createBuffer();
+    }
+    generateTransform1() {
+        this.transform1Generated = true;
+        this.bufTransform1 = __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].createBuffer();
+    }
+    generateTransform2() {
+        this.transform2Generated = true;
+        this.bufTransform2 = __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].createBuffer();
+    }
+    generateTransform3() {
+        this.transform3Generated = true;
+        this.bufTransform3 = __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].createBuffer();
+    }
+    generateUV() {
+        this.uvGenerated = true;
+        this.bufUV = __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].createBuffer();
+    }
+    bindIdx() {
+        if (this.idxGenerated) {
+            __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].ELEMENT_ARRAY_BUFFER, this.bufIdx);
+        }
+        return this.idxGenerated;
+    }
+    bindPos() {
+        if (this.posGenerated) {
+            __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].ARRAY_BUFFER, this.bufPos);
+        }
+        return this.posGenerated;
+    }
+    bindNor() {
+        if (this.norGenerated) {
+            __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].ARRAY_BUFFER, this.bufNor);
+        }
+        return this.norGenerated;
+    }
+    bindCol() {
+        if (this.colGenerated) {
+            __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].ARRAY_BUFFER, this.bufCol);
+        }
+        return this.colGenerated;
+    }
+    bindTranslate() {
+        if (this.translateGenerated) {
+            __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].ARRAY_BUFFER, this.bufTranslate);
+        }
+        return this.translateGenerated;
+    }
+    bindTransform1() {
+        if (this.transform1Generated) {
+            __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].ARRAY_BUFFER, this.bufTransform1);
+        }
+        return this.transform1Generated;
+    }
+    bindTransform2() {
+        if (this.transform2Generated) {
+            __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].ARRAY_BUFFER, this.bufTransform2);
+        }
+        return this.transform2Generated;
+    }
+    bindTransform3() {
+        if (this.transform3Generated) {
+            __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].ARRAY_BUFFER, this.bufTransform3);
+        }
+        return this.transform3Generated;
+    }
+    bindUV() {
+        if (this.uvGenerated) {
+            __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].ARRAY_BUFFER, this.bufUV);
+        }
+        return this.uvGenerated;
+    }
+    elemCount() {
+        return this.count;
+    }
+    drawMode() {
+        return __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].TRIANGLES;
+    }
+    setNumInstances(num) {
+        this.numInstances = num;
+    }
+}
+;
+/* harmony default export */ __webpack_exports__["a"] = (Drawable);
+
+
+/***/ }),
+/* 5 */
 /***/ (function(module, exports) {
 
 module.exports = normalize;
@@ -258,7 +394,7 @@ function normalize(out, a) {
 }
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -295,7 +431,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (immutable) */ __webpack_exports__["equals"] = equals;
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mul", function() { return mul; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sub", function() { return sub; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_js__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_js__ = __webpack_require__(1);
 
 
 /**
@@ -1108,7 +1244,7 @@ var mul = multiply;
 var sub = subtract;
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1160,7 +1296,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (immutable) */ __webpack_exports__["equals"] = equals;
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mul", function() { return mul; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sub", function() { return sub; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_js__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_js__ = __webpack_require__(1);
 
 
 /**
@@ -3004,7 +3140,7 @@ var mul = multiply;
 var sub = subtract;
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3044,10 +3180,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "rotationTo", function() { return rotationTo; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sqlerp", function() { return sqlerp; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setAxes", function() { return setAxes; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_js__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mat3_js__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__vec3_js__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__vec4_js__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mat3_js__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__vec3_js__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__vec4_js__ = __webpack_require__(10);
 
 
 
@@ -3711,7 +3847,7 @@ var setAxes = function () {
 }();
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3763,7 +3899,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "len", function() { return len; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sqrLen", function() { return sqrLen; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "forEach", function() { return forEach; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_js__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_js__ = __webpack_require__(1);
 
 
 /**
@@ -4553,7 +4689,7 @@ var forEach = function () {
 }();
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4597,7 +4733,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "len", function() { return len; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sqrLen", function() { return sqrLen; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "forEach", function() { return forEach; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_js__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_js__ = __webpack_require__(1);
 
 
 /**
@@ -5214,142 +5350,6 @@ var forEach = function () {
 }();
 
 /***/ }),
-/* 10 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__globals__ = __webpack_require__(2);
-
-class Drawable {
-    constructor() {
-        this.count = 0;
-        this.idxGenerated = false;
-        this.posGenerated = false;
-        this.norGenerated = false;
-        this.colGenerated = false;
-        this.translateGenerated = false;
-        this.transform1Generated = false;
-        this.transform2Generated = false;
-        this.transform3Generated = false;
-        this.uvGenerated = false;
-        this.numInstances = 0; // How many instances of this Drawable the shader program should draw
-    }
-    destory() {
-        __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].deleteBuffer(this.bufIdx);
-        __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].deleteBuffer(this.bufPos);
-        __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].deleteBuffer(this.bufNor);
-        __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].deleteBuffer(this.bufCol);
-        __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].deleteBuffer(this.bufTranslate);
-        __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].deleteBuffer(this.bufTransform1);
-        __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].deleteBuffer(this.bufTransform2);
-        __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].deleteBuffer(this.bufTransform3);
-        __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].deleteBuffer(this.bufUV);
-    }
-    generateIdx() {
-        this.idxGenerated = true;
-        this.bufIdx = __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].createBuffer();
-    }
-    generatePos() {
-        this.posGenerated = true;
-        this.bufPos = __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].createBuffer();
-    }
-    generateNor() {
-        this.norGenerated = true;
-        this.bufNor = __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].createBuffer();
-    }
-    generateCol() {
-        this.colGenerated = true;
-        this.bufCol = __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].createBuffer();
-    }
-    generateTranslate() {
-        this.translateGenerated = true;
-        this.bufTranslate = __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].createBuffer();
-    }
-    generateTransform1() {
-        this.transform1Generated = true;
-        this.bufTransform1 = __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].createBuffer();
-    }
-    generateTransform2() {
-        this.transform2Generated = true;
-        this.bufTransform2 = __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].createBuffer();
-    }
-    generateTransform3() {
-        this.transform3Generated = true;
-        this.bufTransform3 = __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].createBuffer();
-    }
-    generateUV() {
-        this.uvGenerated = true;
-        this.bufUV = __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].createBuffer();
-    }
-    bindIdx() {
-        if (this.idxGenerated) {
-            __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].ELEMENT_ARRAY_BUFFER, this.bufIdx);
-        }
-        return this.idxGenerated;
-    }
-    bindPos() {
-        if (this.posGenerated) {
-            __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].ARRAY_BUFFER, this.bufPos);
-        }
-        return this.posGenerated;
-    }
-    bindNor() {
-        if (this.norGenerated) {
-            __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].ARRAY_BUFFER, this.bufNor);
-        }
-        return this.norGenerated;
-    }
-    bindCol() {
-        if (this.colGenerated) {
-            __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].ARRAY_BUFFER, this.bufCol);
-        }
-        return this.colGenerated;
-    }
-    bindTranslate() {
-        if (this.translateGenerated) {
-            __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].ARRAY_BUFFER, this.bufTranslate);
-        }
-        return this.translateGenerated;
-    }
-    bindTransform1() {
-        if (this.transform1Generated) {
-            __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].ARRAY_BUFFER, this.bufTransform1);
-        }
-        return this.transform1Generated;
-    }
-    bindTransform2() {
-        if (this.transform2Generated) {
-            __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].ARRAY_BUFFER, this.bufTransform2);
-        }
-        return this.transform2Generated;
-    }
-    bindTransform3() {
-        if (this.transform3Generated) {
-            __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].ARRAY_BUFFER, this.bufTransform3);
-        }
-        return this.transform3Generated;
-    }
-    bindUV() {
-        if (this.uvGenerated) {
-            __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].ARRAY_BUFFER, this.bufUV);
-        }
-        return this.uvGenerated;
-    }
-    elemCount() {
-        return this.count;
-    }
-    drawMode() {
-        return __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].TRIANGLES;
-    }
-    setNumInstances(num) {
-        this.numInstances = num;
-    }
-}
-;
-/* harmony default export */ __webpack_exports__["a"] = (Drawable);
-
-
-/***/ }),
 /* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -5358,7 +5358,7 @@ class Drawable {
 
 module.exports = createFilteredVector
 
-var cubicHermite = __webpack_require__(41)
+var cubicHermite = __webpack_require__(40)
 var bsearch = __webpack_require__(12)
 
 function clamp(lo, hi, x) {
@@ -6033,7 +6033,7 @@ function determinant(a) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_gl_matrix__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_gl_matrix__ = __webpack_require__(0);
 
 class Turtle {
     // will have a temporary road piece
@@ -6116,28 +6116,26 @@ class Turtle {
 
 /***/ }),
 /* 22 */
-/***/ (function(module, exports) {
-
-module.exports = "#version 300 es\nprecision highp float;\n\n// The vertex shader used to render the background of the scene\n\nin vec4 vs_Pos;\nout vec2 fs_Pos;\n\nvoid main() {\n  fs_Pos = vs_Pos.xy;\n  gl_Position = vs_Pos;\n}\n"
-
-/***/ }),
-/* 23 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_gl_matrix__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_stats_js__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_gl_matrix__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_stats_js__ = __webpack_require__(27);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_stats_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_stats_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_dat_gui__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_dat_gui__ = __webpack_require__(28);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_dat_gui___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_dat_gui__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__geometry_Square__ = __webpack_require__(32);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__geometry_ScreenQuad__ = __webpack_require__(33);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__rendering_gl_OpenGLRenderer__ = __webpack_require__(34);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Camera__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__geometry_Square__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__geometry_ScreenQuad__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__rendering_gl_OpenGLRenderer__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Camera__ = __webpack_require__(34);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__globals__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__rendering_gl_ShaderProgram__ = __webpack_require__(70);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__Road__ = __webpack_require__(71);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__rendering_gl_ShaderProgram__ = __webpack_require__(69);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__Road__ = __webpack_require__(70);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__geometry_Plane__ = __webpack_require__(74);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__BuildingSystem__ = __webpack_require__(75);
+
+
 
 
 
@@ -6158,15 +6156,20 @@ const controls = {
     gridDensity: 1.0,
 };
 let square;
+let building;
 let screenQuad;
+let plane;
 let time = 0.0;
 let road;
+let buildingSystem;
 let prevPopSeed = controls.shorePopulation;
 let prevRoadLength = controls.roadLength;
 let prevGridDensity = controls.gridDensity;
-function loadScene(road) {
+function loadScene(road, buildingSystem) {
     square = new __WEBPACK_IMPORTED_MODULE_3__geometry_Square__["a" /* default */]();
     square.create();
+    building = new __WEBPACK_IMPORTED_MODULE_3__geometry_Square__["a" /* default */]();
+    building.create();
     // Set up instanced rendering data arrays here.
     // This example creates a set of positional
     // offsets and gradiated colors for a 100x100 grid
@@ -6196,8 +6199,21 @@ function loadScene(road) {
     let col1s = new Float32Array(col1sArray);
     let col2s = new Float32Array(col2sArray);
     let col3s = new Float32Array(col3sArray);
-    square.setInstanceVBOs(col1s, col2s, col3s);
+    let tempOffsets = new Float32Array(col1sArray);
+    square.setInstanceVBOs(col1s, col2s, col3s, tempOffsets);
     square.setNumInstances(n); // grid of "particles"
+    let offsetsArray = [];
+    let nb = buildingSystem.positions.length;
+    for (let i = 0; i < nb; i++) {
+        let currPosition = buildingSystem.positions[i];
+        // console.log(currPosition);
+        offsetsArray.push(currPosition[0]);
+        offsetsArray.push(1.5);
+        offsetsArray.push(currPosition[1]);
+    }
+    let offsets = new Float32Array(offsetsArray);
+    building.setInstanceVBOs(col1s, col2s, col3s, offsets);
+    building.setNumInstances(nb); // grid of "particles"
 }
 function main() {
     // Initial display for framerate
@@ -6225,22 +6241,29 @@ function main() {
     Object(__WEBPACK_IMPORTED_MODULE_7__globals__["b" /* setGL */])(gl);
     screenQuad = new __WEBPACK_IMPORTED_MODULE_4__geometry_ScreenQuad__["a" /* default */]();
     screenQuad.create();
-    const camera = new __WEBPACK_IMPORTED_MODULE_6__Camera__["a" /* default */](__WEBPACK_IMPORTED_MODULE_0_gl_matrix__["f" /* vec3 */].fromValues(50, 50, 10), __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["f" /* vec3 */].fromValues(50, 50, 0));
+    plane = new __WEBPACK_IMPORTED_MODULE_10__geometry_Plane__["a" /* default */](__WEBPACK_IMPORTED_MODULE_0_gl_matrix__["f" /* vec3 */].fromValues(0, 0, 0), __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["e" /* vec2 */].fromValues(8, 8), 20);
+    plane.create();
+    const camera = new __WEBPACK_IMPORTED_MODULE_6__Camera__["a" /* default */](__WEBPACK_IMPORTED_MODULE_0_gl_matrix__["f" /* vec3 */].fromValues(10, 20, 0), __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["f" /* vec3 */].fromValues(0, 2, 0));
     const renderer = new __WEBPACK_IMPORTED_MODULE_5__rendering_gl_OpenGLRenderer__["a" /* default */](canvas);
     renderer.setClearColor(0.2, 0.2, 0.2, 1);
+    gl.enable(gl.DEPTH_TEST);
     // gl.enable(gl.BLEND);
-    gl.blendFunc(gl.ONE, gl.ONE); // Additive blending
+    // gl.blendFunc(gl.ONE, gl.ONE); // Additive blending
     const instancedShader = new __WEBPACK_IMPORTED_MODULE_8__rendering_gl_ShaderProgram__["b" /* default */]([
-        new __WEBPACK_IMPORTED_MODULE_8__rendering_gl_ShaderProgram__["a" /* Shader */](gl.VERTEX_SHADER, __webpack_require__(75)),
-        new __WEBPACK_IMPORTED_MODULE_8__rendering_gl_ShaderProgram__["a" /* Shader */](gl.FRAGMENT_SHADER, __webpack_require__(76)),
-    ]);
-    const flat = new __WEBPACK_IMPORTED_MODULE_8__rendering_gl_ShaderProgram__["b" /* default */]([
-        new __WEBPACK_IMPORTED_MODULE_8__rendering_gl_ShaderProgram__["a" /* Shader */](gl.VERTEX_SHADER, __webpack_require__(22)),
+        new __WEBPACK_IMPORTED_MODULE_8__rendering_gl_ShaderProgram__["a" /* Shader */](gl.VERTEX_SHADER, __webpack_require__(76)),
         new __WEBPACK_IMPORTED_MODULE_8__rendering_gl_ShaderProgram__["a" /* Shader */](gl.FRAGMENT_SHADER, __webpack_require__(77)),
     ]);
+    const buildingShader = new __WEBPACK_IMPORTED_MODULE_8__rendering_gl_ShaderProgram__["b" /* default */]([
+        new __WEBPACK_IMPORTED_MODULE_8__rendering_gl_ShaderProgram__["a" /* Shader */](gl.VERTEX_SHADER, __webpack_require__(78)),
+        new __WEBPACK_IMPORTED_MODULE_8__rendering_gl_ShaderProgram__["a" /* Shader */](gl.FRAGMENT_SHADER, __webpack_require__(79)),
+    ]);
+    const flat = new __WEBPACK_IMPORTED_MODULE_8__rendering_gl_ShaderProgram__["b" /* default */]([
+        new __WEBPACK_IMPORTED_MODULE_8__rendering_gl_ShaderProgram__["a" /* Shader */](gl.VERTEX_SHADER, __webpack_require__(80)),
+        new __WEBPACK_IMPORTED_MODULE_8__rendering_gl_ShaderProgram__["a" /* Shader */](gl.FRAGMENT_SHADER, __webpack_require__(81)),
+    ]);
     const texture = new __WEBPACK_IMPORTED_MODULE_8__rendering_gl_ShaderProgram__["b" /* default */]([
-        new __WEBPACK_IMPORTED_MODULE_8__rendering_gl_ShaderProgram__["a" /* Shader */](gl.VERTEX_SHADER, __webpack_require__(22)),
-        new __WEBPACK_IMPORTED_MODULE_8__rendering_gl_ShaderProgram__["a" /* Shader */](gl.FRAGMENT_SHADER, __webpack_require__(78)),
+        new __WEBPACK_IMPORTED_MODULE_8__rendering_gl_ShaderProgram__["a" /* Shader */](gl.VERTEX_SHADER, __webpack_require__(82)),
+        new __WEBPACK_IMPORTED_MODULE_8__rendering_gl_ShaderProgram__["a" /* Shader */](gl.FRAGMENT_SHADER, __webpack_require__(83)),
     ]);
     // This function will be called every frame
     const texWidth = window.innerWidth;
@@ -6277,7 +6300,8 @@ function main() {
         gl.readPixels(0, 0, texWidth, texHeight, gl.RGBA, gl.UNSIGNED_BYTE, pixels);
     }
     road = new __WEBPACK_IMPORTED_MODULE_9__Road__["a" /* default */](pixels, texWidth, texHeight, controls.roadLength, controls.gridDensity);
-    loadScene(road);
+    buildingSystem = new __WEBPACK_IMPORTED_MODULE_11__BuildingSystem__["a" /* default */](road, 2);
+    loadScene(road, buildingSystem);
     function tick() {
         camera.update();
         stats.begin();
@@ -6299,15 +6323,10 @@ function main() {
             prevRoadLength = controls.roadLength;
             prevGridDensity = controls.gridDensity;
             road = new __WEBPACK_IMPORTED_MODULE_9__Road__["a" /* default */](pixels, texWidth, texHeight, controls.roadLength, controls.gridDensity);
-            loadScene(road);
+            buildingSystem = new __WEBPACK_IMPORTED_MODULE_11__BuildingSystem__["a" /* default */](road, 2);
+            loadScene(road, buildingSystem);
         }
-        // if (prevRoadLength != controls.roadLength) {
-        //   prevRoadLength = controls.roadLength;
-        //   road = new Road(pixels, texWidth, texHeight, controls.roadLength);
-        //   loadScene(road);
-        // }
         gl.viewport(0, 0, window.innerWidth, window.innerHeight);
-        // renderer.clear();
         gl.bindFramebuffer(gl.FRAMEBUFFER, null);
         gl.viewport(0, 0, window.innerWidth, window.innerHeight);
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
@@ -6325,9 +6344,13 @@ function main() {
         else {
             texture.setTerrainToggle(0.0);
         }
-        renderer.render(camera, texture, [screenQuad]);
+        // renderer.render(camera, texture, [screenQuad]);
+        renderer.render(camera, texture, [plane]);
         renderer.render(camera, instancedShader, [
             square,
+        ]);
+        renderer.render(camera, buildingShader, [
+            building,
         ]);
         stats.end();
         // Tell the browser to call `tick` again whenever it renders a new frame
@@ -6350,7 +6373,7 @@ main();
 
 
 /***/ }),
-/* 24 */
+/* 23 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6380,7 +6403,7 @@ main();
 /* unused harmony export multiplyScalarAndAdd */
 /* unused harmony export mul */
 /* unused harmony export sub */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_js__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_js__ = __webpack_require__(1);
 
 
 /**
@@ -6817,7 +6840,7 @@ var mul = multiply;
 var sub = subtract;
 
 /***/ }),
-/* 25 */
+/* 24 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6846,7 +6869,7 @@ var sub = subtract;
 /* unused harmony export equals */
 /* unused harmony export mul */
 /* unused harmony export sub */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_js__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_js__ = __webpack_require__(1);
 
 
 /**
@@ -7333,7 +7356,7 @@ var mul = multiply;
 var sub = subtract;
 
 /***/ }),
-/* 26 */
+/* 25 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -7376,9 +7399,9 @@ var sub = subtract;
 /* unused harmony export str */
 /* unused harmony export exactEquals */
 /* unused harmony export equals */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_js__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__quat_js__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mat4_js__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__quat_js__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mat4_js__ = __webpack_require__(7);
 
 
 
@@ -8225,7 +8248,7 @@ function equals(a, b) {
 }
 
 /***/ }),
-/* 27 */
+/* 26 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8274,7 +8297,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sqrDist", function() { return sqrDist; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sqrLen", function() { return sqrLen; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "forEach", function() { return forEach; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_js__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_js__ = __webpack_require__(1);
 
 
 /**
@@ -8902,21 +8925,21 @@ var forEach = function () {
 }();
 
 /***/ }),
-/* 28 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 !function(e,t){ true?module.exports=t():"function"==typeof define&&define.amd?define(t):e.Stats=t()}(this,function(){"use strict";var c=function(){var n=0,l=document.createElement("div");function e(e){return l.appendChild(e.dom),e}function t(e){for(var t=0;t<l.children.length;t++)l.children[t].style.display=t===e?"block":"none";n=e}l.style.cssText="position:fixed;top:0;left:0;cursor:pointer;opacity:0.9;z-index:10000",l.addEventListener("click",function(e){e.preventDefault(),t(++n%l.children.length)},!1);var i=(performance||Date).now(),a=i,o=0,f=e(new c.Panel("FPS","#0ff","#002")),r=e(new c.Panel("MS","#0f0","#020"));if(self.performance&&self.performance.memory)var d=e(new c.Panel("MB","#f08","#201"));return t(0),{REVISION:16,dom:l,addPanel:e,showPanel:t,begin:function(){i=(performance||Date).now()},end:function(){o++;var e=(performance||Date).now();if(r.update(e-i,200),a+1e3<=e&&(f.update(1e3*o/(e-a),100),a=e,o=0,d)){var t=performance.memory;d.update(t.usedJSHeapSize/1048576,t.jsHeapSizeLimit/1048576)}return e},update:function(){i=this.end()},domElement:l,setMode:t}};return c.Panel=function(n,l,i){var a=1/0,o=0,f=Math.round,r=f(window.devicePixelRatio||1),d=80*r,e=48*r,c=3*r,p=2*r,u=3*r,s=15*r,m=74*r,h=30*r,y=document.createElement("canvas");y.width=d,y.height=e,y.style.cssText="width:80px;height:48px";var v=y.getContext("2d");return v.font="bold "+9*r+"px Helvetica,Arial,sans-serif",v.textBaseline="top",v.fillStyle=i,v.fillRect(0,0,d,e),v.fillStyle=l,v.fillText(n,c,p),v.fillRect(u,s,m,h),v.fillStyle=i,v.globalAlpha=.9,v.fillRect(u,s,m,h),{dom:y,update:function(e,t){a=Math.min(a,e),o=Math.max(o,e),v.fillStyle=i,v.globalAlpha=1,v.fillRect(0,0,d,s),v.fillStyle=l,v.fillText(f(e)+" "+n+" ("+f(a)+"-"+f(o)+")",c,p),v.drawImage(y,u+r,s,m-r,h,u,s,m-r,h),v.fillRect(u+m-r,s,r,h),v.fillStyle=i,v.globalAlpha=.9,v.fillRect(u+m-r,s,r,f((1-e/t)*h))}}},c});
 
 
 /***/ }),
-/* 29 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(30)
-module.exports.color = __webpack_require__(31)
+module.exports = __webpack_require__(29)
+module.exports.color = __webpack_require__(30)
 
 /***/ }),
-/* 30 */
+/* 29 */
 /***/ (function(module, exports) {
 
 /**
@@ -12581,7 +12604,7 @@ dat.dom.dom,
 dat.utils.common);
 
 /***/ }),
-/* 31 */
+/* 30 */
 /***/ (function(module, exports) {
 
 /**
@@ -13341,11 +13364,11 @@ dat.color.toString,
 dat.utils.common);
 
 /***/ }),
-/* 32 */
+/* 31 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__rendering_gl_Drawable__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__rendering_gl_Drawable__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__globals__ = __webpack_require__(2);
 
 
@@ -13366,7 +13389,7 @@ class Square extends __WEBPACK_IMPORTED_MODULE_0__rendering_gl_Drawable__["a" /*
         this.generateTransform1();
         this.generateTransform2();
         this.generateTransform3();
-        // this.generateTranslate();
+        this.generateTranslate();
         this.count = this.indices.length;
         __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].ELEMENT_ARRAY_BUFFER, this.bufIdx);
         __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].bufferData(__WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].ELEMENT_ARRAY_BUFFER, this.indices, __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].STATIC_DRAW);
@@ -13382,9 +13405,9 @@ class Square extends __WEBPACK_IMPORTED_MODULE_0__rendering_gl_Drawable__["a" /*
     //   gl.bindBuffer(gl.ARRAY_BUFFER, this.bufTranslate);
     //   gl.bufferData(gl.ARRAY_BUFFER, this.offsets, gl.STATIC_DRAW);
     // }
-    setInstanceVBOs(cols1, cols2, cols3) {
+    setInstanceVBOs(cols1, cols2, cols3, offsets) {
         // this.colors = colors;
-        // this.offsets = offsets;
+        this.offsets = offsets;
         // this.transforms = transforms;
         this.cols1 = cols1;
         this.cols2 = cols2;
@@ -13395,6 +13418,8 @@ class Square extends __WEBPACK_IMPORTED_MODULE_0__rendering_gl_Drawable__["a" /*
         __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].bufferData(__WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].ARRAY_BUFFER, this.cols2, __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].STATIC_DRAW);
         __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].ARRAY_BUFFER, this.bufTransform3);
         __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].bufferData(__WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].ARRAY_BUFFER, this.cols3, __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].STATIC_DRAW);
+        __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].ARRAY_BUFFER, this.bufTranslate);
+        __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].bufferData(__WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].ARRAY_BUFFER, this.offsets, __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].STATIC_DRAW);
     }
 }
 ;
@@ -13402,11 +13427,11 @@ class Square extends __WEBPACK_IMPORTED_MODULE_0__rendering_gl_Drawable__["a" /*
 
 
 /***/ }),
-/* 33 */
+/* 32 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__rendering_gl_Drawable__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__rendering_gl_Drawable__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__globals__ = __webpack_require__(2);
 
 
@@ -13437,11 +13462,11 @@ class ScreenQuad extends __WEBPACK_IMPORTED_MODULE_0__rendering_gl_Drawable__["a
 
 
 /***/ }),
-/* 34 */
+/* 33 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_gl_matrix__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_gl_matrix__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__globals__ = __webpack_require__(2);
 
 
@@ -13484,12 +13509,12 @@ class OpenGLRenderer {
 
 
 /***/ }),
-/* 35 */
+/* 34 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_gl_matrix__ = __webpack_require__(1);
-var CameraControls = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_gl_matrix__ = __webpack_require__(0);
+var CameraControls = __webpack_require__(35);
 
 class Camera {
     constructor(position, target) {
@@ -13497,7 +13522,7 @@ class Camera {
         this.viewMatrix = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* mat4 */].create();
         this.fovy = 45;
         this.aspectRatio = 1;
-        this.near = 0.1;
+        this.near = 0.0001;
         this.far = 1000;
         this.position = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["f" /* vec3 */].create();
         this.direction = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["f" /* vec3 */].create();
@@ -13547,7 +13572,7 @@ class Camera {
 
 
 /***/ }),
-/* 36 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13555,12 +13580,12 @@ class Camera {
 
 module.exports = createCamera
 
-var now         = __webpack_require__(37)
-var createView  = __webpack_require__(39)
-var mouseChange = __webpack_require__(62)
-var mouseWheel  = __webpack_require__(64)
-var mouseOffset = __webpack_require__(67)
-var hasPassive  = __webpack_require__(68)
+var now         = __webpack_require__(36)
+var createView  = __webpack_require__(38)
+var mouseChange = __webpack_require__(61)
+var mouseWheel  = __webpack_require__(63)
+var mouseOffset = __webpack_require__(66)
+var hasPassive  = __webpack_require__(67)
 
 function createCamera(element, options) {
   element = element || document.body
@@ -13790,7 +13815,7 @@ function createCamera(element, options) {
 
 
 /***/ }),
-/* 37 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {module.exports =
@@ -13801,10 +13826,10 @@ function createCamera(element, options) {
     return +new Date
   }
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(38)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(37)))
 
 /***/ }),
-/* 38 */
+/* 37 */
 /***/ (function(module, exports) {
 
 var g;
@@ -13831,7 +13856,7 @@ module.exports = g;
 
 
 /***/ }),
-/* 39 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13839,9 +13864,9 @@ module.exports = g;
 
 module.exports = createViewController
 
-var createTurntable = __webpack_require__(40)
-var createOrbit     = __webpack_require__(43)
-var createMatrix    = __webpack_require__(46)
+var createTurntable = __webpack_require__(39)
+var createOrbit     = __webpack_require__(42)
+var createMatrix    = __webpack_require__(45)
 
 function ViewController(controllers, mode) {
   this._controllerNames = Object.keys(controllers)
@@ -13959,7 +13984,7 @@ function createViewController(options) {
 }
 
 /***/ }),
-/* 40 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13969,9 +13994,9 @@ module.exports = createTurntableController
 
 var filterVector = __webpack_require__(11)
 var invert44     = __webpack_require__(3)
-var rotateM      = __webpack_require__(42)
+var rotateM      = __webpack_require__(41)
 var cross        = __webpack_require__(13)
-var normalize3   = __webpack_require__(4)
+var normalize3   = __webpack_require__(5)
 var dot3         = __webpack_require__(14)
 
 function len3(x, y, z) {
@@ -14537,7 +14562,7 @@ function createTurntableController(options) {
 }
 
 /***/ }),
-/* 41 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14582,7 +14607,7 @@ module.exports = cubicHermite
 module.exports.derivative = dcubicHermite
 
 /***/ }),
-/* 42 */
+/* 41 */
 /***/ (function(module, exports) {
 
 module.exports = rotate;
@@ -14651,7 +14676,7 @@ function rotate(out, a, rad, axis) {
 };
 
 /***/ }),
-/* 43 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14661,9 +14686,9 @@ module.exports = createOrbitController
 
 var filterVector  = __webpack_require__(11)
 var lookAt        = __webpack_require__(15)
-var mat4FromQuat  = __webpack_require__(44)
+var mat4FromQuat  = __webpack_require__(43)
 var invert44      = __webpack_require__(3)
-var quatFromFrame = __webpack_require__(45)
+var quatFromFrame = __webpack_require__(44)
 
 function len3(x,y,z) {
   return Math.sqrt(Math.pow(x,2) + Math.pow(y,2) + Math.pow(z,2))
@@ -15050,7 +15075,7 @@ function createOrbitController(options) {
 }
 
 /***/ }),
-/* 44 */
+/* 43 */
 /***/ (function(module, exports) {
 
 module.exports = fromQuat;
@@ -15102,7 +15127,7 @@ function fromQuat(out, q) {
 };
 
 /***/ }),
-/* 45 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15149,22 +15174,22 @@ function quatFromFrame(
 }
 
 /***/ }),
-/* 46 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var bsearch   = __webpack_require__(12)
-var m4interp  = __webpack_require__(47)
+var m4interp  = __webpack_require__(46)
 var invert44  = __webpack_require__(3)
-var rotateX   = __webpack_require__(59)
-var rotateY   = __webpack_require__(60)
-var rotateZ   = __webpack_require__(61)
+var rotateX   = __webpack_require__(58)
+var rotateY   = __webpack_require__(59)
+var rotateZ   = __webpack_require__(60)
 var lookAt    = __webpack_require__(15)
 var translate = __webpack_require__(17)
 var scale     = __webpack_require__(19)
-var normalize = __webpack_require__(4)
+var normalize = __webpack_require__(5)
 
 var DEFAULT_CENTER = [0,0,0]
 
@@ -15354,15 +15379,15 @@ function createMatrixCameraController(options) {
 
 
 /***/ }),
-/* 47 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var lerp = __webpack_require__(48)
+var lerp = __webpack_require__(47)
 
-var recompose = __webpack_require__(49)
-var decompose = __webpack_require__(52)
+var recompose = __webpack_require__(48)
+var decompose = __webpack_require__(51)
 var determinant = __webpack_require__(20)
-var slerp = __webpack_require__(57)
+var slerp = __webpack_require__(56)
 
 var state0 = state()
 var state1 = state()
@@ -15411,7 +15436,7 @@ function vec4() {
 }
 
 /***/ }),
-/* 48 */
+/* 47 */
 /***/ (function(module, exports) {
 
 module.exports = lerp;
@@ -15436,7 +15461,7 @@ function lerp(out, a, b, t) {
 }
 
 /***/ }),
-/* 49 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -15453,10 +15478,10 @@ From: http://www.w3.org/TR/css3-transforms/#recomposing-to-a-3d-matrix
 var mat4 = {
     identity: __webpack_require__(16),
     translate: __webpack_require__(17),
-    multiply: __webpack_require__(50),
+    multiply: __webpack_require__(49),
     create: __webpack_require__(18),
     scale: __webpack_require__(19),
-    fromRotationTranslation: __webpack_require__(51)
+    fromRotationTranslation: __webpack_require__(50)
 }
 
 var rotationMatrix = mat4.create()
@@ -15501,7 +15526,7 @@ module.exports = function recomposeMat4(matrix, translation, scale, skew, perspe
 }
 
 /***/ }),
-/* 50 */
+/* 49 */
 /***/ (function(module, exports) {
 
 module.exports = multiply;
@@ -15548,7 +15573,7 @@ function multiply(out, a, b) {
 };
 
 /***/ }),
-/* 51 */
+/* 50 */
 /***/ (function(module, exports) {
 
 module.exports = fromRotationTranslation;
@@ -15606,7 +15631,7 @@ function fromRotationTranslation(out, q, v) {
 };
 
 /***/ }),
-/* 52 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*jshint unused:true*/
@@ -15626,16 +15651,16 @@ https://github.com/ChromiumWebApps/chromium/blob/master/ui/gfx/transform_util.cc
 http://www.w3.org/TR/css3-transforms/#decomposing-a-3d-matrix
 */
 
-var normalize = __webpack_require__(53)
+var normalize = __webpack_require__(52)
 
 var create = __webpack_require__(18)
-var clone = __webpack_require__(54)
+var clone = __webpack_require__(53)
 var determinant = __webpack_require__(20)
 var invert = __webpack_require__(3)
-var transpose = __webpack_require__(55)
+var transpose = __webpack_require__(54)
 var vec3 = {
-    length: __webpack_require__(56),
-    normalize: __webpack_require__(4),
+    length: __webpack_require__(55),
+    normalize: __webpack_require__(5),
     dot: __webpack_require__(14),
     cross: __webpack_require__(13)
 }
@@ -15790,7 +15815,7 @@ function combine(out, a, b, scale1, scale2) {
 }
 
 /***/ }),
-/* 53 */
+/* 52 */
 /***/ (function(module, exports) {
 
 module.exports = function normalize(out, mat) {
@@ -15805,7 +15830,7 @@ module.exports = function normalize(out, mat) {
 }
 
 /***/ }),
-/* 54 */
+/* 53 */
 /***/ (function(module, exports) {
 
 module.exports = clone;
@@ -15838,7 +15863,7 @@ function clone(a) {
 };
 
 /***/ }),
-/* 55 */
+/* 54 */
 /***/ (function(module, exports) {
 
 module.exports = transpose;
@@ -15892,7 +15917,7 @@ function transpose(out, a) {
 };
 
 /***/ }),
-/* 56 */
+/* 55 */
 /***/ (function(module, exports) {
 
 module.exports = length;
@@ -15911,13 +15936,13 @@ function length(a) {
 }
 
 /***/ }),
-/* 57 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(58)
+module.exports = __webpack_require__(57)
 
 /***/ }),
-/* 58 */
+/* 57 */
 /***/ (function(module, exports) {
 
 module.exports = slerp
@@ -15974,7 +15999,7 @@ function slerp (out, a, b, t) {
 
 
 /***/ }),
-/* 59 */
+/* 58 */
 /***/ (function(module, exports) {
 
 module.exports = rotateX;
@@ -16023,7 +16048,7 @@ function rotateX(out, a, rad) {
 };
 
 /***/ }),
-/* 60 */
+/* 59 */
 /***/ (function(module, exports) {
 
 module.exports = rotateY;
@@ -16072,7 +16097,7 @@ function rotateY(out, a, rad) {
 };
 
 /***/ }),
-/* 61 */
+/* 60 */
 /***/ (function(module, exports) {
 
 module.exports = rotateZ;
@@ -16121,7 +16146,7 @@ function rotateZ(out, a, rad) {
 };
 
 /***/ }),
-/* 62 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16129,7 +16154,7 @@ function rotateZ(out, a, rad) {
 
 module.exports = mouseListen
 
-var mouse = __webpack_require__(63)
+var mouse = __webpack_require__(62)
 
 function mouseListen (element, callback) {
   if (!callback) {
@@ -16333,7 +16358,7 @@ function mouseListen (element, callback) {
 
 
 /***/ }),
-/* 63 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16400,13 +16425,13 @@ exports.y = mouseRelativeY
 
 
 /***/ }),
-/* 64 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var toPX = __webpack_require__(65)
+var toPX = __webpack_require__(64)
 
 module.exports = mouseWheelListen
 
@@ -16447,13 +16472,13 @@ function mouseWheelListen(element, callback, noScroll) {
 
 
 /***/ }),
-/* 65 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var parseUnit = __webpack_require__(66)
+var parseUnit = __webpack_require__(65)
 
 module.exports = toPX
 
@@ -16528,7 +16553,7 @@ function toPX(str, element) {
 
 
 /***/ }),
-/* 66 */
+/* 65 */
 /***/ (function(module, exports) {
 
 module.exports = function parseUnit(str, out) {
@@ -16543,7 +16568,7 @@ module.exports = function parseUnit(str, out) {
 }
 
 /***/ }),
-/* 67 */
+/* 66 */
 /***/ (function(module, exports) {
 
 var rootPosition = { left: 0, top: 0 }
@@ -16574,13 +16599,13 @@ function getBoundingClientOffset (element) {
 
 
 /***/ }),
-/* 68 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var isBrowser = __webpack_require__(69)
+var isBrowser = __webpack_require__(68)
 
 function detect() {
 	var supported = false
@@ -16605,17 +16630,17 @@ module.exports = isBrowser && detect()
 
 
 /***/ }),
-/* 69 */
+/* 68 */
 /***/ (function(module, exports) {
 
 module.exports = true;
 
 /***/ }),
-/* 70 */
+/* 69 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_gl_matrix__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_gl_matrix__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__globals__ = __webpack_require__(2);
 
 
@@ -16817,15 +16842,15 @@ class ShaderProgram {
 
 
 /***/ }),
-/* 71 */
+/* 70 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_gl_matrix__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_gl_matrix__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__turtle__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__turtleStack__ = __webpack_require__(72);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__edge__ = __webpack_require__(73);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__intersection__ = __webpack_require__(74);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__turtleStack__ = __webpack_require__(71);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__edge__ = __webpack_require__(72);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__intersection__ = __webpack_require__(73);
 
 
 
@@ -17124,7 +17149,6 @@ class Road {
         //     return false;
         // }
         if (this.getTerrain(newEdge.origin[0], newEdge.origin[1]) < 0.5 || this.getTerrain(newEdge.endpoint[0], newEdge.endpoint[1]) < 0.5) {
-            console.log("under the sea");
             return false;
         }
         else {
@@ -17204,12 +17228,67 @@ class Road {
         let population = this.mapTexture[4.0 * (x + this.mapWidth * y) + 3.0];
         return population;
     }
+    rasterize(width) {
+        let grid = new Array(this.mapWidth * this.mapHeight);
+        for (var i = 0; i < this.mapWidth; i++) {
+            for (var j = 0; j < this.mapHeight; j++) {
+                let index = i + this.mapWidth * j;
+                if (this.getTerrain(2.0 * (i / this.mapWidth) - 1.0, 2.0 * (j / this.mapHeight) - 1.0) < 0.5) {
+                    grid[index] = 0;
+                    // console.log("water case!");
+                }
+                else {
+                    grid[index] = 1;
+                }
+            }
+        }
+        for (var i = 0; i < this.edges.length; i++) {
+            let e = this.edges[i];
+            let endpoint = e.endpoint;
+            let origin = e.origin;
+            let ymin = Math.min((endpoint[1] + 1.0) * this.mapHeight * 0.5, (origin[1] + 1.0) * this.mapHeight * 0.5);
+            let ymax = Math.max((endpoint[1] + 1.0) * this.mapHeight * 0.5, (origin[1] + 1.0) * this.mapHeight * 0.5);
+            let xmin = Math.min((endpoint[0] + 1.0) * this.mapWidth * 0.5, (origin[0] + 1.0) * this.mapWidth * 0.5);
+            let xmax = Math.max((endpoint[0] + 1.0) * this.mapWidth * 0.5, (origin[0] + 1.0) * this.mapWidth * 0.5);
+            if (ymin == ymax) {
+                // Horizontal line case
+                for (var x = Math.floor(xmin); x <= Math.ceil(xmax); x++) {
+                    for (var y = Math.floor(ymin - width); y <= Math.floor(ymax + width); y++) {
+                        // console.log("horizontal line case!");
+                        grid[x + this.mapWidth * y] = 0;
+                    }
+                }
+            }
+            else if (xmin == xmax) {
+                // Vertical line case
+                for (var x = Math.floor(xmin - width); x <= Math.floor(xmax + width); x++) {
+                    for (var y = Math.floor(ymin); y <= Math.ceil(ymax); y++) {
+                        // console.log("vertical line case!");
+                        grid[x + this.mapWidth * y] = 0;
+                    }
+                }
+            }
+            else {
+                let m = ((endpoint[1] + 1.0) * this.mapHeight * 0.5 - (origin[1] + 1.0) * this.mapHeight * 0.5) / ((endpoint[0] + 1.0) * this.mapWidth * 0.5 - (origin[0] + 1.0) * this.mapWidth * 0.5);
+                let x1 = (origin[0] + 1.0) * this.mapWidth * 0.5;
+                let y1 = (origin[1] + 1.0) * this.mapHeight * 0.5;
+                for (var y = Math.floor(ymin); y <= Math.ceil(ymax); y++) {
+                    let xInt = x1 + (y - y1) / m;
+                    for (var x = Math.floor(xInt - width); x <= Math.ceil(xInt + width); x++) {
+                        // console.log("regular line case!");
+                        grid[x + this.mapWidth * y] = 0;
+                    }
+                }
+            }
+        }
+        return grid;
+    }
 }
 /* harmony default export */ __webpack_exports__["a"] = (Road);
 
 
 /***/ }),
-/* 72 */
+/* 71 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -17239,11 +17318,11 @@ class TurtleStack {
 
 
 /***/ }),
-/* 73 */
+/* 72 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_gl_matrix__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_gl_matrix__ = __webpack_require__(0);
 
 class Edge {
     constructor(origin, length, direction, width) {
@@ -17297,11 +17376,11 @@ class Edge {
 
 
 /***/ }),
-/* 74 */
+/* 73 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_gl_matrix__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_gl_matrix__ = __webpack_require__(0);
 
 class Intersection {
     constructor() {
@@ -17362,28 +17441,153 @@ class Intersection {
 
 
 /***/ }),
-/* 75 */
-/***/ (function(module, exports) {
+/* 74 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = "#version 300 es\n\nuniform mat4 u_ViewProj;\nuniform float u_Time;\n\nuniform mat3 u_CameraAxes; // Used for rendering particles as billboards (quads that are always looking at the camera)\n// gl_Position = center + vs_Pos.x * camRight + vs_Pos.y * camUp;\n\nin vec4 vs_Pos; // Non-instanced; each particle is the same quad drawn in a different place\nin vec4 vs_Nor; // Non-instanced, and presently unused\nin vec4 vs_Col; // An instanced rendering attribute; each particle instance has a different color\nin vec3 vs_Translate; // Another instance rendering attribute used to position each quad instance in the scene\nin vec2 vs_UV; // Non-instanced, and presently unused in main(). Feel free to use it for your meshes.\nin vec3 vs_Transform1; // Another instance rendering attribute used to position each quad instance in the scene\nin vec3 vs_Transform2; // Another instance rendering attribute used to position each quad instance in the scene\nin vec3 vs_Transform3; // Another instance rendering attribute used to position each quad instance in the scene\n\n\nout vec4 fs_Col;\nout vec4 fs_Pos;\n\nvoid main()\n{\n    fs_Col = vs_Col;\n    fs_Pos = vs_Pos;\n    // fs_Nor = vec4(0.0, 0.0, 1.0, 0.0);\n\n    mat3 transformation = mat3(vs_Transform1, vs_Transform2, vs_Transform3);\n\n    \n    vec3 instancedPos = transformation * vs_Pos.rga;\n    // fs_LightVec = lightPos - instancedPos;  // Compute the direction in which the light source lies\n\n    gl_Position = vec4(instancedPos.xyz, 1.0);\n\n\n}\n\n\n   \n\n\n\n\n\n\n"
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_gl_matrix__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__rendering_gl_Drawable__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__globals__ = __webpack_require__(2);
+
+
+
+class Plane extends __WEBPACK_IMPORTED_MODULE_1__rendering_gl_Drawable__["a" /* default */] {
+    constructor(center, scale, subdivs) {
+        super(); // Call the constructor of the super class. This is required.
+        this.center = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["f" /* vec3 */].fromValues(center[0], center[1], center[2]);
+        this.scale = scale;
+        this.subdivs = subdivs + subdivs % 2; // Ensures the number is even, rounds up.
+    }
+    create() {
+        let width = Math.pow(2, this.subdivs / 2);
+        let normalize = 1.0 / width;
+        this.positions = new Float32Array((width + 1) * (width + 1) * 4);
+        this.normals = new Float32Array((width + 1) * (width + 1) * 4);
+        this.indices = new Uint32Array(width * width * 6); // NxN squares, each square is two triangles, each triangle is three indices
+        let posIdx = 0;
+        for (let x = 0; x <= width; ++x) {
+            for (let z = 0; z <= width; ++z) {
+                // Make a strip of vertices along Z with the current X coord
+                this.normals[posIdx] = 0;
+                this.positions[posIdx++] = x * normalize * this.scale[0] + this.center[0] - this.scale[0] * 0.5;
+                this.normals[posIdx] = 1;
+                this.positions[posIdx++] = 0 + this.center[1];
+                this.normals[posIdx] = 0;
+                this.positions[posIdx++] = z * normalize * this.scale[1] + this.center[2] - this.scale[1] * 0.5;
+                this.normals[posIdx] = 0;
+                this.positions[posIdx++] = 1;
+            }
+        }
+        let indexIdx = 0;
+        // Make the squares out of indices
+        for (let i = 0; i < width; ++i) { // X iter
+            for (let j = 0; j < width; ++j) { // Z iter
+                this.indices[indexIdx++] = j + i * (width + 1);
+                this.indices[indexIdx++] = j + 1 + i * (width + 1);
+                this.indices[indexIdx++] = j + (i + 1) * (width + 1);
+                this.indices[indexIdx++] = j + 1 + i * (width + 1);
+                this.indices[indexIdx++] = j + (i + 1) * (width + 1);
+                this.indices[indexIdx++] = j + 1 + (i + 1) * (width + 1);
+            }
+        }
+        this.generateIdx();
+        this.generatePos();
+        this.generateNor();
+        this.numInstances = 1;
+        this.count = this.indices.length;
+        __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].ELEMENT_ARRAY_BUFFER, this.bufIdx);
+        __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].bufferData(__WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].ELEMENT_ARRAY_BUFFER, this.indices, __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].STATIC_DRAW);
+        __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].ARRAY_BUFFER, this.bufNor);
+        __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].bufferData(__WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].ARRAY_BUFFER, this.normals, __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].STATIC_DRAW);
+        __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].ARRAY_BUFFER, this.bufPos);
+        __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].bufferData(__WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].ARRAY_BUFFER, this.positions, __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].STATIC_DRAW);
+        console.log(`Created plane`);
+    }
+}
+;
+/* harmony default export */ __webpack_exports__["a"] = (Plane);
+
+
+/***/ }),
+/* 75 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_gl_matrix__ = __webpack_require__(0);
+
+class BuildingSystem {
+    constructor(roadSystem, width) {
+        this.grid = new Array();
+        this.positions = new Array();
+        this.roadSystem = roadSystem;
+        this.width = width;
+        this.grid = this.roadSystem.rasterize(this.width);
+        this.populateBuildings();
+    }
+    populateBuildings() {
+        for (var i = 0; i < this.roadSystem.mapWidth; i++) {
+            for (var j = 0; j < this.roadSystem.mapHeight; j++) {
+                if (this.grid[i + this.roadSystem.mapWidth * j] == 0) {
+                    // this.positions.push(vec2.fromValues(14.3 * (i /  this.roadSystem.mapWidth) - 4.0, 8.0 * (j / this.roadSystem.mapHeight) - 4.0));
+                    this.positions.push(__WEBPACK_IMPORTED_MODULE_0_gl_matrix__["e" /* vec2 */].fromValues((8.0 * i / this.roadSystem.mapWidth) - 4.0, (8.0 * j / this.roadSystem.mapHeight) - 4.0));
+                }
+            }
+        }
+        // for (var i = 0; i < 10; i++) {
+        //     this.positions.push(vec2.fromValues(Math.random(), Math.random()));
+        // }
+    }
+}
+/* harmony default export */ __webpack_exports__["a"] = (BuildingSystem);
+
 
 /***/ }),
 /* 76 */
 /***/ (function(module, exports) {
 
-module.exports = "#version 300 es\nprecision highp float;\n\nin vec4 fs_Col;\nin vec4 fs_Pos;\n\nout vec4 out_Col;\n\nvoid main()\n{\n    // float dist = 1.0 - (length(fs_Pos.xyz) * 2.0);\n    out_Col = vec4(0.0, 0.0, 0.0, 1.0);\n}\n"
+module.exports = "#version 300 es\n\nuniform mat4 u_ViewProj;\nuniform float u_Time;\n\nuniform mat3 u_CameraAxes; // Used for rendering particles as billboards (quads that are always looking at the camera)\n// gl_Position = center + vs_Pos.x * camRight + vs_Pos.y * camUp;\n\nuniform sampler2D u_RenderedTexture;\n\n\nin vec4 vs_Pos; // Non-instanced; each particle is the same quad drawn in a different place\nin vec4 vs_Nor; // Non-instanced, and presently unused\nin vec4 vs_Col; // An instanced rendering attribute; each particle instance has a different color\nin vec3 vs_Translate; // Another instance rendering attribute used to position each quad instance in the scene\nin vec2 vs_UV; // Non-instanced, and presently unused in main(). Feel free to use it for your meshes.\nin vec3 vs_Transform1; // Another instance rendering attribute used to position each quad instance in the scene\nin vec3 vs_Transform2; // Another instance rendering attribute used to position each quad instance in the scene\nin vec3 vs_Transform3; // Another instance rendering attribute used to position each quad instance in the scene\n\n\nout vec4 fs_Col;\nout vec4 fs_Pos;\n\nvoid main()\n{\n    fs_Col = vs_Col;\n    fs_Pos = vs_Pos;\n    // fs_Nor = vec4(0.0, 0.0, 1.0, 0.0);\n\n    mat3 transformation = mat3(vs_Transform1, vs_Transform2, vs_Transform3);\n\n    \n    vec3 instancedPos = transformation * vs_Pos.rga;\n    vec3 rotatedPos = instancedPos;\n    rotatedPos.y = instancedPos.z;\n    rotatedPos.z = instancedPos.y;\n    rotatedPos *= 4.0;\n\n    float x = 0.5 * (rotatedPos.x + 4.0) / 4.0;\n    float y = 0.5 * (rotatedPos.z + 4.0) / 4.0;\n    vec4 textureColor = texture(u_RenderedTexture, vec2(x,  y));\n\n    float height = textureColor.r * 12.0;\n    if (height > 1.3) {\n        height = 1.3;\n    }\n    if (height < 1.1) {\n        height = 1.1;\n    }\n\n    rotatedPos.y = height + 0.05;\n\n\n    // fs_LightVec = lightPos - instancedPos;  // Compute the direction in which the light source lies\n\n    gl_Position = u_ViewProj * vec4(rotatedPos.xyz, 1.0);\n\n\n}\n\n"
 
 /***/ }),
 /* 77 */
 /***/ (function(module, exports) {
 
-module.exports = "#version 300 es\nprecision highp float;\n\nuniform vec3 u_Eye, u_Ref, u_Up;\nuniform vec2 u_Dimensions;\nuniform float u_Time;\nuniform float u_PopToggle;\nuniform float u_TerrainToggle;\nuniform float u_ShorePop;\n\n\nin vec2 fs_Pos;\n// out vec4 out_Col;\nlayout(location = 0) out vec4 out_Col;\n\nfloat random1( vec2 p , vec2 seed) {\n  return fract(sin(dot(p + seed, vec2(127.1, 311.7))) * 43758.5453);\n}\n\nfloat random1( vec3 p , vec3 seed) {\n  return fract(sin(dot(p + seed, vec3(987.654, 123.456, 531.975))) * 85734.3545);\n}\n\nvec2 random2( vec2 p , vec2 seed) {\n  return fract(sin(vec2(dot(p + seed, vec2(311.7, 127.1)), dot(p + seed, vec2(269.5, 183.3)))) * 85734.3545);\n}\n\nfloat interpNoise2d(float x, float y) {\n  float intX = floor(x);\n  float fractX = fract(x);\n  float intY = floor(y);\n  float fractY = fract(y);\n\n  float v1 = random1(vec2(intX, intY), vec2(1.f, 1.f));\n  float v2 = random1(vec2(intX + 1.f, intY), vec2(1.f, 1.f));\n  float v3 = random1(vec2(intX, intY + 1.f), vec2(1.f, 1.f));\n  float v4 = random1(vec2(intX + 1.f, intY + 1.f), vec2(1.f, 1.f));\n\n  float i1 = mix(v1, v2, fractX);\n  float i2 = mix(v3, v4, fractX);\n  return mix(i1, i2, fractY);\n  return 2.0;\n\n}\n\n\nfloat interpNoise3d(float x, float y, float z) {\n  float intX = floor(x);\n  float fractX = fract(x);\n  float intY = floor(y);\n  float fractY = fract(y);\n  float intZ = floor(z);\n  float fractZ = fract(z);\n\n  float v1 = random1(vec3(intX, intY, intZ), vec3(1.f, 1.f, 1.f));\n  float v2 = random1(vec3(intX, intY, intZ + 1.0), vec3(1.f, 1.f, 1.f));\n  float v3 = random1(vec3(intX + 1.0, intY, intZ + 1.0), vec3(1.f, 1.f, 1.f));\n  float v4 = random1(vec3(intX + 1.0, intY, intZ), vec3(1.f, 1.f, 1.f));\n  float v5 = random1(vec3(intX, intY + 1.0, intZ), vec3(1.f, 1.f, 1.f));\n  float v6 = random1(vec3(intX, intY + 1.0, intZ + 1.0), vec3(1.f, 1.f, 1.f));\n  float v7 = random1(vec3(intX + 1.0, intY + 1.0, intZ + 1.0), vec3(1.f, 1.f, 1.f));\n  float v8 = random1(vec3(intX + 1.0, intY + 1.0, intZ), vec3(1.f, 1.f, 1.f));\n\n  float i1 = mix(v2, v3, fractX);\n  float i2 = mix(v1, v4, fractX);\n  float i3 = mix(v6, v7, fractX);\n  float i4 = mix(v5, v8, fractX);\n\n  float j1 = mix(i4, i3, fractZ);\n  float j2 = mix(i2, i1, fractZ);\n\n  return mix(j2, j1, fractY);\n\n}\n\nfloat computeWorley(float x, float y, float numRows, float numCols) {\n    float xPos = x * float(numCols) / 20.f;\n    float yPos = y * float(numRows) / 20.f;\n\n    float minDist = 60.f;\n    vec2 minVec = vec2(0.f, 0.f);\n\n    for (int i = -1; i < 2; i++) {\n        for (int j = -1; j < 2; j++) {\n            vec2 currGrid = vec2(floor(float(xPos)) + float(i), floor(float(yPos)) + float(j));\n            vec2 currNoise = currGrid + random2(currGrid, vec2(2.0, 1.0));\n            float currDist = distance(vec2(xPos, yPos), currNoise);\n            if (currDist <= minDist) {\n                minDist = currDist;\n                minVec = currNoise;\n            }\n        }\n    }\n    return minDist;\n    // return 2.0;\n}\n\nfloat fbmWorley(float x, float y, float height, float xScale, float yScale) {\n  float total = 0.f;\n  float persistence = 0.5f;\n  int octaves = 7;\n  float freq = 2.0;\n  float amp = 1.0;\n  for (int i = 0; i < octaves; i++) {\n    // total += interpNoise2d( (x / xScale) * freq, (y / yScale) * freq) * amp;\n    total += computeWorley( (x / xScale) * freq, (y / yScale) * freq, 2.0, 2.0) * amp;\n    freq *= 2.0;\n    amp *= persistence;\n  }\n  return height * total;\n}\n\nfloat fbmWorley2(float x, float y, float height, float xScale, float yScale) {\n  float total = 0.f;\n  float persistence = 0.5f;\n  int octaves = 7;\n  float freq = 2.0;\n  float amp = 1.0;\n  for (int i = 0; i < octaves; i++) {\n    // total += interpNoise2d( (x / xScale) * freq, (y / yScale) * freq) * amp;\n    total += computeWorley( (x / xScale) * freq, (y / yScale) * freq, 1.0, 1.0) * amp;\n    freq *= 2.0;\n    amp *= persistence;\n  }\n  return height * total;\n}\n\nfloat fbm(float x, float y, float height, float xScale, float yScale) {\n  float total = 0.f;\n  float persistence = 0.5f;\n  int octaves = 8;\n  float freq = 2.0;\n  float amp = 1.0;\n  for (int i = 0; i < octaves; i++) {\n    // total += interpNoise2d( (x / xScale) * freq, (y / yScale) * freq) * amp;\n    total += interpNoise2d( (x / xScale) * freq, (y / yScale) * freq) * amp;\n    freq *= 2.0;\n    amp *= persistence;\n  }\n  return height * total;\n}\n\nfloat fbm3D(float x, float y, float z, float height, float xScale, float yScale, float zScale) {\n  float total = 0.f;\n  float persistence = 0.5f;\n  int octaves = 8;\n  float freq = 2.0;\n  float amp = 1.0;\n  for (int i = 0; i < octaves; i++) {\n    // total += interpNoise2d( (x / xScale) * freq, (y / yScale) * freq) * amp;\n    total += interpNoise3d( (x / xScale) * freq, (y / yScale) * freq, (z / zScale) * freq) * amp;\n    freq *= 2.0;\n    amp *= persistence;\n  }\n  return height * total;\n}\n\nvoid main() {\n\n  float x = 0.5 * (fs_Pos.x + 1.0);\n  float y = 0.5 * (fs_Pos.y + 1.0);\n\n  x /= 1.9;\n  y /= 1.9;\n  x += 0.07;\n  y += 0.18;\n\n  float gray = pow(computeWorley(512.0 * x, 512.0 * y, 0.1, 0.1), 2.0);\n\n  float heightMap = 1.0 - pow(fbmWorley(0.9 * 400.0 * x, 0.9 * 512.0 * y, 0.8, 100.0, 120.0), 1.5);\n  float worleyMap = 0.05 * (1.0 - pow(computeWorley(512.0 * x, 512.0 * y, 1.0, 0.1), 1.0));\n\n  vec3 waterColor = vec3(0.0, 0.0, 0.9);\n  vec3 landColor = vec3(0.4, 0.8, 0.0);\n\n  vec3 terrainColor = mix(landColor, waterColor, heightMap);\n\n  if (heightMap + worleyMap < 0.53) {\n    terrainColor = heightMap * heightMap * waterColor;\n    if (heightMap == 0.0) {\n      terrainColor = waterColor;\n    }\n  } else {\n    terrainColor = heightMap * heightMap* landColor;\n  }\n\n  float population = 2.0 * pow((1.0 - fbmWorley2(512.0 * x - 80.0, 512.0 * y - 60.0, 1.0, 13.0, 13.0)), 1.5);\n  if (heightMap + worleyMap > 0.53 && heightMap + worleyMap < 0.65) {\n    population += mix(0.0, 10.0 * u_ShorePop, 0.65 - (heightMap + worleyMap));\n  }\n  \n  population *= floor(0.9 + terrainColor.g);\n  out_Col = vec4(terrainColor, population);\n\n}\n"
+module.exports = "#version 300 es\nprecision highp float;\n\nin vec4 fs_Col;\n// in vec2 fs_Pos;\n\nout vec4 out_Col;\n\nvoid main()\n{\n    // float dist = 1.0 - (length(fs_Pos.xyz) * 2.0);\n    out_Col = vec4(0.0, 0.0, 0.0, 1.0);\n}\n"
 
 /***/ }),
 /* 78 */
 /***/ (function(module, exports) {
 
-module.exports = "#version 300 es\nprecision highp float;\n\nuniform vec3 u_Eye, u_Ref, u_Up;\nuniform vec2 u_Dimensions;\nuniform float u_Time;\nuniform sampler2D u_RenderedTexture;\nuniform float u_PopToggle;\nuniform float u_TerrainToggle;\n\n\nin vec2 fs_Pos;\nout vec4 out_Col;\n\nvoid main() {\n\n  float x = 0.5 * (fs_Pos.x + 1.0);\n  float y = 0.5 * (fs_Pos.y + 1.0);\n\n  vec4 textureColor = texture(u_RenderedTexture, vec2( x,  y));\n\n  vec3 finalColor = vec3(0.0);\n  if (u_TerrainToggle == 1.0) {\n    finalColor += textureColor.rgb;\n  }\n  if (u_PopToggle == 1.0) {\n    finalColor += vec3(textureColor.a);\n  }\n  if (u_PopToggle + u_TerrainToggle == 0.0) {\n    finalColor = vec3(1.0);\n  }\n    out_Col = vec4(finalColor, 1.0);\n\n}\n"
+module.exports = "#version 300 es\n\nuniform mat4 u_ViewProj;\nuniform float u_Time;\n\nuniform mat3 u_CameraAxes; // Used for rendering particles as billboards (quads that are always looking at the camera)\n// gl_Position = center + vs_Pos.x * camRight + vs_Pos.y * camUp;\n\nuniform sampler2D u_RenderedTexture;\n\n\nin vec4 vs_Pos; // Non-instanced; each particle is the same quad drawn in a different place\nin vec4 vs_Nor; // Non-instanced, and presently unused\nin vec4 vs_Col; // An instanced rendering attribute; each particle instance has a different color\nin vec3 vs_Translate; // Another instance rendering attribute used to position each quad instance in the scene\nin vec2 vs_UV; // Non-instanced, and presently unused in main(). Feel free to use it for your meshes.\nin vec3 vs_Transform1; // Another instance rendering attribute used to position each quad instance in the scene\nin vec3 vs_Transform2; // Another instance rendering attribute used to position each quad instance in the scene\nin vec3 vs_Transform3; // Another instance rendering attribute used to position each quad instance in the scene\n\n\nout vec4 fs_Col;\nout vec4 fs_Pos;\n\nvoid main()\n{\n    fs_Col = vs_Col;\n    fs_Pos = vs_Pos;\n    // fs_Nor = vec4(0.0, 0.0, 1.0, 0.0);\n\n    // mat3 transformation = mat3(vs_Transform1, vs_Transform2, vs_Transform3);\n\n    \n    vec3 instancedPos = 0.008 * vs_Pos.rag + vs_Translate;\n\n    // vec3 rotatedPos = instancedPos;\n    // rotatedPos.y = instancedPos.z;\n    // rotatedPos.z = instancedPos.y;\n    // rotatedPos *= 4.0;\n\n    float x = 0.5 * (instancedPos.x + 4.0) / 4.0;\n    float y = 0.5 * (instancedPos.z + 4.0) / 4.0;\n    vec4 textureColor = texture(u_RenderedTexture, vec2(x,  y));\n\n    float height = textureColor.r * 12.0;\n    if (height > 1.3) {\n        height = 1.3;\n    }\n    if (height < 1.1) {\n        height = 1.1;\n    }\n\n    instancedPos.y = height + 0.06;\n\n\n    // fs_LightVec = lightPos - instancedPos;  // Compute the direction in which the light source lies\n\n    gl_Position = u_ViewProj * vec4(instancedPos.xyz, 1.0);\n\n\n}\n\n"
+
+/***/ }),
+/* 79 */
+/***/ (function(module, exports) {
+
+module.exports = "#version 300 es\nprecision highp float;\n\nin vec4 fs_Col;\n// in vec2 fs_Pos;\n\nout vec4 out_Col;\n\nvoid main()\n{\n    // float dist = 1.0 - (length(fs_Pos.xyz) * 2.0);\n    out_Col = vec4(1.0, 0.0, 0.0, 1.0);\n}\n"
+
+/***/ }),
+/* 80 */
+/***/ (function(module, exports) {
+
+module.exports = "#version 300 es\nprecision highp float;\n\n// The vertex shader used to render the background of the scene\n\nin vec4 vs_Pos;\nout vec2 fs_Pos;\n\nvoid main() {\n  fs_Pos = vs_Pos.xy;\n  gl_Position = vs_Pos;\n}\n"
+
+/***/ }),
+/* 81 */
+/***/ (function(module, exports) {
+
+module.exports = "#version 300 es\nprecision highp float;\n\nuniform vec3 u_Eye, u_Ref, u_Up;\nuniform vec2 u_Dimensions;\nuniform float u_Time;\nuniform float u_PopToggle;\nuniform float u_TerrainToggle;\nuniform float u_ShorePop;\n\n\nin vec2 fs_Pos;\n// out vec4 out_Col;\nlayout(location = 0) out vec4 out_Col;\n\nfloat random1( vec2 p , vec2 seed) {\n  return fract(sin(dot(p + seed, vec2(127.1, 311.7))) * 43758.5453);\n}\n\nfloat random1( vec3 p , vec3 seed) {\n  return fract(sin(dot(p + seed, vec3(987.654, 123.456, 531.975))) * 85734.3545);\n}\n\nvec2 random2( vec2 p , vec2 seed) {\n  return fract(sin(vec2(dot(p + seed, vec2(311.7, 127.1)), dot(p + seed, vec2(269.5, 183.3)))) * 85734.3545);\n}\n\nfloat interpNoise2d(float x, float y) {\n  float intX = floor(x);\n  float fractX = fract(x);\n  float intY = floor(y);\n  float fractY = fract(y);\n\n  float v1 = random1(vec2(intX, intY), vec2(1.f, 1.f));\n  float v2 = random1(vec2(intX + 1.f, intY), vec2(1.f, 1.f));\n  float v3 = random1(vec2(intX, intY + 1.f), vec2(1.f, 1.f));\n  float v4 = random1(vec2(intX + 1.f, intY + 1.f), vec2(1.f, 1.f));\n\n  float i1 = mix(v1, v2, fractX);\n  float i2 = mix(v3, v4, fractX);\n  return mix(i1, i2, fractY);\n  return 2.0;\n\n}\n\n\nfloat interpNoise3d(float x, float y, float z) {\n  float intX = floor(x);\n  float fractX = fract(x);\n  float intY = floor(y);\n  float fractY = fract(y);\n  float intZ = floor(z);\n  float fractZ = fract(z);\n\n  float v1 = random1(vec3(intX, intY, intZ), vec3(1.f, 1.f, 1.f));\n  float v2 = random1(vec3(intX, intY, intZ + 1.0), vec3(1.f, 1.f, 1.f));\n  float v3 = random1(vec3(intX + 1.0, intY, intZ + 1.0), vec3(1.f, 1.f, 1.f));\n  float v4 = random1(vec3(intX + 1.0, intY, intZ), vec3(1.f, 1.f, 1.f));\n  float v5 = random1(vec3(intX, intY + 1.0, intZ), vec3(1.f, 1.f, 1.f));\n  float v6 = random1(vec3(intX, intY + 1.0, intZ + 1.0), vec3(1.f, 1.f, 1.f));\n  float v7 = random1(vec3(intX + 1.0, intY + 1.0, intZ + 1.0), vec3(1.f, 1.f, 1.f));\n  float v8 = random1(vec3(intX + 1.0, intY + 1.0, intZ), vec3(1.f, 1.f, 1.f));\n\n  float i1 = mix(v2, v3, fractX);\n  float i2 = mix(v1, v4, fractX);\n  float i3 = mix(v6, v7, fractX);\n  float i4 = mix(v5, v8, fractX);\n\n  float j1 = mix(i4, i3, fractZ);\n  float j2 = mix(i2, i1, fractZ);\n\n  return mix(j2, j1, fractY);\n\n}\n\nfloat computeWorley(float x, float y, float numRows, float numCols) {\n    float xPos = x * float(numCols) / 20.f;\n    float yPos = y * float(numRows) / 20.f;\n\n    float minDist = 60.f;\n    vec2 minVec = vec2(0.f, 0.f);\n\n    for (int i = -1; i < 2; i++) {\n        for (int j = -1; j < 2; j++) {\n            vec2 currGrid = vec2(floor(float(xPos)) + float(i), floor(float(yPos)) + float(j));\n            vec2 currNoise = currGrid + random2(currGrid, vec2(2.0, 1.0));\n            float currDist = distance(vec2(xPos, yPos), currNoise);\n            if (currDist <= minDist) {\n                minDist = currDist;\n                minVec = currNoise;\n            }\n        }\n    }\n    return minDist;\n    // return 2.0;\n}\n\nfloat fbmWorley(float x, float y, float height, float xScale, float yScale) {\n  float total = 0.f;\n  float persistence = 0.5f;\n  int octaves = 7;\n  float freq = 2.0;\n  float amp = 1.0;\n  for (int i = 0; i < octaves; i++) {\n    // total += interpNoise2d( (x / xScale) * freq, (y / yScale) * freq) * amp;\n    total += computeWorley( (x / xScale) * freq, (y / yScale) * freq, 2.0, 2.0) * amp;\n    freq *= 2.0;\n    amp *= persistence;\n  }\n  return height * total;\n}\n\nfloat fbmWorley2(float x, float y, float height, float xScale, float yScale) {\n  float total = 0.f;\n  float persistence = 0.5f;\n  int octaves = 7;\n  float freq = 2.0;\n  float amp = 1.0;\n  for (int i = 0; i < octaves; i++) {\n    // total += interpNoise2d( (x / xScale) * freq, (y / yScale) * freq) * amp;\n    total += computeWorley( (x / xScale) * freq, (y / yScale) * freq, 1.0, 1.0) * amp;\n    freq *= 2.0;\n    amp *= persistence;\n  }\n  return height * total;\n}\n\nfloat fbm(float x, float y, float height, float xScale, float yScale) {\n  float total = 0.f;\n  float persistence = 0.5f;\n  int octaves = 8;\n  float freq = 2.0;\n  float amp = 1.0;\n  for (int i = 0; i < octaves; i++) {\n    // total += interpNoise2d( (x / xScale) * freq, (y / yScale) * freq) * amp;\n    total += interpNoise2d( (x / xScale) * freq, (y / yScale) * freq) * amp;\n    freq *= 2.0;\n    amp *= persistence;\n  }\n  return height * total;\n}\n\nfloat fbm3D(float x, float y, float z, float height, float xScale, float yScale, float zScale) {\n  float total = 0.f;\n  float persistence = 0.5f;\n  int octaves = 8;\n  float freq = 2.0;\n  float amp = 1.0;\n  for (int i = 0; i < octaves; i++) {\n    // total += interpNoise2d( (x / xScale) * freq, (y / yScale) * freq) * amp;\n    total += interpNoise3d( (x / xScale) * freq, (y / yScale) * freq, (z / zScale) * freq) * amp;\n    freq *= 2.0;\n    amp *= persistence;\n  }\n  return height * total;\n}\n\nvoid main() {\n\n  float x = 0.5 * (fs_Pos.x + 1.0);\n  float y = 0.5 * (fs_Pos.y + 1.0);\n\n  x /= 1.9;\n  y /= 1.9;\n  x += 0.07;\n  y += 0.18;\n\n  float gray = pow(computeWorley(512.0 * x, 512.0 * y, 0.1, 0.1), 2.0);\n\n  float heightMap = 1.0 - pow(fbmWorley(0.9 * 400.0 * x, 0.9 * 512.0 * y, 0.8, 100.0, 120.0), 1.5);\n  float worleyMap = 0.05 * (1.0 - pow(computeWorley(512.0 * x, 512.0 * y, 1.0, 0.1), 1.0));\n\n  vec3 waterColor = vec3(0.0, 0.0, 1.0);\n  vec3 landColor = vec3(0.4, 1.0, 0.0);\n\n  vec3 terrainColor = mix(landColor, waterColor, heightMap);\n\n  if (heightMap + worleyMap < 0.53) {\n    terrainColor = heightMap * heightMap * waterColor;\n    if (heightMap == 0.0) {\n      terrainColor = waterColor;\n    }\n  } else {\n    terrainColor = heightMap * heightMap* landColor;\n  }\n  terrainColor.r = mix(0.0, 0.4, heightMap * heightMap);\n\n  float population = 2.0 * pow((1.0 - fbmWorley2(512.0 * x - 80.0, 512.0 * y - 60.0, 1.0, 13.0, 13.0)), 1.5);\n  if (heightMap + worleyMap > 0.53 && heightMap + worleyMap < 0.65) {\n    population += mix(0.0, 10.0 * u_ShorePop, 0.65 - (heightMap + worleyMap));\n  }\n  \n  population *= floor(0.9 + terrainColor.g);\n  out_Col = vec4(terrainColor, population);\n\n}\n"
+
+/***/ }),
+/* 82 */
+/***/ (function(module, exports) {
+
+module.exports = "#version 300 es\nprecision highp float;\n\n// The vertex shader used to render the background of the scene\n\nin vec4 vs_Pos;\nuniform mat4 u_ViewProj;\nuniform mat4 u_Model;\nout vec2 fs_Pos;\nuniform sampler2D u_RenderedTexture;\n\n\nvoid main() {\n    fs_Pos = vs_Pos.xz;\n\n    float x = 0.5 * (fs_Pos.x + 4.0) / 4.0;\n    float y = 0.5 * (fs_Pos.y + 4.0) / 4.0;\n\n    vec4 textureColor = texture(u_RenderedTexture, vec2(x,  y));\n\n    vec4 instancedPos = vs_Pos;\n\n    float height = textureColor.r * 12.0;\n    if (height > 1.3) {\n        height = 1.3;\n    }\n    if (height < 1.1) {\n        height = 1.1;\n    }\n\n    instancedPos.y += height;\n\n    // fs_LightVec = lightPos - instancedPos;  // Compute the direction in which the light source lies\n\n    gl_Position = u_ViewProj * vec4(instancedPos.xyz, 1.0);\n}\n"
+
+/***/ }),
+/* 83 */
+/***/ (function(module, exports) {
+
+module.exports = "#version 300 es\nprecision highp float;\n\nuniform vec3 u_Eye, u_Ref, u_Up;\nuniform vec2 u_Dimensions;\nuniform float u_Time;\nuniform sampler2D u_RenderedTexture;\nuniform float u_PopToggle;\nuniform float u_TerrainToggle;\n\n\nin vec2 fs_Pos;\nout vec4 out_Col;\n\nvoid main() {\n\n  float x = 0.5 * (fs_Pos.x + 4.0) / 4.0;\n  float y = 0.5 * (fs_Pos.y + 4.0) / 4.0;\n\n  vec4 textureColor = texture(u_RenderedTexture, vec2(x,  y));\n\n  vec3 finalColor = vec3(0.0);\n  if (u_TerrainToggle == 1.0) {\n    finalColor += textureColor.rgb;\n  }\n  if (u_PopToggle == 1.0) {\n    finalColor += vec3(textureColor.a);\n  }\n  if (u_PopToggle + u_TerrainToggle == 0.0) {\n    finalColor = vec3(1.0);\n  }\n    out_Col = vec4(finalColor, 1.0);\n  // out_Col = vec4(0.0, 0.0, 1.0, 1.0);\n\n}\n"
 
 /***/ })
 /******/ ]);

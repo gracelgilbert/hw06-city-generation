@@ -170,8 +170,8 @@ void main() {
   float heightMap = 1.0 - pow(fbmWorley(0.9 * 400.0 * x, 0.9 * 512.0 * y, 0.8, 100.0, 120.0), 1.5);
   float worleyMap = 0.05 * (1.0 - pow(computeWorley(512.0 * x, 512.0 * y, 1.0, 0.1), 1.0));
 
-  vec3 waterColor = vec3(0.0, 0.0, 0.9);
-  vec3 landColor = vec3(0.4, 0.8, 0.0);
+  vec3 waterColor = vec3(0.0, 0.0, 1.0);
+  vec3 landColor = vec3(0.4, 1.0, 0.0);
 
   vec3 terrainColor = mix(landColor, waterColor, heightMap);
 
@@ -183,6 +183,7 @@ void main() {
   } else {
     terrainColor = heightMap * heightMap* landColor;
   }
+  terrainColor.r = mix(0.0, 0.4, heightMap * heightMap);
 
   float population = 2.0 * pow((1.0 - fbmWorley2(512.0 * x - 80.0, 512.0 * y - 60.0, 1.0, 13.0, 13.0)), 1.5);
   if (heightMap + worleyMap > 0.53 && heightMap + worleyMap < 0.65) {
