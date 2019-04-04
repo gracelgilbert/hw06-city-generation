@@ -31,26 +31,26 @@ void main()
     // mat3 transformation = mat3(vs_Transform1, vs_Transform2, vs_Transform3);
 
     
-    vec3 instancedPos = 0.008 * vs_Pos.rag + vs_Translate;
+    vec3 instancedPos = 0.03 * vs_Pos.rgb + vs_Translate;
 
     // vec3 rotatedPos = instancedPos;
     // rotatedPos.y = instancedPos.z;
     // rotatedPos.z = instancedPos.y;
     // rotatedPos *= 4.0;
 
-    float x = 0.5 * (instancedPos.x + 4.0) / 4.0;
-    float y = 0.5 * (instancedPos.z + 4.0) / 4.0;
-    vec4 textureColor = texture(u_RenderedTexture, vec2(x,  y));
+    // float x = 0.5 * (instancedPos.x + 4.0) / 4.0;
+    // float y = 0.5 * (instancedPos.z + 4.0) / 4.0;
+    // vec4 textureColor = texture(u_RenderedTexture, vec2(x,  y));
 
-    float height = textureColor.r * 12.0;
-    if (height > 1.3) {
-        height = 1.3;
-    }
-    if (height < 1.1) {
-        height = 1.1;
-    }
+    // float height = textureColor.r * 12.0;
+    // if (height > 1.3) {
+    //     height = 1.3;
+    // }
+    // if (height < 1.1) {
+    //     height = 1.1;
+    // }
 
-    instancedPos.y = height + 0.06;
+    // instancedPos.y += height + 0.06;
 
 
     // fs_LightVec = lightPos - instancedPos;  // Compute the direction in which the light source lies

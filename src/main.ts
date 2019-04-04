@@ -10,6 +10,10 @@ import ShaderProgram, {Shader} from './rendering/gl/ShaderProgram';
 import Road from './Road';
 import Plane from './geometry/Plane';
 import BuildingSystem from './BuildingSystem';
+import Cube from './geometry/Cube';
+import Triangle from './geometry/Triangle';
+import Building from './Building';
+
 
 // Define an object with application parameters and button callbacks
 // This will be referred to by dat.GUI's functions that add GUI elements.
@@ -22,7 +26,7 @@ const controls = {
 };
 
 let square: Square;
-let building: Square;
+let building: Cube;
 
 let screenQuad: ScreenQuad;
 let plane: Plane;
@@ -37,7 +41,7 @@ function loadScene(road: Road, buildingSystem: BuildingSystem) {
   square = new Square();
   square.create();
 
-  building = new Square();
+  building = new Cube(vec3.fromValues(0, 0, 0), 2);
   building.create();
 
 
@@ -91,14 +95,20 @@ function loadScene(road: Road, buildingSystem: BuildingSystem) {
   let offsetsArray = [];
 
 
-  let nb: number = buildingSystem.positions.length;
+  let nb: number = 0;
 
-  for(let i = 0; i < nb; i++) {
-    let currPosition = buildingSystem.positions[i];
-    // console.log(currPosition);
+  for(var i = 0; i < buildingSystem.buildings.length; i++) {
+    for (var j = 0; j < buildingSystem.buildings[i].positions.length; j++) {
+      let currPosition = buildingSystem.buildings[i].positions[j];
       offsetsArray.push(currPosition[0]);
-      offsetsArray.push(1.5);
       offsetsArray.push(currPosition[1]);
+      offsetsArray.push(currPosition[2]);
+      nb++;
+    }
+
+
+    // console.log(currPosition);
+
   }
   let offsets: Float32Array = new Float32Array(offsetsArray);
 
@@ -226,7 +236,7 @@ function main() {
       gl.readPixels(0, 0, texWidth, texHeight, gl.RGBA, gl.UNSIGNED_BYTE, pixels);
     }
     road = new Road(pixels, texWidth, texHeight, controls.roadLength, controls.gridDensity);
-    buildingSystem = new BuildingSystem(road, 2);
+    buildingSystem = new BuildingSystem(road, 4);
 
     loadScene(road, buildingSystem);
 
@@ -258,7 +268,7 @@ function main() {
       prevRoadLength = controls.roadLength;
       prevGridDensity = controls.gridDensity;
       road = new Road(pixels, texWidth, texHeight, controls.roadLength, controls.gridDensity);
-      buildingSystem = new BuildingSystem(road, 2);
+      buildingSystem = new BuildingSystem(road, 4);
 
       loadScene(road, buildingSystem);
     }
