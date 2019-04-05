@@ -32,7 +32,27 @@ There are 3 different potential shapes for the towers: a square tower, a pentago
 
 Because the terrain slopes down towards the water, I had to ensure that the buildings were not floating.  To do this, I took the distance between the maximum terrain height (1.3) and the terrain height at the current vertex's position and subtracted this from the vertex height.  This ensures that the base vertices of each building is level with the terrain, even when the terrain slopes down.
 
-### Shading and Lighting
+### Lighting and Shading
+All buildings are rendered with lambertian shading. There are two main light sources tha contribute to the lambertian shading. One light is a warm light shining in the -Z direction.  The second light is a cooler light shining in the +Z direction, creating a warm and cool tone contrast and ensuring that no portion of a building is in complete darkness.  
 
+The base color of the building depends on the population density of its location.  In high population areas, the buildings are textured with thin vertical stripes created using a high frequency sin curve. I chose not to add horizontal lines to create definied windows, as the vertical lines alone creates more of a skyscraper look, like modern tall glass buildings. The color of these skyscraper buildings is gray toned to mimic city colors. The RGB parameters vary according to an FBM noise function, but are all a fairly neutral gray. 
+
+In low population areas, the buildings are textured with and FBM pattern. This makes them look a little more rustic and constrasts the straight lines of the urban buildings. These buildings are also more colorful.  There are three saturated color options for the low population buildings, red, blue, and yellow, each of which is subtly varied according to an FBM parameter. The color of the buildings is distributed using worley noise, so buildings in a certain region are the same base color. 
+
+An issue I ran into was that parts of some buildings ended up over water. While the rasterization step avoids placing the original tower position over water, the other towers of buildings may end up over a road or over water. Because the population of the water regions is 0, when part of a building was over water, its color would fall into the saturated FBM texture, whereas the rest of the building would be in the high population shoreline region and have the stripe patter.  To fix this, whenever the population is 0, the color of the building is set to be closer to the striped city pattern than the FBM suburban pattern. It will not be exactly consistent throughout the building, becasue the shoreline population is not constant, but it makes the contrast less jarring and nearly unnoticeable. 
 
 ### Sky
+The sky is a 2D texture rendered onto a quad at the far clip plane.  The clouds are generated using FBM elongated along the x direction. There are two layers of clouds, one white and fluffier, and one layer of pinker thinner clouds. In order to create a sense of perspective, the speed, horizontal, and vertical scale of the clouds are scaled according to the screen space y value. The higher on the screen, the faster the clouds will go and the larger they will appear. Further down the screen, the clouds move slower and are stretched in the x direction and compressed in the y direction to appear farther away. The clouds are also less visible further down the screen so they fade out in the distance. This affect adds depth to the scene, making the sky feel less flat and more a part of the environment.
+
+## Elements to Improve
+### Snapping to Terrain
+While I ensured that there are no floating buildings, the method I used to snap buildings to the terrain height creates slants in the tops of building towers. I transform all vertices down by the distance between the terrain height and the max terrain height. This includes vertices at the tops of the towers, create the terrain slant at the roof as well. Ideally, this should only be applied to vertices at the base of the towers, rather than all vertices in the tower. To accomplish this, I could add an instance variable that acts as a boolean to determine if a vertex should be snapped to the terrain height or not.
+
+### Invalid Tower Placements
+As mentioned when discussing texturing, the rasterization process ensures that a building's original tower position will not intersect with a road or water, but the added towers might.  To avoid this, I could simply increase the width of the edges in the rasterization process, but this is not failproof either. A more thorough solution would be to test each tower's position against the rasterized grid and only add a tower if it is in a valid location.
+
+### Patchy Textures
+While I resolved the issue of having shoreline buildings be partially striped and partially textured with FBM, there are some instances where part of a building happens to be in a high population position and another part in a low population region, causing the building to have mismatched textures. To resolve this, I could add an instance variable that is set for all geometry that is part of a specific building.  This would ensure that blocks in the same building all receive the same texture.
+
+### Sky Warping
+Because the FBM pattern for clouds is animated at different rates depending on the height, after some time, the pattern stretches and no longer looks like clouds. To avoid this, I could modulo the sin function to reset the animation speed after some time so it returns to the original unstretched state. There also may be other methods of creating that sense of perspective that I could look into.
