@@ -162,75 +162,31 @@ function equals(a, b) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return gl; });
-/* harmony export (immutable) */ __webpack_exports__["b"] = setGL;
+/* harmony export (immutable) */ __webpack_exports__["c"] = setGL;
+/* harmony export (immutable) */ __webpack_exports__["b"] = readTextFile;
 var gl;
 function setGL(_gl) {
     gl = _gl;
+}
+function readTextFile(file) {
+    var text = "";
+    var rawFile = new XMLHttpRequest();
+    rawFile.open("GET", file, false);
+    rawFile.onreadystatechange = function () {
+        if (rawFile.readyState === 4) {
+            if (rawFile.status === 200 || rawFile.status == 0) {
+                var allText = rawFile.responseText;
+                text = allText;
+            }
+        }
+    };
+    rawFile.send(null);
+    return text;
 }
 
 
 /***/ }),
 /* 3 */
-/***/ (function(module, exports) {
-
-module.exports = invert;
-
-/**
- * Inverts a mat4
- *
- * @param {mat4} out the receiving matrix
- * @param {mat4} a the source matrix
- * @returns {mat4} out
- */
-function invert(out, a) {
-    var a00 = a[0], a01 = a[1], a02 = a[2], a03 = a[3],
-        a10 = a[4], a11 = a[5], a12 = a[6], a13 = a[7],
-        a20 = a[8], a21 = a[9], a22 = a[10], a23 = a[11],
-        a30 = a[12], a31 = a[13], a32 = a[14], a33 = a[15],
-
-        b00 = a00 * a11 - a01 * a10,
-        b01 = a00 * a12 - a02 * a10,
-        b02 = a00 * a13 - a03 * a10,
-        b03 = a01 * a12 - a02 * a11,
-        b04 = a01 * a13 - a03 * a11,
-        b05 = a02 * a13 - a03 * a12,
-        b06 = a20 * a31 - a21 * a30,
-        b07 = a20 * a32 - a22 * a30,
-        b08 = a20 * a33 - a23 * a30,
-        b09 = a21 * a32 - a22 * a31,
-        b10 = a21 * a33 - a23 * a31,
-        b11 = a22 * a33 - a23 * a32,
-
-        // Calculate the determinant
-        det = b00 * b11 - b01 * b10 + b02 * b09 + b03 * b08 - b04 * b07 + b05 * b06;
-
-    if (!det) { 
-        return null; 
-    }
-    det = 1.0 / det;
-
-    out[0] = (a11 * b11 - a12 * b10 + a13 * b09) * det;
-    out[1] = (a02 * b10 - a01 * b11 - a03 * b09) * det;
-    out[2] = (a31 * b05 - a32 * b04 + a33 * b03) * det;
-    out[3] = (a22 * b04 - a21 * b05 - a23 * b03) * det;
-    out[4] = (a12 * b08 - a10 * b11 - a13 * b07) * det;
-    out[5] = (a00 * b11 - a02 * b08 + a03 * b07) * det;
-    out[6] = (a32 * b02 - a30 * b05 - a33 * b01) * det;
-    out[7] = (a20 * b05 - a22 * b02 + a23 * b01) * det;
-    out[8] = (a10 * b10 - a11 * b08 + a13 * b06) * det;
-    out[9] = (a01 * b08 - a00 * b10 - a03 * b06) * det;
-    out[10] = (a30 * b04 - a31 * b02 + a33 * b00) * det;
-    out[11] = (a21 * b02 - a20 * b04 - a23 * b00) * det;
-    out[12] = (a11 * b07 - a10 * b09 - a12 * b06) * det;
-    out[13] = (a00 * b09 - a01 * b07 + a02 * b06) * det;
-    out[14] = (a31 * b01 - a30 * b03 - a32 * b00) * det;
-    out[15] = (a20 * b03 - a21 * b01 + a22 * b00) * det;
-
-    return out;
-};
-
-/***/ }),
-/* 4 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -364,6 +320,66 @@ class Drawable {
 ;
 /* harmony default export */ __webpack_exports__["a"] = (Drawable);
 
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports) {
+
+module.exports = invert;
+
+/**
+ * Inverts a mat4
+ *
+ * @param {mat4} out the receiving matrix
+ * @param {mat4} a the source matrix
+ * @returns {mat4} out
+ */
+function invert(out, a) {
+    var a00 = a[0], a01 = a[1], a02 = a[2], a03 = a[3],
+        a10 = a[4], a11 = a[5], a12 = a[6], a13 = a[7],
+        a20 = a[8], a21 = a[9], a22 = a[10], a23 = a[11],
+        a30 = a[12], a31 = a[13], a32 = a[14], a33 = a[15],
+
+        b00 = a00 * a11 - a01 * a10,
+        b01 = a00 * a12 - a02 * a10,
+        b02 = a00 * a13 - a03 * a10,
+        b03 = a01 * a12 - a02 * a11,
+        b04 = a01 * a13 - a03 * a11,
+        b05 = a02 * a13 - a03 * a12,
+        b06 = a20 * a31 - a21 * a30,
+        b07 = a20 * a32 - a22 * a30,
+        b08 = a20 * a33 - a23 * a30,
+        b09 = a21 * a32 - a22 * a31,
+        b10 = a21 * a33 - a23 * a31,
+        b11 = a22 * a33 - a23 * a32,
+
+        // Calculate the determinant
+        det = b00 * b11 - b01 * b10 + b02 * b09 + b03 * b08 - b04 * b07 + b05 * b06;
+
+    if (!det) { 
+        return null; 
+    }
+    det = 1.0 / det;
+
+    out[0] = (a11 * b11 - a12 * b10 + a13 * b09) * det;
+    out[1] = (a02 * b10 - a01 * b11 - a03 * b09) * det;
+    out[2] = (a31 * b05 - a32 * b04 + a33 * b03) * det;
+    out[3] = (a22 * b04 - a21 * b05 - a23 * b03) * det;
+    out[4] = (a12 * b08 - a10 * b11 - a13 * b07) * det;
+    out[5] = (a00 * b11 - a02 * b08 + a03 * b07) * det;
+    out[6] = (a32 * b02 - a30 * b05 - a33 * b01) * det;
+    out[7] = (a20 * b05 - a22 * b02 + a23 * b01) * det;
+    out[8] = (a10 * b10 - a11 * b08 + a13 * b06) * det;
+    out[9] = (a01 * b08 - a00 * b10 - a03 * b06) * det;
+    out[10] = (a30 * b04 - a31 * b02 + a33 * b00) * det;
+    out[11] = (a21 * b02 - a20 * b04 - a23 * b00) * det;
+    out[12] = (a11 * b07 - a10 * b09 - a12 * b06) * det;
+    out[13] = (a00 * b09 - a01 * b07 + a02 * b06) * det;
+    out[14] = (a31 * b01 - a30 * b03 - a32 * b00) * det;
+    out[15] = (a20 * b03 - a21 * b01 + a22 * b00) * det;
+
+    return out;
+};
 
 /***/ }),
 /* 5 */
@@ -6134,6 +6150,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__Road__ = __webpack_require__(70);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__geometry_Plane__ = __webpack_require__(74);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__BuildingSystem__ = __webpack_require__(75);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__geometry_Cube__ = __webpack_require__(77);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__geometry_Mesh__ = __webpack_require__(78);
+
+
+
 
 
 
@@ -6156,8 +6177,11 @@ const controls = {
     gridDensity: 1.0,
 };
 let square;
-let building;
+let buildingSquare;
+let buildingPent;
+let buildingOct;
 let screenQuad;
+let skyQuad;
 let plane;
 let time = 0.0;
 let road;
@@ -6168,8 +6192,13 @@ let prevGridDensity = controls.gridDensity;
 function loadScene(road, buildingSystem) {
     square = new __WEBPACK_IMPORTED_MODULE_3__geometry_Square__["a" /* default */]();
     square.create();
-    building = new __WEBPACK_IMPORTED_MODULE_3__geometry_Square__["a" /* default */]();
-    building.create();
+    buildingSquare = new __WEBPACK_IMPORTED_MODULE_12__geometry_Cube__["a" /* default */](__WEBPACK_IMPORTED_MODULE_0_gl_matrix__["f" /* vec3 */].fromValues(0, 0, 0), 2);
+    buildingSquare.create();
+    let obj0 = Object(__WEBPACK_IMPORTED_MODULE_7__globals__["b" /* readTextFile */])('./pentagon.obj');
+    buildingPent = new __WEBPACK_IMPORTED_MODULE_13__geometry_Mesh__["a" /* default */](obj0, __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["f" /* vec3 */].fromValues(0, 0, 0));
+    buildingPent.create();
+    buildingOct = new __WEBPACK_IMPORTED_MODULE_12__geometry_Cube__["a" /* default */](__WEBPACK_IMPORTED_MODULE_0_gl_matrix__["f" /* vec3 */].fromValues(0, 0, 0), 2);
+    buildingOct.create();
     // Set up instanced rendering data arrays here.
     // This example creates a set of positional
     // offsets and gradiated colors for a 100x100 grid
@@ -6202,18 +6231,48 @@ function loadScene(road, buildingSystem) {
     let tempOffsets = new Float32Array(col1sArray);
     square.setInstanceVBOs(col1s, col2s, col3s, tempOffsets);
     square.setNumInstances(n); // grid of "particles"
-    let offsetsArray = [];
-    let nb = buildingSystem.positions.length;
-    for (let i = 0; i < nb; i++) {
-        let currPosition = buildingSystem.positions[i];
-        // console.log(currPosition);
-        offsetsArray.push(currPosition[0]);
-        offsetsArray.push(1.5);
-        offsetsArray.push(currPosition[1]);
+    let offsetsArraySquare = [];
+    let nSquare = 0;
+    for (var i = 0; i < buildingSystem.buildings.length; i++) {
+        for (var j = 0; j < buildingSystem.buildings[i].squarePositions.length; j++) {
+            let currPosition = buildingSystem.buildings[i].squarePositions[j];
+            offsetsArraySquare.push(currPosition[0]);
+            offsetsArraySquare.push(currPosition[1]);
+            offsetsArraySquare.push(currPosition[2]);
+            nSquare++;
+        }
     }
-    let offsets = new Float32Array(offsetsArray);
-    building.setInstanceVBOs(col1s, col2s, col3s, offsets);
-    building.setNumInstances(nb); // grid of "particles"
+    let offsetsSquare = new Float32Array(offsetsArraySquare);
+    buildingSquare.setInstanceVBOs(col1s, col2s, col3s, offsetsSquare);
+    buildingSquare.setNumInstances(nSquare); // grid of "particles"
+    let offsetsArrayPent = [];
+    let nPent = 0;
+    for (var i = 0; i < buildingSystem.buildings.length; i++) {
+        for (var j = 0; j < buildingSystem.buildings[i].pentPositions.length; j++) {
+            let currPosition = buildingSystem.buildings[i].pentPositions[j];
+            offsetsArrayPent.push(currPosition[0]);
+            offsetsArrayPent.push(currPosition[1]);
+            offsetsArrayPent.push(currPosition[2]);
+            nPent++;
+        }
+    }
+    let offsetsPent = new Float32Array(offsetsArrayPent);
+    buildingPent.setInstanceVBOs(col1s, col2s, col3s, offsetsPent);
+    buildingPent.setNumInstances(nPent); // grid of "particles"
+    let offsetsArrayOct = [];
+    let nOct = 0;
+    for (var i = 0; i < buildingSystem.buildings.length; i++) {
+        for (var j = 0; j < buildingSystem.buildings[i].octPositions.length; j++) {
+            let currPosition = buildingSystem.buildings[i].octPositions[j];
+            offsetsArrayOct.push(currPosition[0]);
+            offsetsArrayOct.push(currPosition[1]);
+            offsetsArrayOct.push(currPosition[2]);
+            nOct++;
+        }
+    }
+    let offsetsOct = new Float32Array(offsetsArrayOct);
+    buildingOct.setInstanceVBOs(col1s, col2s, col3s, offsetsOct);
+    buildingOct.setNumInstances(nOct); // grid of "particles"
 }
 function main() {
     // Initial display for framerate
@@ -6238,32 +6297,38 @@ function main() {
     }
     // `setGL` is a function imported above which sets the value of `gl` in the `globals.ts` module.
     // Later, we can import `gl` from `globals.ts` to access it
-    Object(__WEBPACK_IMPORTED_MODULE_7__globals__["b" /* setGL */])(gl);
+    Object(__WEBPACK_IMPORTED_MODULE_7__globals__["c" /* setGL */])(gl);
     screenQuad = new __WEBPACK_IMPORTED_MODULE_4__geometry_ScreenQuad__["a" /* default */]();
     screenQuad.create();
-    plane = new __WEBPACK_IMPORTED_MODULE_10__geometry_Plane__["a" /* default */](__WEBPACK_IMPORTED_MODULE_0_gl_matrix__["f" /* vec3 */].fromValues(0, 0, 0), __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["e" /* vec2 */].fromValues(8, 8), 20);
+    skyQuad = new __WEBPACK_IMPORTED_MODULE_4__geometry_ScreenQuad__["a" /* default */]();
+    skyQuad.create();
+    plane = new __WEBPACK_IMPORTED_MODULE_10__geometry_Plane__["a" /* default */](__WEBPACK_IMPORTED_MODULE_0_gl_matrix__["f" /* vec3 */].fromValues(0, -3, 0), __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["e" /* vec2 */].fromValues(8, 8), 20);
     plane.create();
-    const camera = new __WEBPACK_IMPORTED_MODULE_6__Camera__["a" /* default */](__WEBPACK_IMPORTED_MODULE_0_gl_matrix__["f" /* vec3 */].fromValues(10, 20, 0), __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["f" /* vec3 */].fromValues(0, 2, 0));
+    const camera = new __WEBPACK_IMPORTED_MODULE_6__Camera__["a" /* default */](__WEBPACK_IMPORTED_MODULE_0_gl_matrix__["f" /* vec3 */].fromValues(10, 10, 10), __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["f" /* vec3 */].fromValues(0, 0, 0));
     const renderer = new __WEBPACK_IMPORTED_MODULE_5__rendering_gl_OpenGLRenderer__["a" /* default */](canvas);
     renderer.setClearColor(0.2, 0.2, 0.2, 1);
     gl.enable(gl.DEPTH_TEST);
     // gl.enable(gl.BLEND);
     // gl.blendFunc(gl.ONE, gl.ONE); // Additive blending
     const instancedShader = new __WEBPACK_IMPORTED_MODULE_8__rendering_gl_ShaderProgram__["b" /* default */]([
-        new __WEBPACK_IMPORTED_MODULE_8__rendering_gl_ShaderProgram__["a" /* Shader */](gl.VERTEX_SHADER, __webpack_require__(76)),
-        new __WEBPACK_IMPORTED_MODULE_8__rendering_gl_ShaderProgram__["a" /* Shader */](gl.FRAGMENT_SHADER, __webpack_require__(77)),
-    ]);
-    const buildingShader = new __WEBPACK_IMPORTED_MODULE_8__rendering_gl_ShaderProgram__["b" /* default */]([
-        new __WEBPACK_IMPORTED_MODULE_8__rendering_gl_ShaderProgram__["a" /* Shader */](gl.VERTEX_SHADER, __webpack_require__(78)),
-        new __WEBPACK_IMPORTED_MODULE_8__rendering_gl_ShaderProgram__["a" /* Shader */](gl.FRAGMENT_SHADER, __webpack_require__(79)),
-    ]);
-    const flat = new __WEBPACK_IMPORTED_MODULE_8__rendering_gl_ShaderProgram__["b" /* default */]([
         new __WEBPACK_IMPORTED_MODULE_8__rendering_gl_ShaderProgram__["a" /* Shader */](gl.VERTEX_SHADER, __webpack_require__(80)),
         new __WEBPACK_IMPORTED_MODULE_8__rendering_gl_ShaderProgram__["a" /* Shader */](gl.FRAGMENT_SHADER, __webpack_require__(81)),
     ]);
-    const texture = new __WEBPACK_IMPORTED_MODULE_8__rendering_gl_ShaderProgram__["b" /* default */]([
+    const buildingShader = new __WEBPACK_IMPORTED_MODULE_8__rendering_gl_ShaderProgram__["b" /* default */]([
         new __WEBPACK_IMPORTED_MODULE_8__rendering_gl_ShaderProgram__["a" /* Shader */](gl.VERTEX_SHADER, __webpack_require__(82)),
         new __WEBPACK_IMPORTED_MODULE_8__rendering_gl_ShaderProgram__["a" /* Shader */](gl.FRAGMENT_SHADER, __webpack_require__(83)),
+    ]);
+    const flat = new __WEBPACK_IMPORTED_MODULE_8__rendering_gl_ShaderProgram__["b" /* default */]([
+        new __WEBPACK_IMPORTED_MODULE_8__rendering_gl_ShaderProgram__["a" /* Shader */](gl.VERTEX_SHADER, __webpack_require__(84)),
+        new __WEBPACK_IMPORTED_MODULE_8__rendering_gl_ShaderProgram__["a" /* Shader */](gl.FRAGMENT_SHADER, __webpack_require__(85)),
+    ]);
+    const texture = new __WEBPACK_IMPORTED_MODULE_8__rendering_gl_ShaderProgram__["b" /* default */]([
+        new __WEBPACK_IMPORTED_MODULE_8__rendering_gl_ShaderProgram__["a" /* Shader */](gl.VERTEX_SHADER, __webpack_require__(86)),
+        new __WEBPACK_IMPORTED_MODULE_8__rendering_gl_ShaderProgram__["a" /* Shader */](gl.FRAGMENT_SHADER, __webpack_require__(87)),
+    ]);
+    const sky = new __WEBPACK_IMPORTED_MODULE_8__rendering_gl_ShaderProgram__["b" /* default */]([
+        new __WEBPACK_IMPORTED_MODULE_8__rendering_gl_ShaderProgram__["a" /* Shader */](gl.VERTEX_SHADER, __webpack_require__(88)),
+        new __WEBPACK_IMPORTED_MODULE_8__rendering_gl_ShaderProgram__["a" /* Shader */](gl.FRAGMENT_SHADER, __webpack_require__(89)),
     ]);
     // This function will be called every frame
     const texWidth = window.innerWidth;
@@ -6300,13 +6365,14 @@ function main() {
         gl.readPixels(0, 0, texWidth, texHeight, gl.RGBA, gl.UNSIGNED_BYTE, pixels);
     }
     road = new __WEBPACK_IMPORTED_MODULE_9__Road__["a" /* default */](pixels, texWidth, texHeight, controls.roadLength, controls.gridDensity);
-    buildingSystem = new __WEBPACK_IMPORTED_MODULE_11__BuildingSystem__["a" /* default */](road, 2);
+    buildingSystem = new __WEBPACK_IMPORTED_MODULE_11__BuildingSystem__["a" /* default */](road, 7);
     loadScene(road, buildingSystem);
     function tick() {
         camera.update();
         stats.begin();
         instancedShader.setTime(time);
         flat.setTime(time++);
+        sky.setTime(time++);
         if (prevPopSeed != controls.shorePopulation || prevRoadLength != controls.roadLength || prevGridDensity != controls.gridDensity) {
             gl.bindFramebuffer(gl.FRAMEBUFFER, fb);
             gl.viewport(0, 0, window.innerWidth, window.innerHeight);
@@ -6323,7 +6389,7 @@ function main() {
             prevRoadLength = controls.roadLength;
             prevGridDensity = controls.gridDensity;
             road = new __WEBPACK_IMPORTED_MODULE_9__Road__["a" /* default */](pixels, texWidth, texHeight, controls.roadLength, controls.gridDensity);
-            buildingSystem = new __WEBPACK_IMPORTED_MODULE_11__BuildingSystem__["a" /* default */](road, 2);
+            buildingSystem = new __WEBPACK_IMPORTED_MODULE_11__BuildingSystem__["a" /* default */](road, 7);
             loadScene(road, buildingSystem);
         }
         gl.viewport(0, 0, window.innerWidth, window.innerHeight);
@@ -6344,14 +6410,14 @@ function main() {
         else {
             texture.setTerrainToggle(0.0);
         }
-        // renderer.render(camera, texture, [screenQuad]);
         renderer.render(camera, texture, [plane]);
         renderer.render(camera, instancedShader, [
             square,
         ]);
         renderer.render(camera, buildingShader, [
-            building,
+            buildingSquare, buildingPent, buildingOct,
         ]);
+        renderer.render(camera, sky, [screenQuad]);
         stats.end();
         // Tell the browser to call `tick` again whenever it renders a new frame
         requestAnimationFrame(tick);
@@ -13368,7 +13434,7 @@ dat.utils.common);
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__rendering_gl_Drawable__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__rendering_gl_Drawable__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__globals__ = __webpack_require__(2);
 
 
@@ -13431,7 +13497,7 @@ class Square extends __WEBPACK_IMPORTED_MODULE_0__rendering_gl_Drawable__["a" /*
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__rendering_gl_Drawable__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__rendering_gl_Drawable__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__globals__ = __webpack_require__(2);
 
 
@@ -13442,10 +13508,10 @@ class ScreenQuad extends __WEBPACK_IMPORTED_MODULE_0__rendering_gl_Drawable__["a
     create() {
         this.indices = new Uint32Array([0, 1, 2,
             0, 2, 3]);
-        this.positions = new Float32Array([-1, -1, 0.999, 1,
-            1, -1, 0.999, 1,
-            1, 1, 0.999, 1,
-            -1, 1, 0.999, 1]);
+        this.positions = new Float32Array([-1, -1, 0.9999999, 1,
+            1, -1, 0.9999999, 1,
+            1, 1, 0.9999999, 1,
+            -1, 1, 0.9999999, 1]);
         this.generateIdx();
         this.generatePos();
         this.count = this.indices.length;
@@ -13993,7 +14059,7 @@ function createViewController(options) {
 module.exports = createTurntableController
 
 var filterVector = __webpack_require__(11)
-var invert44     = __webpack_require__(3)
+var invert44     = __webpack_require__(4)
 var rotateM      = __webpack_require__(41)
 var cross        = __webpack_require__(13)
 var normalize3   = __webpack_require__(5)
@@ -14687,7 +14753,7 @@ module.exports = createOrbitController
 var filterVector  = __webpack_require__(11)
 var lookAt        = __webpack_require__(15)
 var mat4FromQuat  = __webpack_require__(43)
-var invert44      = __webpack_require__(3)
+var invert44      = __webpack_require__(4)
 var quatFromFrame = __webpack_require__(44)
 
 function len3(x,y,z) {
@@ -15182,7 +15248,7 @@ function quatFromFrame(
 
 var bsearch   = __webpack_require__(12)
 var m4interp  = __webpack_require__(46)
-var invert44  = __webpack_require__(3)
+var invert44  = __webpack_require__(4)
 var rotateX   = __webpack_require__(58)
 var rotateY   = __webpack_require__(59)
 var rotateZ   = __webpack_require__(60)
@@ -15656,7 +15722,7 @@ var normalize = __webpack_require__(52)
 var create = __webpack_require__(18)
 var clone = __webpack_require__(53)
 var determinant = __webpack_require__(20)
-var invert = __webpack_require__(3)
+var invert = __webpack_require__(4)
 var transpose = __webpack_require__(54)
 var vec3 = {
     length: __webpack_require__(55),
@@ -17446,7 +17512,7 @@ class Intersection {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_gl_matrix__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__rendering_gl_Drawable__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__rendering_gl_Drawable__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__globals__ = __webpack_require__(2);
 
 
@@ -17514,28 +17580,39 @@ class Plane extends __WEBPACK_IMPORTED_MODULE_1__rendering_gl_Drawable__["a" /* 
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_gl_matrix__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Building__ = __webpack_require__(76);
+
 
 class BuildingSystem {
     constructor(roadSystem, width) {
         this.grid = new Array();
         this.positions = new Array();
+        this.buildings = new Array();
         this.roadSystem = roadSystem;
         this.width = width;
         this.grid = this.roadSystem.rasterize(this.width);
         this.populateBuildings();
     }
     populateBuildings() {
-        for (var i = 0; i < this.roadSystem.mapWidth; i++) {
-            for (var j = 0; j < this.roadSystem.mapHeight; j++) {
-                if (this.grid[i + this.roadSystem.mapWidth * j] == 0) {
-                    // this.positions.push(vec2.fromValues(14.3 * (i /  this.roadSystem.mapWidth) - 4.0, 8.0 * (j / this.roadSystem.mapHeight) - 4.0));
-                    this.positions.push(__WEBPACK_IMPORTED_MODULE_0_gl_matrix__["e" /* vec2 */].fromValues((8.0 * i / this.roadSystem.mapWidth) - 4.0, (8.0 * j / this.roadSystem.mapHeight) - 4.0));
+        // for (var i = 0; i < this.roadSystem.mapWidth; i++) {
+        //      for (var j = 0; j < this.roadSystem.mapHeight; j++) {
+        //         if (this.grid[i + this.roadSystem.mapWidth * j] == 0) {
+        //             // this.positions.push(vec2.fromValues(14.3 * (i /  this.roadSystem.mapWidth) - 4.0, 8.0 * (j / this.roadSystem.mapHeight) - 4.0));
+        //             this.positions.push(vec2.fromValues( (8.0 * i /  this.roadSystem.mapWidth) - 4.0, (8.0 * j / this.roadSystem.mapHeight) - 4.0)) ;
+        //         } 
+        //     }
+        // }
+        for (var i = 0; i < 2000; i++) {
+            let x = Math.floor(Math.random() * this.roadSystem.mapWidth);
+            let y = Math.floor(Math.random() * this.roadSystem.mapHeight);
+            if (this.grid[x + this.roadSystem.mapWidth * y] > 0.5) {
+                let prob = this.roadSystem.getPopulation((2.0 * x / this.roadSystem.mapWidth) - 1.0, (2.0 * y / this.roadSystem.mapHeight) - 1.0) / 255.0;
+                if (Math.random() < prob * prob) {
+                    this.positions.push(__WEBPACK_IMPORTED_MODULE_0_gl_matrix__["e" /* vec2 */].fromValues((8.0 * x / this.roadSystem.mapWidth) - 4.0, (8.0 * y / this.roadSystem.mapHeight) - 4.0));
+                    this.buildings.push(new __WEBPACK_IMPORTED_MODULE_1__Building__["a" /* default */](Math.max(Math.floor((Math.random()) * 8.0 * prob * prob), Math.floor(prob * 3)), __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["e" /* vec2 */].fromValues((8.0 * x / this.roadSystem.mapWidth) - 4.0, (8.0 * y / this.roadSystem.mapHeight) - 4.0)));
                 }
             }
         }
-        // for (var i = 0; i < 10; i++) {
-        //     this.positions.push(vec2.fromValues(Math.random(), Math.random()));
-        // }
     }
 }
 /* harmony default export */ __webpack_exports__["a"] = (BuildingSystem);
@@ -17543,51 +17620,341 @@ class BuildingSystem {
 
 /***/ }),
 /* 76 */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = "#version 300 es\n\nuniform mat4 u_ViewProj;\nuniform float u_Time;\n\nuniform mat3 u_CameraAxes; // Used for rendering particles as billboards (quads that are always looking at the camera)\n// gl_Position = center + vs_Pos.x * camRight + vs_Pos.y * camUp;\n\nuniform sampler2D u_RenderedTexture;\n\n\nin vec4 vs_Pos; // Non-instanced; each particle is the same quad drawn in a different place\nin vec4 vs_Nor; // Non-instanced, and presently unused\nin vec4 vs_Col; // An instanced rendering attribute; each particle instance has a different color\nin vec3 vs_Translate; // Another instance rendering attribute used to position each quad instance in the scene\nin vec2 vs_UV; // Non-instanced, and presently unused in main(). Feel free to use it for your meshes.\nin vec3 vs_Transform1; // Another instance rendering attribute used to position each quad instance in the scene\nin vec3 vs_Transform2; // Another instance rendering attribute used to position each quad instance in the scene\nin vec3 vs_Transform3; // Another instance rendering attribute used to position each quad instance in the scene\n\n\nout vec4 fs_Col;\nout vec4 fs_Pos;\n\nvoid main()\n{\n    fs_Col = vs_Col;\n    fs_Pos = vs_Pos;\n    // fs_Nor = vec4(0.0, 0.0, 1.0, 0.0);\n\n    mat3 transformation = mat3(vs_Transform1, vs_Transform2, vs_Transform3);\n\n    \n    vec3 instancedPos = transformation * vs_Pos.rga;\n    vec3 rotatedPos = instancedPos;\n    rotatedPos.y = instancedPos.z;\n    rotatedPos.z = instancedPos.y;\n    rotatedPos *= 4.0;\n\n    float x = 0.5 * (rotatedPos.x + 4.0) / 4.0;\n    float y = 0.5 * (rotatedPos.z + 4.0) / 4.0;\n    vec4 textureColor = texture(u_RenderedTexture, vec2(x,  y));\n\n    float height = textureColor.r * 12.0;\n    if (height > 1.3) {\n        height = 1.3;\n    }\n    if (height < 1.1) {\n        height = 1.1;\n    }\n\n    rotatedPos.y = height + 0.05;\n\n\n    // fs_LightVec = lightPos - instancedPos;  // Compute the direction in which the light source lies\n\n    gl_Position = u_ViewProj * vec4(rotatedPos.xyz, 1.0);\n\n\n}\n\n"
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_gl_matrix__ = __webpack_require__(0);
+
+class Building {
+    constructor(height, position) {
+        this.height = height;
+        this.position = position;
+        this.squares = new Array();
+        this.pents = new Array();
+        this.octs = new Array();
+        let shapeRand = Math.floor(3.0 * Math.random());
+        if (shapeRand == 0) {
+            this.squares.push(this.position);
+        }
+        else if (shapeRand == 1) {
+            this.pents.push(this.position);
+        }
+        else {
+            this.octs.push(this.position);
+        }
+        // this.positions = new Array<vec3>();
+        this.squarePositions = new Array();
+        this.pentPositions = new Array();
+        this.octPositions = new Array();
+        this.placeBlocks();
+    }
+    placeBlocks() {
+        for (var y = this.height; y > 0; y--) {
+            for (var i = 0; i < this.squares.length; i++) {
+                this.squarePositions.push(__WEBPACK_IMPORTED_MODULE_0_gl_matrix__["f" /* vec3 */].fromValues(this.squares[i][0], y / 16.9 + 1.28, this.squares[i][1]));
+            }
+            for (var i = 0; i < this.pents.length; i++) {
+                this.pentPositions.push(__WEBPACK_IMPORTED_MODULE_0_gl_matrix__["f" /* vec3 */].fromValues(this.pents[i][0], y / 16.9 + 1.28, this.pents[i][1]));
+            }
+            for (var i = 0; i < this.octs.length; i++) {
+                this.octPositions.push(__WEBPACK_IMPORTED_MODULE_0_gl_matrix__["f" /* vec3 */].fromValues(this.octs[i][0], y / 16.9 + 1.28, this.octs[i][1]));
+            }
+            let prob = 0.5;
+            if (Math.random() < prob) {
+                let shapeRand = Math.floor(3.0 * Math.random());
+                let newPos = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["e" /* vec2 */].fromValues(this.position[0] + 0.05 * (Math.random() * 2.0 - 1.0), this.position[1] + 0.05 * (Math.random() * 2.0 - 1.0));
+                if (shapeRand == 0) {
+                    this.squares.push(newPos);
+                }
+                else if (shapeRand == 1) {
+                    this.pents.push(newPos);
+                }
+                else {
+                    this.octs.push(newPos);
+                }
+            }
+        }
+    }
+}
+;
+/* harmony default export */ __webpack_exports__["a"] = (Building);
+
 
 /***/ }),
 /* 77 */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = "#version 300 es\nprecision highp float;\n\nin vec4 fs_Col;\n// in vec2 fs_Pos;\n\nout vec4 out_Col;\n\nvoid main()\n{\n    // float dist = 1.0 - (length(fs_Pos.xyz) * 2.0);\n    out_Col = vec4(0.0, 0.0, 0.0, 1.0);\n}\n"
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_gl_matrix__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__rendering_gl_Drawable__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__globals__ = __webpack_require__(2);
+
+
+
+class Cube extends __WEBPACK_IMPORTED_MODULE_1__rendering_gl_Drawable__["a" /* default */] {
+    constructor(center, side) {
+        super(); // Call the constructor of the super class. This is required.
+        this.side = side;
+        this.center = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["g" /* vec4 */].fromValues(center[0], center[1], center[2], 1);
+    }
+    create() {
+        let r = this.side / 2.0;
+        this.indices = new Uint32Array([0, 1, 2,
+            0, 2, 3,
+            4, 5, 6,
+            4, 6, 7,
+            8, 9, 10,
+            8, 10, 11,
+            12, 13, 14,
+            12, 14, 15,
+            16, 17, 18,
+            16, 18, 19,
+            20, 21, 22,
+            20, 22, 23]);
+        this.normals = new Float32Array([0, 1, 0, 0,
+            0, 1, 0, 0,
+            0, 1, 0, 0,
+            0, 1, 0, 0,
+            0, 0, 1, 0,
+            0, 0, 1, 0,
+            0, 0, 1, 0,
+            0, 0, 1, 0,
+            -1, 0, 0, 0,
+            -1, 0, 0, 0,
+            -1, 0, 0, 0,
+            -1, 0, 0, 0,
+            1, 0, 0, 0,
+            1, 0, 0, 0,
+            1, 0, 0, 0,
+            1, 0, 0, 0,
+            0, -1, 0, 0,
+            0, -1, 0, 0,
+            0, -1, 0, 0,
+            0, -1, 0, 0,
+            0, 0, -1, 0,
+            0, 0, -1, 0,
+            0, 0, -1, 0,
+            0, 0, -1, 0 // back
+        ]);
+        this.positions = new Float32Array([-r, r, -r, 1,
+            -r, r, r, 1,
+            r, r, r, 1,
+            r, r, -r, 1,
+            -r, r, r, 1,
+            -r, -r, r, 1,
+            r, -r, r, 1,
+            r, r, r, 1,
+            -r, r, r, 1,
+            -r, r, -r, 1,
+            -r, -r, -r, 1,
+            -r, -r, r, 1,
+            r, r, -r, 1,
+            r, r, r, 1,
+            r, -r, r, 1,
+            r, -r, -r, 1,
+            -r, -r, -r, 1,
+            r, -r, -r, 1,
+            r, -r, r, 1,
+            -r, -r, r, 1,
+            -r, r, -r, 1,
+            r, r, -r, 1,
+            r, -r, -r, 1,
+            -r, -r, -r, 1 // back
+        ]);
+        this.generateIdx();
+        this.generatePos();
+        this.generateNor();
+        this.generateTransform1();
+        this.generateTransform2();
+        this.generateTransform3();
+        this.generateTranslate();
+        this.count = this.indices.length;
+        __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].ELEMENT_ARRAY_BUFFER, this.bufIdx);
+        __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].bufferData(__WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].ELEMENT_ARRAY_BUFFER, this.indices, __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].STATIC_DRAW);
+        __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].ARRAY_BUFFER, this.bufNor);
+        __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].bufferData(__WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].ARRAY_BUFFER, this.normals, __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].STATIC_DRAW);
+        __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].ARRAY_BUFFER, this.bufPos);
+        __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].bufferData(__WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].ARRAY_BUFFER, this.positions, __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].STATIC_DRAW);
+        console.log(`Created cube`);
+    }
+    setInstanceVBOs(cols1, cols2, cols3, offsets) {
+        // this.colors = colors;
+        this.offsets = offsets;
+        // this.transforms = transforms;
+        this.cols1 = cols1;
+        this.cols2 = cols2;
+        this.cols3 = cols3;
+        __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].ARRAY_BUFFER, this.bufTransform1);
+        __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].bufferData(__WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].ARRAY_BUFFER, this.cols1, __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].STATIC_DRAW);
+        __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].ARRAY_BUFFER, this.bufTransform2);
+        __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].bufferData(__WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].ARRAY_BUFFER, this.cols2, __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].STATIC_DRAW);
+        __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].ARRAY_BUFFER, this.bufTransform3);
+        __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].bufferData(__WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].ARRAY_BUFFER, this.cols3, __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].STATIC_DRAW);
+        __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].ARRAY_BUFFER, this.bufTranslate);
+        __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].bufferData(__WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].ARRAY_BUFFER, this.offsets, __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].STATIC_DRAW);
+    }
+}
+;
+/* harmony default export */ __webpack_exports__["a"] = (Cube);
+
 
 /***/ }),
 /* 78 */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = "#version 300 es\n\nuniform mat4 u_ViewProj;\nuniform float u_Time;\n\nuniform mat3 u_CameraAxes; // Used for rendering particles as billboards (quads that are always looking at the camera)\n// gl_Position = center + vs_Pos.x * camRight + vs_Pos.y * camUp;\n\nuniform sampler2D u_RenderedTexture;\n\n\nin vec4 vs_Pos; // Non-instanced; each particle is the same quad drawn in a different place\nin vec4 vs_Nor; // Non-instanced, and presently unused\nin vec4 vs_Col; // An instanced rendering attribute; each particle instance has a different color\nin vec3 vs_Translate; // Another instance rendering attribute used to position each quad instance in the scene\nin vec2 vs_UV; // Non-instanced, and presently unused in main(). Feel free to use it for your meshes.\nin vec3 vs_Transform1; // Another instance rendering attribute used to position each quad instance in the scene\nin vec3 vs_Transform2; // Another instance rendering attribute used to position each quad instance in the scene\nin vec3 vs_Transform3; // Another instance rendering attribute used to position each quad instance in the scene\n\n\nout vec4 fs_Col;\nout vec4 fs_Pos;\n\nvoid main()\n{\n    fs_Col = vs_Col;\n    fs_Pos = vs_Pos;\n    // fs_Nor = vec4(0.0, 0.0, 1.0, 0.0);\n\n    // mat3 transformation = mat3(vs_Transform1, vs_Transform2, vs_Transform3);\n\n    \n    vec3 instancedPos = 0.008 * vs_Pos.rag + vs_Translate;\n\n    // vec3 rotatedPos = instancedPos;\n    // rotatedPos.y = instancedPos.z;\n    // rotatedPos.z = instancedPos.y;\n    // rotatedPos *= 4.0;\n\n    float x = 0.5 * (instancedPos.x + 4.0) / 4.0;\n    float y = 0.5 * (instancedPos.z + 4.0) / 4.0;\n    vec4 textureColor = texture(u_RenderedTexture, vec2(x,  y));\n\n    float height = textureColor.r * 12.0;\n    if (height > 1.3) {\n        height = 1.3;\n    }\n    if (height < 1.1) {\n        height = 1.1;\n    }\n\n    instancedPos.y = height + 0.06;\n\n\n    // fs_LightVec = lightPos - instancedPos;  // Compute the direction in which the light source lies\n\n    gl_Position = u_ViewProj * vec4(instancedPos.xyz, 1.0);\n\n\n}\n\n"
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_gl_matrix__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__rendering_gl_Drawable__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__globals__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_webgl_obj_loader__ = __webpack_require__(79);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_webgl_obj_loader___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_webgl_obj_loader__);
+
+
+
+
+class Mesh extends __WEBPACK_IMPORTED_MODULE_1__rendering_gl_Drawable__["a" /* default */] {
+    constructor(objString, center) {
+        super(); // Call the constructor of the super class. This is required.
+        this.center = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["g" /* vec4 */].fromValues(center[0], center[1], center[2], 1);
+        this.objString = objString;
+    }
+    create() {
+        let posTemp = [];
+        let norTemp = [];
+        let uvsTemp = [];
+        let idxTemp = [];
+        var loadedMesh = new __WEBPACK_IMPORTED_MODULE_3_webgl_obj_loader__["Mesh"](this.objString);
+        //posTemp = loadedMesh.vertices;
+        for (var i = 0; i < loadedMesh.vertices.length; i++) {
+            posTemp.push(loadedMesh.vertices[i]);
+            if (i % 3 == 2)
+                posTemp.push(1.0);
+        }
+        for (var i = 0; i < loadedMesh.vertexNormals.length; i++) {
+            norTemp.push(loadedMesh.vertexNormals[i]);
+            if (i % 3 == 2)
+                norTemp.push(0.0);
+        }
+        uvsTemp = loadedMesh.textures;
+        idxTemp = loadedMesh.indices;
+        // white vert color for now
+        // this.colors = new Float32Array(posTemp.length);
+        // for (var i = 0; i < posTemp.length; ++i){
+        //   this.colors[i] = 1.0;
+        // }
+        this.indices = new Uint32Array(idxTemp);
+        this.normals = new Float32Array(norTemp);
+        this.positions = new Float32Array(posTemp);
+        this.uvs = new Float32Array(uvsTemp);
+        this.generateIdx();
+        this.generatePos();
+        this.generateNor();
+        this.generateUV();
+        this.generateTranslate();
+        this.generateTransform1();
+        this.generateTransform2();
+        this.generateTransform3();
+        this.generateCol();
+        this.count = this.indices.length;
+        __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].ELEMENT_ARRAY_BUFFER, this.bufIdx);
+        __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].bufferData(__WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].ELEMENT_ARRAY_BUFFER, this.indices, __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].STATIC_DRAW);
+        __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].ARRAY_BUFFER, this.bufNor);
+        __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].bufferData(__WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].ARRAY_BUFFER, this.normals, __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].STATIC_DRAW);
+        __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].ARRAY_BUFFER, this.bufPos);
+        __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].bufferData(__WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].ARRAY_BUFFER, this.positions, __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].STATIC_DRAW);
+        // gl.bindBuffer(gl.ARRAY_BUFFER, this.bufCol);
+        // gl.bufferData(gl.ARRAY_BUFFER, this.colors, gl.STATIC_DRAW);
+        __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].ARRAY_BUFFER, this.bufUV);
+        __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].bufferData(__WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].ARRAY_BUFFER, this.uvs, __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].STATIC_DRAW);
+        console.log(`Created Mesh from OBJ`);
+        this.objString = ""; // hacky clear
+    }
+    setInstanceVBOs(cols1, cols2, cols3, offsets) {
+        // this.colors = colors;
+        this.offsets = offsets;
+        // this.transforms = transforms;
+        this.cols1 = cols1;
+        this.cols2 = cols2;
+        this.cols3 = cols3;
+        __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].ARRAY_BUFFER, this.bufTransform1);
+        __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].bufferData(__WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].ARRAY_BUFFER, this.cols1, __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].STATIC_DRAW);
+        __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].ARRAY_BUFFER, this.bufTransform2);
+        __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].bufferData(__WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].ARRAY_BUFFER, this.cols2, __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].STATIC_DRAW);
+        __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].ARRAY_BUFFER, this.bufTransform3);
+        __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].bufferData(__WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].ARRAY_BUFFER, this.cols3, __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].STATIC_DRAW);
+        __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].ARRAY_BUFFER, this.bufTranslate);
+        __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].bufferData(__WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].ARRAY_BUFFER, this.offsets, __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].STATIC_DRAW);
+    }
+}
+;
+/* harmony default export */ __webpack_exports__["a"] = (Mesh);
+
 
 /***/ }),
 /* 79 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-module.exports = "#version 300 es\nprecision highp float;\n\nin vec4 fs_Col;\n// in vec2 fs_Pos;\n\nout vec4 out_Col;\n\nvoid main()\n{\n    // float dist = 1.0 - (length(fs_Pos.xyz) * 2.0);\n    out_Col = vec4(1.0, 0.0, 0.0, 1.0);\n}\n"
+!function(e,t){ true?module.exports=t():"function"==typeof define&&define.amd?define("OBJ",[],t):"object"==typeof exports?exports.OBJ=t():e.OBJ=t()}("undefined"!=typeof self?self:this,function(){return function(e){function t(a){if(r[a])return r[a].exports;var n=r[a]={i:a,l:!1,exports:{}};return e[a].call(n.exports,n,n.exports,t),n.l=!0,n.exports}var r={};return t.m=e,t.c=r,t.d=function(exports,e,r){t.o(exports,e)||Object.defineProperty(exports,e,{configurable:!1,enumerable:!0,get:r})},t.n=function(e){var r=e&&e.__esModule?function(){return e.default}:function(){return e};return t.d(r,"a",r),r},t.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},t.p="/",t(t.s=3)}([function(e,exports,t){"use strict";function r(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function a(e){switch(e){case"BYTE":case"UNSIGNED_BYTE":return 1;case"SHORT":case"UNSIGNED_SHORT":return 2;case"FLOAT":return 4}}Object.defineProperty(exports,"__esModule",{value:!0});var n=exports.Layout=function e(){r(this,e);for(var t=arguments.length,a=Array(t),n=0;n<t;n++)a[n]=arguments[n];this.attributes=a;var s=0,l=0,o=!0,u=!1,c=void 0;try{for(var f,h=a[Symbol.iterator]();!(o=(f=h.next()).done);o=!0){var p=f.value;if(this[p.key])throw new i(p);s%p.sizeOfType!=0&&(s+=p.sizeOfType-s%p.sizeOfType),this[p.key]={attribute:p,size:p.size,type:p.type,normalized:p.normalized,offset:s},s+=p.sizeInBytes,l=Math.max(l,p.sizeOfType)}}catch(e){u=!0,c=e}finally{try{!o&&h.return&&h.return()}finally{if(u)throw c}}s%l!=0&&(s+=l-s%l),this.stride=s;var v=!0,d=!1,y=void 0;try{for(var m,M=a[Symbol.iterator]();!(v=(m=M.next()).done);v=!0){this[m.value.key].stride=this.stride}}catch(e){d=!0,y=e}finally{try{!v&&M.return&&M.return()}finally{if(d)throw y}}},i=function e(t){r(this,e),this.message="found duplicate attribute: "+t.key},s=function e(t,n,i){arguments.length>3&&void 0!==arguments[3]&&arguments[3];r(this,e),this.key=t,this.size=n,this.type=i,this.normalized=!1,this.sizeOfType=a(i),this.sizeInBytes=this.sizeOfType*n};n.POSITION=new s("position",3,"FLOAT"),n.NORMAL=new s("normal",3,"FLOAT"),n.TANGENT=new s("tangent",3,"FLOAT"),n.BITANGENT=new s("bitangent",3,"FLOAT"),n.UV=new s("uv",2,"FLOAT"),n.MATERIAL_INDEX=new s("materialIndex",1,"SHORT"),n.MATERIAL_ENABLED=new s("materialEnabled",1,"UNSIGNED_SHORT"),n.AMBIENT=new s("ambient",3,"FLOAT"),n.DIFFUSE=new s("diffuse",3,"FLOAT"),n.SPECULAR=new s("specular",3,"FLOAT"),n.SPECULAR_EXPONENT=new s("specularExponent",3,"FLOAT"),n.EMISSIVE=new s("emissive",3,"FLOAT"),n.TRANSMISSION_FILTER=new s("transmissionFilter",3,"FLOAT"),n.DISSOLVE=new s("dissolve",1,"FLOAT"),n.ILLUMINATION=new s("illumination",1,"UNSIGNED_SHORT"),n.REFRACTION_INDEX=new s("refractionIndex",1,"FLOAT"),n.SHARPNESS=new s("sharpness",1,"FLOAT"),n.MAP_DIFFUSE=new s("mapDiffuse",1,"SHORT"),n.MAP_AMBIENT=new s("mapAmbient",1,"SHORT"),n.MAP_SPECULAR=new s("mapSpecular",1,"SHORT"),n.MAP_SPECULAR_EXPONENT=new s("mapSpecularExponent",1,"SHORT"),n.MAP_DISSOLVE=new s("mapDissolve",1,"SHORT"),n.ANTI_ALIASING=new s("antiAliasing",1,"UNSIGNED_SHORT"),n.MAP_BUMP=new s("mapBump",1,"SHORT"),n.MAP_DISPLACEMENT=new s("mapDisplacement",1,"SHORT"),n.MAP_DECAL=new s("mapDecal",1,"SHORT"),n.MAP_EMISSIVE=new s("mapEmissive",1,"SHORT")},function(e,exports,t){"use strict";function r(e){if(Array.isArray(e)){for(var t=0,r=Array(e.length);t<e.length;t++)r[t]=e[t];return r}return Array.from(e)}function a(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}Object.defineProperty(exports,"__esModule",{value:!0});var n=function(){function e(e,t){for(var r=0;r<t.length;r++){var a=t[r];a.enumerable=a.enumerable||!1,a.configurable=!0,"value"in a&&(a.writable=!0),Object.defineProperty(e,a.key,a)}}return function(t,r,a){return r&&e(t.prototype,r),a&&e(t,a),t}}(),i=t(0),s=function(){function e(t,n){a(this,e),n=n||{},n.materials=n.materials||{},n.enableWTextureCoord=!!n.enableWTextureCoord,n.indicesPerMaterial=!!n.indicesPerMaterial;var i=this;i.vertices=[],i.vertexNormals=[],i.textures=[],i.indices=[],i.textureStride=n.enableWTextureCoord?3:2,this.name="";var s=[],l=[],o=[],u={},c=[],f={},h=-1,p=0;u.verts=[],u.norms=[],u.textures=[],u.hashindices={},u.indices=[[]],u.materialIndices=[],u.index=0;for(var v=/^v\s/,d=/^vn\s/,y=/^vt\s/,m=/^f\s/,M=/\s+/,b=/^usemtl/,x=t.split("\n"),I=0;I<x.length;I++){var A=x[I].trim();if(A&&!A.startsWith("#")){var _=A.split(M);if(_.shift(),v.test(A))s.push.apply(s,r(_));else if(d.test(A))l.push.apply(l,r(_));else if(y.test(A)){var k=_;_.length>2&&!n.enableWTextureCoord?k=_.slice(0,2):2===_.length&&n.enableWTextureCoord&&k.push(0),o.push.apply(o,r(k))}else if(b.test(A)){var T=_[0];T in f||(c.push(T),f[T]=c.length-1,n.indicesPerMaterial&&f[T]>0&&u.indices.push([])),h=f[T],n.indicesPerMaterial&&(p=h)}else if(m.test(A))for(var w=!1,F=0,S=_.length;F<S;F++){3!==F||w||(F=2,w=!0);var E=_[0]+","+h,g=_[F]+","+h;if(g in u.hashindices)u.indices[p].push(u.hashindices[g]);else{var O=_[F].split("/"),B=O.length-1;if(u.verts.push(+s[3*(O[0]-1)+0]),u.verts.push(+s[3*(O[0]-1)+1]),u.verts.push(+s[3*(O[0]-1)+2]),o.length){var L=n.enableWTextureCoord?3:2;u.textures.push(+o[(O[1]-1)*L+0]),u.textures.push(+o[(O[1]-1)*L+1]),n.enableWTextureCoord&&u.textures.push(+o[(O[1]-1)*L+2])}u.norms.push(+l[3*(O[B]-1)+0]),u.norms.push(+l[3*(O[B]-1)+1]),u.norms.push(+l[3*(O[B]-1)+2]),u.materialIndices.push(h),u.hashindices[g]=u.index,u.indices[p].push(u.hashindices[g]),u.index+=1}3===F&&w&&u.indices[p].push(u.hashindices[E])}}}i.vertices=u.verts,i.vertexNormals=u.norms,i.textures=u.textures,i.vertexMaterialIndices=u.materialIndices,i.indices=n.indicesPerMaterial?u.indices:u.indices[p],i.materialNames=c,i.materialIndices=f,i.materialsByIndex={},n.calcTangentsAndBitangents&&this.calculateTangentsAndBitangents()}return n(e,[{key:"calculateTangentsAndBitangents",value:function(){var e={};e.tangents=[].concat(r(new Array(this.vertices.length))).map(function(e){return 0}),e.bitangents=[].concat(r(new Array(this.vertices.length))).map(function(e){return 0});var t=void 0;t=Array.isArray(this.indices[0])?[].concat.apply([],this.indices):this.indices;for(var a=this.vertices,n=this.vertexNormals,i=this.textures,s=0;s<t.length;s+=3){var l=t[s+0],o=t[s+1],u=t[s+2],c=a[3*l+0],f=a[3*l+1],h=a[3*l+2],p=i[2*l+0],v=i[2*l+1],d=a[3*o+0],y=a[3*o+1],m=a[3*o+2],M=i[2*o+0],b=i[2*o+1],x=a[3*u+0],I=a[3*u+1],A=a[3*u+2],_=i[2*u+0],k=i[2*u+1],T=d-c,w=y-f,F=m-h,S=x-c,E=I-f,g=A-h,O=M-p,B=b-v,L=_-p,N=k-v,R=O*N-B*L,P=1/(Math.abs(R<1e-4)?1:R),D=(T*N-S*B)*P,C=(w*N-E*B)*P,U=(F*N-g*B)*P,j=(S*O-T*L)*P,z=(E*O-w*L)*P,H=(g*O-F*L)*P,W=n[3*l+0],G=n[3*l+1],V=n[3*l+2],K=n[3*o+0],q=n[3*o+1],X=n[3*o+2],Y=n[3*u+0],J=n[3*u+1],Q=n[3*u+2],Z=D*W+C*G+U*V,ee=D*K+C*q+U*X,te=D*Y+C*J+U*Q,re=D-W*Z,ae=C-G*Z,ne=U-V*Z,ie=D-K*ee,se=C-q*ee,le=U-X*ee,oe=D-Y*te,ue=C-J*te,ce=U-Q*te,fe=Math.sqrt(re*re+ae*ae+ne*ne),he=Math.sqrt(ie*ie+se*se+le*le),pe=Math.sqrt(oe*oe+ue*ue+ce*ce),ve=j*W+z*G+H*V,de=j*K+z*q+H*X,ye=j*Y+z*J+H*Q,me=j-W*ve,Me=z-G*ve,be=H-V*ve,xe=j-K*de,Ie=z-q*de,Ae=H-X*de,_e=j-Y*ye,ke=z-J*ye,Te=H-Q*ye,we=Math.sqrt(me*me+Me*Me+be*be),Fe=Math.sqrt(xe*xe+Ie*Ie+Ae*Ae),Se=Math.sqrt(_e*_e+ke*ke+Te*Te);e.tangents[3*l+0]+=re/fe,e.tangents[3*l+1]+=ae/fe,e.tangents[3*l+2]+=ne/fe,e.tangents[3*o+0]+=ie/he,e.tangents[3*o+1]+=se/he,e.tangents[3*o+2]+=le/he,e.tangents[3*u+0]+=oe/pe,e.tangents[3*u+1]+=ue/pe,e.tangents[3*u+2]+=ce/pe,e.bitangents[3*l+0]+=me/we,e.bitangents[3*l+1]+=Me/we,e.bitangents[3*l+2]+=be/we,e.bitangents[3*o+0]+=xe/Fe,e.bitangents[3*o+1]+=Ie/Fe,e.bitangents[3*o+2]+=Ae/Fe,e.bitangents[3*u+0]+=_e/Se,e.bitangents[3*u+1]+=ke/Se,e.bitangents[3*u+2]+=Te/Se}this.tangents=e.tangents,this.bitangents=e.bitangents}},{key:"makeBufferData",value:function(e){var t=this.vertices.length/3,r=new ArrayBuffer(e.stride*t);r.numItems=t;for(var a=new DataView(r),n=0,s=0;n<t;n++){s=n*e.stride;var l=!0,o=!1,u=void 0;try{for(var c,f=e.attributes[Symbol.iterator]();!(l=(c=f.next()).done);l=!0){var h=c.value,p=s+e[h.key].offset;switch(h.key){case i.Layout.POSITION.key:a.setFloat32(p,this.vertices[3*n],!0),a.setFloat32(p+4,this.vertices[3*n+1],!0),a.setFloat32(p+8,this.vertices[3*n+2],!0);break;case i.Layout.UV.key:a.setFloat32(p,this.textures[2*n],!0),a.setFloat32(p+4,this.vertices[2*n+1],!0);break;case i.Layout.NORMAL.key:a.setFloat32(p,this.vertexNormals[3*n],!0),a.setFloat32(p+4,this.vertexNormals[3*n+1],!0),a.setFloat32(p+8,this.vertexNormals[3*n+2],!0);break;case i.Layout.MATERIAL_INDEX.key:a.setInt16(p,this.vertexMaterialIndices[n],!0);break;case i.Layout.AMBIENT.key:var v=this.vertexMaterialIndices[n],d=this.materialsByIndex[v];if(!d)break;a.setFloat32(p,d.ambient[0],!0),a.setFloat32(p+4,d.ambient[1],!0),a.setFloat32(p+8,d.ambient[2],!0);break;case i.Layout.DIFFUSE.key:var y=this.vertexMaterialIndices[n],m=this.materialsByIndex[y];if(!m)break;a.setFloat32(p,m.diffuse[0],!0),a.setFloat32(p+4,m.diffuse[1],!0),a.setFloat32(p+8,m.diffuse[2],!0);break;case i.Layout.SPECULAR.key:var M=this.vertexMaterialIndices[n],b=this.materialsByIndex[M];if(!b)break;a.setFloat32(p,b.specular[0],!0),a.setFloat32(p+4,b.specular[1],!0),a.setFloat32(p+8,b.specular[2],!0);break;case i.Layout.SPECULAR_EXPONENT.key:var x=this.vertexMaterialIndices[n],I=this.materialsByIndex[x];if(!I)break;a.setFloat32(p,I.specularExponent,!0);break;case i.Layout.EMISSIVE.key:var A=this.vertexMaterialIndices[n],_=this.materialsByIndex[A];if(!_)break;a.setFloat32(p,_.emissive[0],!0),a.setFloat32(p+4,_.emissive[1],!0),a.setFloat32(p+8,_.emissive[2],!0);break;case i.Layout.TRANSMISSION_FILTER.key:var k=this.vertexMaterialIndices[n],T=this.materialsByIndex[k];if(!T)break;a.setFloat32(p,T.transmissionFilter[0],!0),a.setFloat32(p+4,T.transmissionFilter[1],!0),a.setFloat32(p+8,T.transmissionFilter[2],!0);break;case i.Layout.DISSOLVE.key:var w=this.vertexMaterialIndices[n],F=this.materialsByIndex[w];if(!F)break;a.setFloat32(p,F.dissolve,!0);break;case i.Layout.ILLUMINATION.key:var S=this.vertexMaterialIndices[n],E=this.materialsByIndex[S];if(!E)break;a.setInt16(p,E.illumination,!0);break;case i.Layout.REFRACTION_INDEX.key:var g=this.vertexMaterialIndices[n],O=this.materialsByIndex[g];if(!O)break;a.setFloat32(p,O.refractionIndex,!0);break;case i.Layout.SHARPNESS.key:var B=this.vertexMaterialIndices[n],L=this.materialsByIndex[B];if(!L)break;a.setFloat32(p,L.sharpness,!0);break;case i.Layout.ANTI_ALIASING.key:var N=this.vertexMaterialIndices[n],R=this.materialsByIndex[N];if(!R)break;a.setInt16(p,R.antiAliasing,!0)}}}catch(e){o=!0,u=e}finally{try{!l&&f.return&&f.return()}finally{if(o)throw u}}}return r}},{key:"makeIndexBufferData",value:function(){var e=new Uint16Array(this.indices);return e.numItems=this.indices.length,e}},{key:"addMaterialLibrary",value:function(e){for(var t in e.materials)if(t in this.materialIndices){var r=e.materials[t],a=this.materialIndices[r.name];this.materialsByIndex[a]=r}}}]),e}();exports.default=s},function(e,exports,t){"use strict";function r(e){return Array.isArray(e)?e:Array.from(e)}function a(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}Object.defineProperty(exports,"__esModule",{value:!0});var n=function(){function e(e,t){for(var r=0;r<t.length;r++){var a=t[r];a.enumerable=a.enumerable||!1,a.configurable=!0,"value"in a&&(a.writable=!0),Object.defineProperty(e,a.key,a)}}return function(t,r,a){return r&&e(t.prototype,r),a&&e(t,a),t}}(),i=exports.Material=function e(t){a(this,e),this.name=t,this.ambient=[0,0,0],this.diffuse=[0,0,0],this.specular=[0,0,0],this.emissive=[0,0,0],this.transmissionFilter=[0,0,0],this.dissolve=0,this.specularExponent=0,this.transparency=0,this.illumination=0,this.refractionIndex=1,this.sharpness=0,this.mapDiffuse=null,this.mapAmbient=null,this.mapSpecular=null,this.mapSpecularExponent=null,this.mapDissolve=null,this.antiAliasing=!1,this.mapBump=null,this.mapDisplacement=null,this.mapDecal=null,this.mapEmissive=null,this.mapReflections=[]};exports.MaterialLibrary=function(){function e(t){a(this,e),this.data=t,this.currentMaterial=null,this.materials={},this.parse()}return n(e,[{key:"parse_newmtl",value:function(e){var t=e[0];this.currentMaterial=new i(t),this.materials[t]=this.currentMaterial}},{key:"parseColor",value:function(e){if("spectral"!=e[0]&&"xyz"!=e[0]){if(3==e.length)return e.map(parseFloat);var t=parseFloat(e[0]);return[t,t,t]}}},{key:"parse_Ka",value:function(e){this.currentMaterial.ambient=this.parseColor(e)}},{key:"parse_Kd",value:function(e){this.currentMaterial.diffuse=this.parseColor(e)}},{key:"parse_Ks",value:function(e){this.currentMaterial.specular=this.parseColor(e)}},{key:"parse_Ke",value:function(e){this.currentMaterial.emissive=this.parseColor(e)}},{key:"parse_Tf",value:function(e){this.currentMaterial.transmissionFilter=this.parseColor(e)}},{key:"parse_d",value:function(e){this.currentMaterial.dissolve=parseFloat(e.pop())}},{key:"parse_illum",value:function(e){this.currentMaterial.illumination=parseInt(e[0])}},{key:"parse_Ni",value:function(e){this.currentMaterial.refractionIndex=parseFloat(e[0])}},{key:"parse_Ns",value:function(e){this.currentMaterial.specularExponent=parseInt(e[0])}},{key:"parse_sharpness",value:function(e){this.currentMaterial.sharpness=parseInt(e[0])}},{key:"parse_cc",value:function(e,t){t.colorCorrection="on"==e[0]}},{key:"parse_blendu",value:function(e,t){t.horizontalBlending="on"==e[0]}},{key:"parse_blendv",value:function(e,t){t.verticalBlending="on"==e[0]}},{key:"parse_boost",value:function(e,t){t.boostMipMapSharpness=parseFloat(e[0])}},{key:"parse_mm",value:function(e,t){t.modifyTextureMap.brightness=parseFloat(e[0]),t.modifyTextureMap.contrast=parseFloat(e[1])}},{key:"parse_ost",value:function(e,t,r){for(;e.length<3;)e.push(r);t.u=parseFloat(e[0]),t.v=parseFloat(e[1]),t.w=parseFloat(e[2])}},{key:"parse_o",value:function(e,t){this.parse_ost(e,t.offset,0)}},{key:"parse_s",value:function(e,t){this.parse_ost(e,t.scale,1)}},{key:"parse_t",value:function(e,t){this.parse_ost(e,t.turbulence,0)}},{key:"parse_texres",value:function(e,t){t.textureResolution=parseFloat(e[0])}},{key:"parse_clamp",value:function(e,t){t.clamp="on"==e[0]}},{key:"parse_bm",value:function(e,t){t.bumpMultiplier=parseFloat(e[0])}},{key:"parse_imfchan",value:function(e,t){t.imfChan=e[0]}},{key:"parse_type",value:function(e,t){t.reflectionType=e[0]}},{key:"parseOptions",value:function(e){var t={colorCorrection:!1,horizontalBlending:!0,verticalBlending:!0,boostMipMapSharpness:0,modifyTextureMap:{brightness:0,contrast:1},offset:{u:0,v:0,w:0},scale:{u:1,v:1,w:1},turbulence:{u:0,v:0,w:0},clamp:!1,textureResolution:null,bumpMultiplier:1,imfChan:null},r=void 0,a=void 0,n={};for(e.reverse();e.length;){var i=e.pop();i.startsWith("-")?(r=i.substr(1),n[r]=[]):n[r].push(i)}for(r in n)if(n.hasOwnProperty(r)){a=n[r];var s=this["parse_"+r];s&&s.bind(this)(a,t)}return t}},{key:"parseMap",value:function(e){var t=void 0,a=void 0;if(e[0].startsWith("-"))t=e.pop(),a=e;else{var n=r(e);t=n[0],a=n.slice(1)}return a=this.parseOptions(a),a.filename=t,a}},{key:"parse_map_Ka",value:function(e){this.currentMaterial.mapAmbient=this.parseMap(e)}},{key:"parse_map_Kd",value:function(e){this.currentMaterial.mapDiffuse=this.parseMap(e)}},{key:"parse_map_Ks",value:function(e){this.currentMaterial.mapSpecular=this.parseMap(e)}},{key:"parse_map_Ke",value:function(e){this.currentMaterial.mapEmissive=this.parseMap(e)}},{key:"parse_map_Ns",value:function(e){this.currentMaterial.mapSpecularExponent=this.parseMap(e)}},{key:"parse_map_d",value:function(e){this.currentMaterial.mapDissolve=this.parseMap(e)}},{key:"parse_map_aat",value:function(e){this.currentMaterial.antiAliasing="on"==e[0]}},{key:"parse_map_bump",value:function(e){this.currentMaterial.mapBump=this.parseMap(e)}},{key:"parse_bump",value:function(e){this.parse_map_bump(e)}},{key:"parse_disp",value:function(e){this.currentMaterial.mapDisplacement=this.parseMap(e)}},{key:"parse_decal",value:function(e){this.currentMaterial.mapDecal=this.parseMap(e)}},{key:"parse_refl",value:function(e){this.currentMaterial.mapReflections.push(this.parseMap(e))}},{key:"parse",value:function(){var e=this.data.split(/\r?\n/),t=!0,a=!1,n=void 0;try{for(var i,s=e[Symbol.iterator]();!(t=(i=s.next()).done);t=!0){var l=i.value;if((l=l.trim())&&!l.startsWith("#")){var o=l.split(/\s/),u=void 0,c=o,f=r(c);u=f[0],o=f.slice(1);var h=this["parse_"+u];h&&h.bind(this)(o)}}}catch(e){a=!0,n=e}finally{try{!t&&s.return&&s.return()}finally{if(a)throw n}}delete this.data,this.currentMaterial=null}}]),e}()},function(e,exports,t){e.exports=t(4)},function(e,exports,t){"use strict";Object.defineProperty(exports,"__esModule",{value:!0}),exports.version=exports.deleteMeshBuffers=exports.initMeshBuffers=exports.downloadMeshes=exports.downloadModels=exports.Layout=exports.MaterialLibrary=exports.Material=exports.Mesh=void 0;var r=t(1),a=function(e){return e&&e.__esModule?e:{default:e}}(r),n=t(2),i=t(0),s=t(5);exports.Mesh=a.default,exports.Material=n.Material,exports.MaterialLibrary=n.MaterialLibrary,exports.Layout=i.Layout,exports.downloadModels=s.downloadModels,exports.downloadMeshes=s.downloadMeshes,exports.initMeshBuffers=s.initMeshBuffers,exports.deleteMeshBuffers=s.deleteMeshBuffers,exports.version="1.1.3"},function(e,exports,t){"use strict";function r(e,t){var r=["mapDiffuse","mapAmbient","mapSpecular","mapDissolve","mapBump","mapDisplacement","mapDecal","mapEmissive"];t.endsWith("/")||(t+="/");var a=[];for(var n in e.materials)if(e.materials.hasOwnProperty(n)){n=e.materials[n];var i=!0,s=!1,l=void 0;try{for(var o,u=r[Symbol.iterator]();!(i=(o=u.next()).done);i=!0){var c=o.value;(function(e){var r=n[e];if(!r)return"continue";var i=t+r.filename;a.push(fetch(i).then(function(e){if(!e.ok)throw new Error;return e.blob()}).then(function(e){var t=new Image;return t.src=URL.createObjectURL(e),r.texture=t,new Promise(function(e){return t.onload=e})}).catch(function(){}))})(c)}}catch(e){s=!0,l=e}finally{try{!i&&u.return&&u.return()}finally{if(s)throw l}}}return Promise.all(a)}function a(e){var t=[],a=!0,n=!1,i=void 0;try{for(var s,o=e[Symbol.iterator]();!(a=(s=o.next()).done);a=!0){var f=s.value;!function(e){var a=[];if(!e.obj)throw new Error('"obj" attribute of model object not set. The .obj file is required to be set in order to use downloadModels()');var n={};n.indicesPerMaterial=!!e.indicesPerMaterial,n.calcTangentsAndBitangents=!!e.calcTangentsAndBitangents;var i=e.name;if(!i){var s=e.obj.split("/");i=s[s.length-1].replace(".obj","")}if(a.push(Promise.resolve(i)),a.push(fetch(e.obj).then(function(e){return e.text()}).then(function(e){return new u.default(e,n)})),e.mtl){var l=e.mtl;"boolean"==typeof l&&(l=e.obj.replace(/\.obj$/,".mtl")),a.push(fetch(l).then(function(e){return e.text()}).then(function(t){var a=new c.MaterialLibrary(t);if(!1!==e.downloadMtlTextures){var n=e.mtlTextureRoot;return n||(n=l.substr(0,l.lastIndexOf("/"))),Promise.all([Promise.resolve(a),r(a,n)])}return Promise.all(Promise.resolve(a))}).then(function(e){return e[0]}))}t.push(Promise.all(a))}(f)}}catch(e){n=!0,i=e}finally{try{!a&&o.return&&o.return()}finally{if(n)throw i}}return Promise.all(t).then(function(e){var t={},r=!0,a=!1,n=void 0;try{for(var i,s=e[Symbol.iterator]();!(r=(i=s.next()).done);r=!0){var o=i.value,u=l(o,3),c=u[0],f=u[1],h=u[2];f.name=c,h&&f.addMaterialLibrary(h),t[c]=f}}catch(e){a=!0,n=e}finally{try{!r&&s.return&&s.return()}finally{if(a)throw n}}return t})}function n(e,t,r){void 0===r&&(r={});var a=[];for(var n in e){(function(t){if(!e.hasOwnProperty(t))return"continue";var r=e[t];a.push(fetch(r).then(function(e){return e.text()}).then(function(e){return[t,new u.default(e)]}))})(n)}Promise.all(a).then(function(e){var a=!0,n=!1,i=void 0;try{for(var s,o=e[Symbol.iterator]();!(a=(s=o.next()).done);a=!0){var u=s.value,c=l(u,2),f=c[0],h=c[1];r[f]=h}}catch(e){n=!0,i=e}finally{try{!a&&o.return&&o.return()}finally{if(n)throw i}}return t(r)})}function i(e,t){t.normalBuffer=f(e,e.ARRAY_BUFFER,t.vertexNormals,3),t.textureBuffer=f(e,e.ARRAY_BUFFER,t.textures,t.textureStride),t.vertexBuffer=f(e,e.ARRAY_BUFFER,t.vertices,3),t.indexBuffer=f(e,e.ELEMENT_ARRAY_BUFFER,t.indices,1)}function s(e,t){e.deleteBuffer(t.normalBuffer),e.deleteBuffer(t.textureBuffer),e.deleteBuffer(t.vertexBuffer),e.deleteBuffer(t.indexBuffer)}Object.defineProperty(exports,"__esModule",{value:!0});var l=function(){function e(e,t){var r=[],a=!0,n=!1,i=void 0;try{for(var s,l=e[Symbol.iterator]();!(a=(s=l.next()).done)&&(r.push(s.value),!t||r.length!==t);a=!0);}catch(e){n=!0,i=e}finally{try{!a&&l.return&&l.return()}finally{if(n)throw i}}return r}return function(t,r){if(Array.isArray(t))return t;if(Symbol.iterator in Object(t))return e(t,r);throw new TypeError("Invalid attempt to destructure non-iterable instance")}}();exports.downloadModels=a,exports.downloadMeshes=n,exports.initMeshBuffers=i,exports.deleteMeshBuffers=s;var o=t(1),u=function(e){return e&&e.__esModule?e:{default:e}}(o),c=t(2),f=(t(0),function(e,t,r,a){var n=e.createBuffer(),i=t===e.ARRAY_BUFFER?Float32Array:Uint16Array;return e.bindBuffer(t,n),e.bufferData(t,new i(r),e.STATIC_DRAW),n.itemSize=a,n.numItems=r.length/a,n})}])});
 
 /***/ }),
 /* 80 */
 /***/ (function(module, exports) {
 
-module.exports = "#version 300 es\nprecision highp float;\n\n// The vertex shader used to render the background of the scene\n\nin vec4 vs_Pos;\nout vec2 fs_Pos;\n\nvoid main() {\n  fs_Pos = vs_Pos.xy;\n  gl_Position = vs_Pos;\n}\n"
+module.exports = "#version 300 es\n\nuniform mat4 u_ViewProj;\nuniform float u_Time;\n\nuniform mat3 u_CameraAxes; // Used for rendering particles as billboards (quads that are always looking at the camera)\n// gl_Position = center + vs_Pos.x * camRight + vs_Pos.y * camUp;\n\nuniform sampler2D u_RenderedTexture;\n\n\nin vec4 vs_Pos; // Non-instanced; each particle is the same quad drawn in a different place\nin vec4 vs_Nor; // Non-instanced, and presently unused\nin vec4 vs_Col; // An instanced rendering attribute; each particle instance has a different color\nin vec3 vs_Translate; // Another instance rendering attribute used to position each quad instance in the scene\nin vec2 vs_UV; // Non-instanced, and presently unused in main(). Feel free to use it for your meshes.\nin vec3 vs_Transform1; // Another instance rendering attribute used to position each quad instance in the scene\nin vec3 vs_Transform2; // Another instance rendering attribute used to position each quad instance in the scene\nin vec3 vs_Transform3; // Another instance rendering attribute used to position each quad instance in the scene\n\n\nout vec4 fs_Col;\nout vec4 fs_Pos;\n\nvoid main()\n{\n    fs_Col = vs_Col;\n    fs_Pos = vs_Pos;\n    // fs_Nor = vec4(0.0, 0.0, 1.0, 0.0);\n\n    mat3 transformation = mat3(vs_Transform1, vs_Transform2, vs_Transform3);\n\n    \n    vec3 instancedPos = transformation * vs_Pos.rga;\n    vec3 rotatedPos = instancedPos;\n    rotatedPos.y = instancedPos.z;\n    rotatedPos.z = instancedPos.y;\n    rotatedPos *= 4.0;\n\n    float x = 0.5 * (rotatedPos.x + 4.0) / 4.0;\n    float y = 0.5 * (rotatedPos.z + 4.0) / 4.0;\n    vec4 textureColor = texture(u_RenderedTexture, vec2(x,  y));\n\n    float height = textureColor.r * 12.0;\n    if (height > 1.3) {\n        height = 1.3;\n    }\n    if (height < 1.1) {\n        height = 1.1;\n    }\n\n    rotatedPos.y = height + 0.05;\n    rotatedPos.y -= 3.0;\n\n\n    // fs_LightVec = lightPos - instancedPos;  // Compute the direction in which the light source lies\n\n    gl_Position = u_ViewProj * vec4(rotatedPos.xyz, 1.0);\n\n\n}\n\n"
 
 /***/ }),
 /* 81 */
 /***/ (function(module, exports) {
 
-module.exports = "#version 300 es\nprecision highp float;\n\nuniform vec3 u_Eye, u_Ref, u_Up;\nuniform vec2 u_Dimensions;\nuniform float u_Time;\nuniform float u_PopToggle;\nuniform float u_TerrainToggle;\nuniform float u_ShorePop;\n\n\nin vec2 fs_Pos;\n// out vec4 out_Col;\nlayout(location = 0) out vec4 out_Col;\n\nfloat random1( vec2 p , vec2 seed) {\n  return fract(sin(dot(p + seed, vec2(127.1, 311.7))) * 43758.5453);\n}\n\nfloat random1( vec3 p , vec3 seed) {\n  return fract(sin(dot(p + seed, vec3(987.654, 123.456, 531.975))) * 85734.3545);\n}\n\nvec2 random2( vec2 p , vec2 seed) {\n  return fract(sin(vec2(dot(p + seed, vec2(311.7, 127.1)), dot(p + seed, vec2(269.5, 183.3)))) * 85734.3545);\n}\n\nfloat interpNoise2d(float x, float y) {\n  float intX = floor(x);\n  float fractX = fract(x);\n  float intY = floor(y);\n  float fractY = fract(y);\n\n  float v1 = random1(vec2(intX, intY), vec2(1.f, 1.f));\n  float v2 = random1(vec2(intX + 1.f, intY), vec2(1.f, 1.f));\n  float v3 = random1(vec2(intX, intY + 1.f), vec2(1.f, 1.f));\n  float v4 = random1(vec2(intX + 1.f, intY + 1.f), vec2(1.f, 1.f));\n\n  float i1 = mix(v1, v2, fractX);\n  float i2 = mix(v3, v4, fractX);\n  return mix(i1, i2, fractY);\n  return 2.0;\n\n}\n\n\nfloat interpNoise3d(float x, float y, float z) {\n  float intX = floor(x);\n  float fractX = fract(x);\n  float intY = floor(y);\n  float fractY = fract(y);\n  float intZ = floor(z);\n  float fractZ = fract(z);\n\n  float v1 = random1(vec3(intX, intY, intZ), vec3(1.f, 1.f, 1.f));\n  float v2 = random1(vec3(intX, intY, intZ + 1.0), vec3(1.f, 1.f, 1.f));\n  float v3 = random1(vec3(intX + 1.0, intY, intZ + 1.0), vec3(1.f, 1.f, 1.f));\n  float v4 = random1(vec3(intX + 1.0, intY, intZ), vec3(1.f, 1.f, 1.f));\n  float v5 = random1(vec3(intX, intY + 1.0, intZ), vec3(1.f, 1.f, 1.f));\n  float v6 = random1(vec3(intX, intY + 1.0, intZ + 1.0), vec3(1.f, 1.f, 1.f));\n  float v7 = random1(vec3(intX + 1.0, intY + 1.0, intZ + 1.0), vec3(1.f, 1.f, 1.f));\n  float v8 = random1(vec3(intX + 1.0, intY + 1.0, intZ), vec3(1.f, 1.f, 1.f));\n\n  float i1 = mix(v2, v3, fractX);\n  float i2 = mix(v1, v4, fractX);\n  float i3 = mix(v6, v7, fractX);\n  float i4 = mix(v5, v8, fractX);\n\n  float j1 = mix(i4, i3, fractZ);\n  float j2 = mix(i2, i1, fractZ);\n\n  return mix(j2, j1, fractY);\n\n}\n\nfloat computeWorley(float x, float y, float numRows, float numCols) {\n    float xPos = x * float(numCols) / 20.f;\n    float yPos = y * float(numRows) / 20.f;\n\n    float minDist = 60.f;\n    vec2 minVec = vec2(0.f, 0.f);\n\n    for (int i = -1; i < 2; i++) {\n        for (int j = -1; j < 2; j++) {\n            vec2 currGrid = vec2(floor(float(xPos)) + float(i), floor(float(yPos)) + float(j));\n            vec2 currNoise = currGrid + random2(currGrid, vec2(2.0, 1.0));\n            float currDist = distance(vec2(xPos, yPos), currNoise);\n            if (currDist <= minDist) {\n                minDist = currDist;\n                minVec = currNoise;\n            }\n        }\n    }\n    return minDist;\n    // return 2.0;\n}\n\nfloat fbmWorley(float x, float y, float height, float xScale, float yScale) {\n  float total = 0.f;\n  float persistence = 0.5f;\n  int octaves = 7;\n  float freq = 2.0;\n  float amp = 1.0;\n  for (int i = 0; i < octaves; i++) {\n    // total += interpNoise2d( (x / xScale) * freq, (y / yScale) * freq) * amp;\n    total += computeWorley( (x / xScale) * freq, (y / yScale) * freq, 2.0, 2.0) * amp;\n    freq *= 2.0;\n    amp *= persistence;\n  }\n  return height * total;\n}\n\nfloat fbmWorley2(float x, float y, float height, float xScale, float yScale) {\n  float total = 0.f;\n  float persistence = 0.5f;\n  int octaves = 7;\n  float freq = 2.0;\n  float amp = 1.0;\n  for (int i = 0; i < octaves; i++) {\n    // total += interpNoise2d( (x / xScale) * freq, (y / yScale) * freq) * amp;\n    total += computeWorley( (x / xScale) * freq, (y / yScale) * freq, 1.0, 1.0) * amp;\n    freq *= 2.0;\n    amp *= persistence;\n  }\n  return height * total;\n}\n\nfloat fbm(float x, float y, float height, float xScale, float yScale) {\n  float total = 0.f;\n  float persistence = 0.5f;\n  int octaves = 8;\n  float freq = 2.0;\n  float amp = 1.0;\n  for (int i = 0; i < octaves; i++) {\n    // total += interpNoise2d( (x / xScale) * freq, (y / yScale) * freq) * amp;\n    total += interpNoise2d( (x / xScale) * freq, (y / yScale) * freq) * amp;\n    freq *= 2.0;\n    amp *= persistence;\n  }\n  return height * total;\n}\n\nfloat fbm3D(float x, float y, float z, float height, float xScale, float yScale, float zScale) {\n  float total = 0.f;\n  float persistence = 0.5f;\n  int octaves = 8;\n  float freq = 2.0;\n  float amp = 1.0;\n  for (int i = 0; i < octaves; i++) {\n    // total += interpNoise2d( (x / xScale) * freq, (y / yScale) * freq) * amp;\n    total += interpNoise3d( (x / xScale) * freq, (y / yScale) * freq, (z / zScale) * freq) * amp;\n    freq *= 2.0;\n    amp *= persistence;\n  }\n  return height * total;\n}\n\nvoid main() {\n\n  float x = 0.5 * (fs_Pos.x + 1.0);\n  float y = 0.5 * (fs_Pos.y + 1.0);\n\n  x /= 1.9;\n  y /= 1.9;\n  x += 0.07;\n  y += 0.18;\n\n  float gray = pow(computeWorley(512.0 * x, 512.0 * y, 0.1, 0.1), 2.0);\n\n  float heightMap = 1.0 - pow(fbmWorley(0.9 * 400.0 * x, 0.9 * 512.0 * y, 0.8, 100.0, 120.0), 1.5);\n  float worleyMap = 0.05 * (1.0 - pow(computeWorley(512.0 * x, 512.0 * y, 1.0, 0.1), 1.0));\n\n  vec3 waterColor = vec3(0.0, 0.0, 1.0);\n  vec3 landColor = vec3(0.4, 1.0, 0.0);\n\n  vec3 terrainColor = mix(landColor, waterColor, heightMap);\n\n  if (heightMap + worleyMap < 0.53) {\n    terrainColor = heightMap * heightMap * waterColor;\n    if (heightMap == 0.0) {\n      terrainColor = waterColor;\n    }\n  } else {\n    terrainColor = heightMap * heightMap* landColor;\n  }\n  terrainColor.r = mix(0.0, 0.4, heightMap * heightMap);\n\n  float population = 2.0 * pow((1.0 - fbmWorley2(512.0 * x - 80.0, 512.0 * y - 60.0, 1.0, 13.0, 13.0)), 1.5);\n  if (heightMap + worleyMap > 0.53 && heightMap + worleyMap < 0.65) {\n    population += mix(0.0, 10.0 * u_ShorePop, 0.65 - (heightMap + worleyMap));\n  }\n  \n  population *= floor(0.9 + terrainColor.g);\n  out_Col = vec4(terrainColor, population);\n\n}\n"
+module.exports = "#version 300 es\nprecision highp float;\n\nin vec4 fs_Col;\n// in vec2 fs_Pos;\n\nout vec4 out_Col;\n\nvoid main()\n{\n    // float dist = 1.0 - (length(fs_Pos.xyz) * 2.0);\n    out_Col = vec4(0.0, 0.0, 0.0, 1.0);\n}\n"
 
 /***/ }),
 /* 82 */
 /***/ (function(module, exports) {
 
-module.exports = "#version 300 es\nprecision highp float;\n\n// The vertex shader used to render the background of the scene\n\nin vec4 vs_Pos;\nuniform mat4 u_ViewProj;\nuniform mat4 u_Model;\nout vec2 fs_Pos;\nuniform sampler2D u_RenderedTexture;\n\n\nvoid main() {\n    fs_Pos = vs_Pos.xz;\n\n    float x = 0.5 * (fs_Pos.x + 4.0) / 4.0;\n    float y = 0.5 * (fs_Pos.y + 4.0) / 4.0;\n\n    vec4 textureColor = texture(u_RenderedTexture, vec2(x,  y));\n\n    vec4 instancedPos = vs_Pos;\n\n    float height = textureColor.r * 12.0;\n    if (height > 1.3) {\n        height = 1.3;\n    }\n    if (height < 1.1) {\n        height = 1.1;\n    }\n\n    instancedPos.y += height;\n\n    // fs_LightVec = lightPos - instancedPos;  // Compute the direction in which the light source lies\n\n    gl_Position = u_ViewProj * vec4(instancedPos.xyz, 1.0);\n}\n"
+module.exports = "#version 300 es\n\nuniform mat4 u_ViewProj;\nuniform float u_Time;\n\nuniform mat3 u_CameraAxes; // Used for rendering particles as billboards (quads that are always looking at the camera)\n// gl_Position = center + vs_Pos.x * camRight + vs_Pos.y * camUp;\n\nuniform sampler2D u_RenderedTexture;\n\n\nin vec4 vs_Pos; // Non-instanced; each particle is the same quad drawn in a different place\nin vec4 vs_Nor; // Non-instanced, and presently unused\nin vec4 vs_Col; // An instanced rendering attribute; each particle instance has a different color\nin vec3 vs_Translate; // Another instance rendering attribute used to position each quad instance in the scene\nin vec2 vs_UV; // Non-instanced, and presently unused in main(). Feel free to use it for your meshes.\nin vec3 vs_Transform1; // Another instance rendering attribute used to position each quad instance in the scene\nin vec3 vs_Transform2; // Another instance rendering attribute used to position each quad instance in the scene\nin vec3 vs_Transform3; // Another instance rendering attribute used to position each quad instance in the scene\n\n\nout vec4 fs_Col;\nout vec4 fs_Pos;\nout vec4 fs_Nor;\nout vec4 fs_LightVec1;\nout vec4 fs_LightVec2;\n\nout vec3 fs_Translate;\nconst vec4 lightPos1 = vec4(50, 10, 50, 1); //The position of our virtual light, which is used to compute the shading of\nconst vec4 lightPos2 = vec4(-50, 10, -50, 1); //The position of our virtual light, which is used to compute the shading of\n\n\nvoid main()\n{\n    fs_Col = vs_Col;\n    fs_Pos = vs_Pos;\n    fs_Nor = vs_Nor;\n    fs_Translate = vs_Translate;\n\n    // mat3 transformation = mat3(vs_Transform1, vs_Transform2, vs_Transform3);\n\n    \n    vec3 instancedPos = 0.03 * vs_Pos.rgb + vs_Translate;\n\n    // vec3 rotatedPos = instancedPos;\n    // rotatedPos.y = instancedPos.z;\n    // rotatedPos.z = instancedPos.y;\n    // rotatedPos *= 4.0;\n\n    // float x = 0.5 * (instancedPos.x + 4.0) / 4.0;\n    // float y = 0.5 * (instancedPos.z + 4.0) / 4.0;\n    // vec4 textureColor = texture(u_RenderedTexture, vec2(x,  y));\n\n    // float height = textureColor.r * 12.0;\n    // if (height > 1.3) {\n    //     height = 1.3;\n    // }\n    // if (height < 1.1) {\n    //     height = 1.1;\n    // }\n\n    // if (abs(instancedPos.y - height) < 0.05) {\n    //     instancedPos.y = height;\n    // }\n\n\n    fs_LightVec1 = lightPos1 - vec4(instancedPos, 1.0);  // Compute the direction in which the light source lies\n    fs_LightVec2 = lightPos2 - vec4(instancedPos, 1.0);  // Compute the direction in which the light source lies\n\n    instancedPos.y -= 3.0;\n\n    gl_Position = u_ViewProj * vec4(instancedPos.xyz, 1.0);\n\n\n}\n\n"
 
 /***/ }),
 /* 83 */
 /***/ (function(module, exports) {
 
+module.exports = "#version 300 es\nprecision highp float;\n\nin vec4 fs_Col;\nin vec4 fs_Pos;\nin vec4 fs_Nor;\nin vec4 fs_LightVec1;\nin vec4 fs_LightVec2;\n\nin vec3 fs_Translate;\n\nuniform sampler2D u_RenderedTexture;\n\nfloat random1( vec2 p , vec2 seed) {\n  return fract(sin(dot(p + seed, vec2(127.1, 311.7))) * 43758.5453);\n}\n\nfloat random1( vec3 p , vec3 seed) {\n  return fract(sin(dot(p + seed, vec3(987.654, 123.456, 531.975))) * 85734.3545);\n}\n\nvec2 random2( vec2 p , vec2 seed) {\n  return fract(sin(vec2(dot(p + seed, vec2(311.7, 127.1)), dot(p + seed, vec2(269.5, 183.3)))) * 85734.3545);\n}\n\nfloat interpNoise2d(float x, float y) {\n  float intX = floor(x);\n  float fractX = fract(x);\n  float intY = floor(y);\n  float fractY = fract(y);\n\n  float v1 = random1(vec2(intX, intY), vec2(1.f, 1.f));\n  float v2 = random1(vec2(intX + 1.f, intY), vec2(1.f, 1.f));\n  float v3 = random1(vec2(intX, intY + 1.f), vec2(1.f, 1.f));\n  float v4 = random1(vec2(intX + 1.f, intY + 1.f), vec2(1.f, 1.f));\n\n  float i1 = mix(v1, v2, fractX);\n  float i2 = mix(v3, v4, fractX);\n  return mix(i1, i2, fractY);\n  return 2.0;\n\n}\n\n\nfloat interpNoise3d(float x, float y, float z) {\n  float intX = floor(x);\n  float fractX = fract(x);\n  float intY = floor(y);\n  float fractY = fract(y);\n  float intZ = floor(z);\n  float fractZ = fract(z);\n\n  float v1 = random1(vec3(intX, intY, intZ), vec3(1.f, 1.f, 1.f));\n  float v2 = random1(vec3(intX, intY, intZ + 1.0), vec3(1.f, 1.f, 1.f));\n  float v3 = random1(vec3(intX + 1.0, intY, intZ + 1.0), vec3(1.f, 1.f, 1.f));\n  float v4 = random1(vec3(intX + 1.0, intY, intZ), vec3(1.f, 1.f, 1.f));\n  float v5 = random1(vec3(intX, intY + 1.0, intZ), vec3(1.f, 1.f, 1.f));\n  float v6 = random1(vec3(intX, intY + 1.0, intZ + 1.0), vec3(1.f, 1.f, 1.f));\n  float v7 = random1(vec3(intX + 1.0, intY + 1.0, intZ + 1.0), vec3(1.f, 1.f, 1.f));\n  float v8 = random1(vec3(intX + 1.0, intY + 1.0, intZ), vec3(1.f, 1.f, 1.f));\n\n  float i1 = mix(v2, v3, fractX);\n  float i2 = mix(v1, v4, fractX);\n  float i3 = mix(v6, v7, fractX);\n  float i4 = mix(v5, v8, fractX);\n\n  float j1 = mix(i4, i3, fractZ);\n  float j2 = mix(i2, i1, fractZ);\n\n  return mix(j2, j1, fractY);\n\n}\n\nfloat fbm3D(float x, float y, float z, float height, float xScale, float yScale, float zScale) {\n  float total = 0.f;\n  float persistence = 0.5f;\n  int octaves = 8;\n  float freq = 2.0;\n  float amp = 1.0;\n  for (int i = 0; i < octaves; i++) {\n    // total += interpNoise2d( (x / xScale) * freq, (y / yScale) * freq) * amp;\n    total += interpNoise3d( (x / xScale) * freq, (y / yScale) * freq, (z / zScale) * freq) * amp;\n    freq *= 2.0;\n    amp *= persistence;\n  }\n  return height * total;\n}\n\nfloat computeWorley(float x, float y, float numRows, float numCols) {\n    float xPos = x * float(numCols) / 20.f;\n    float yPos = y * float(numRows) / 20.f;\n\n    float minDist = 60.f;\n    vec2 minVec = vec2(0.f, 0.f);\n\n    for (int i = -1; i < 2; i++) {\n        for (int j = -1; j < 2; j++) {\n            vec2 currGrid = vec2(floor(float(xPos)) + float(i), floor(float(yPos)) + float(j));\n            vec2 currNoise = currGrid + random2(currGrid, vec2(2.0, 1.0));\n            float currDist = distance(vec2(xPos, yPos), currNoise);\n            if (currDist <= minDist) {\n                minDist = currDist;\n                minVec = currNoise;\n            }\n        }\n    }\n    return minDist;\n    // return 2.0;\n}\n\nfloat fbmWorley(float x, float y, float height, float xScale, float yScale) {\n  float total = 0.f;\n  float persistence = 0.5f;\n  int octaves = 8;\n  float freq = 2.0;\n  float amp = 1.0;\n  for (int i = 0; i < octaves; i++) {\n    // total += interpNoise2d( (x / xScale) * freq, (y / yScale) * freq) * amp;\n    total += computeWorley( (x / xScale) * freq, (y / yScale) * freq, 2.0, 2.0) * amp;\n    freq *= 2.0;\n    amp *= persistence;\n  }\n  return height * total;\n}\n\n\nout vec4 out_Col;\n\nvoid main()\n{   \n\n\n        vec3 instancedPos = 0.03 * fs_Pos.rgb + fs_Translate;\n\n        float x = 0.5 * (instancedPos.x + 4.0) / 4.0;\n        float y = 0.5 * (instancedPos.z + 4.0) / 4.0;\n        vec4 textureColor = texture(u_RenderedTexture, vec2(x,  y));\n\n\n        vec3 stripeColor = vec3(0.0, 0.0, 0.0);\n        vec3 color11 = vec3(0.7 + 0.3 * computeWorley(x, y, 100.0, 100.0), 0.4 + 0.1 * computeWorley(x, y, 100.0, 100.0), 0.4 + 0.1 * computeWorley(x, y, 100.0, 100.0));\n        vec3 color12 = vec3(0.8 + 0.3 * computeWorley(x, y, 100.0, 100.0), 0.6 + 0.3 * computeWorley(x, y, 100.0, 100.0), 0.2 + 0.1 * computeWorley(x, y, 100.0, 100.0));\n        vec3 color13 = vec3(0.4 + 0.1 * computeWorley(x, y, 100.0, 100.0), 0.4 + 0.1 * computeWorley(x, y, 100.0, 100.0), 0.7 + 0.3 * computeWorley(x, y, 100.0, 100.0));\n\n        vec3 color1 = vec3(0.0);\n        float colorProb = computeWorley(x, y, 200.0, 200.0);\n        if (colorProb < 0.3) {\n            color1 = color11;\n        } else if (colorProb < 0.6) {\n            color1 = color12;\n        } else {\n            color1 = color13;\n        }\n\n\n        // vec3 color2 = vec3(0.5 + 0.3 * random1(vec2(x,y), vec2(1.0, 1.0)), 0.6 + 0.2 * random1(vec2(x,y), vec2(1.0, 1.0)), 0.3 + 0.6 * random1(vec2(x,y), vec2(1.0, 1.0)));\n        vec3 color2 = 0.7 * vec3(0.7 + 0.2 * computeWorley(x, y, 110.0, 110.0), 0.7 + 0.2 * computeWorley(x, y, 120.0, 120.0), 0.7 + 0.2 * computeWorley(x, y, 150.0, 150.0));\n\n        vec3 diffuseColor = mix(color1, color2, pow(textureColor.a, 2.0));\n        if (textureColor.a < 0.0000001) {\n            diffuseColor = mix(color1, color2, 0.9);\n        }\n        // diffuseColor = color1;\n\n        if (textureColor.a > 0.7 || textureColor.a < 0.0000001) {\n          if (abs(fs_Nor.z) > 0.001) {\n            diffuseColor *= (1.0 - pow(sin(instancedPos.x * 300.0), 5.0));\n          } \n          if (abs(fs_Nor.x) > 0.001) {\n              diffuseColor *= (1.0 - pow(sin(instancedPos.z * 300.0), 5.0));\n          }\n        } else {\n          diffuseColor *= fbm3D(instancedPos.x, instancedPos.y, instancedPos.z, 1.0, 0.1, 0.1, 0.1);\n        }\n\n\n        vec3 light1Color = vec3(1.2, 1.1, 0.8);\n        vec3 light2Color = vec3(1.0, 0.8, 1.2);\n        float light1Intensity = 1.0;\n        float light2Intensity = 1.0;\n\n        // Calculate the diffuse term for Lambert shading\n        float diffuseTerm1 = 2.0 * clamp(dot(normalize(fs_Nor), normalize(fs_LightVec1)), 0.0, 1.0);\n        float diffuseTerm2 = clamp(dot(normalize(fs_Nor), normalize(fs_LightVec2)), 0.0, 1.0);\n\n        // Avoid negative lighting values\n        // diffuseTerm = clamp(diffuseTerm, 0, 1);\n\n        float ambientTerm = 0.1;\n        diffuseTerm1 += ambientTerm;\n        diffuseTerm2 += ambientTerm;\n\n\n\n        // float lightIntensity = diffuseTerm + ambientTerm;   //Add a small float value to the color multiplier\n                                                            //to simulate ambient lighting. This ensures that faces that are not\n                                                            //lit by our point light are not completely black.\n        // float lightIntensity2 = 0.5 * diffuseTerm2 + ambientTerm;   //Add a small float value to the color multiplier\n                                                            //to simulate ambient lighting. This ensures that faces that are not\n                                                            //lit by our point light are not completely black.\n        // Compute final shaded color\n\n        out_Col = vec4(diffuseColor * (light1Intensity * light1Color * diffuseTerm1 + light2Intensity * light2Color * diffuseTerm2), 1.0);\n        // out_Col = vec4(fs_Nor.xyz, 1.0);\n    // float dist = 1.0 - (length(fs_Pos.xyz) * 2.0);\n}\n"
+
+/***/ }),
+/* 84 */
+/***/ (function(module, exports) {
+
+module.exports = "#version 300 es\nprecision highp float;\n\n// The vertex shader used to render the background of the scene\n\nin vec4 vs_Pos;\nout vec2 fs_Pos;\n\nvoid main() {\n  fs_Pos = vs_Pos.xy;\n  gl_Position = vs_Pos;\n}\n"
+
+/***/ }),
+/* 85 */
+/***/ (function(module, exports) {
+
+module.exports = "#version 300 es\nprecision highp float;\n\nuniform vec3 u_Eye, u_Ref, u_Up;\nuniform vec2 u_Dimensions;\nuniform float u_Time;\nuniform float u_PopToggle;\nuniform float u_TerrainToggle;\nuniform float u_ShorePop;\n\n\nin vec2 fs_Pos;\n// out vec4 out_Col;\nlayout(location = 0) out vec4 out_Col;\n\nfloat random1( vec2 p , vec2 seed) {\n  return fract(sin(dot(p + seed, vec2(127.1, 311.7))) * 43758.5453);\n}\n\nfloat random1( vec3 p , vec3 seed) {\n  return fract(sin(dot(p + seed, vec3(987.654, 123.456, 531.975))) * 85734.3545);\n}\n\nvec2 random2( vec2 p , vec2 seed) {\n  return fract(sin(vec2(dot(p + seed, vec2(311.7, 127.1)), dot(p + seed, vec2(269.5, 183.3)))) * 85734.3545);\n}\n\nfloat interpNoise2d(float x, float y) {\n  float intX = floor(x);\n  float fractX = fract(x);\n  float intY = floor(y);\n  float fractY = fract(y);\n\n  float v1 = random1(vec2(intX, intY), vec2(1.f, 1.f));\n  float v2 = random1(vec2(intX + 1.f, intY), vec2(1.f, 1.f));\n  float v3 = random1(vec2(intX, intY + 1.f), vec2(1.f, 1.f));\n  float v4 = random1(vec2(intX + 1.f, intY + 1.f), vec2(1.f, 1.f));\n\n  float i1 = mix(v1, v2, fractX);\n  float i2 = mix(v3, v4, fractX);\n  return mix(i1, i2, fractY);\n  return 2.0;\n\n}\n\n\nfloat interpNoise3d(float x, float y, float z) {\n  float intX = floor(x);\n  float fractX = fract(x);\n  float intY = floor(y);\n  float fractY = fract(y);\n  float intZ = floor(z);\n  float fractZ = fract(z);\n\n  float v1 = random1(vec3(intX, intY, intZ), vec3(1.f, 1.f, 1.f));\n  float v2 = random1(vec3(intX, intY, intZ + 1.0), vec3(1.f, 1.f, 1.f));\n  float v3 = random1(vec3(intX + 1.0, intY, intZ + 1.0), vec3(1.f, 1.f, 1.f));\n  float v4 = random1(vec3(intX + 1.0, intY, intZ), vec3(1.f, 1.f, 1.f));\n  float v5 = random1(vec3(intX, intY + 1.0, intZ), vec3(1.f, 1.f, 1.f));\n  float v6 = random1(vec3(intX, intY + 1.0, intZ + 1.0), vec3(1.f, 1.f, 1.f));\n  float v7 = random1(vec3(intX + 1.0, intY + 1.0, intZ + 1.0), vec3(1.f, 1.f, 1.f));\n  float v8 = random1(vec3(intX + 1.0, intY + 1.0, intZ), vec3(1.f, 1.f, 1.f));\n\n  float i1 = mix(v2, v3, fractX);\n  float i2 = mix(v1, v4, fractX);\n  float i3 = mix(v6, v7, fractX);\n  float i4 = mix(v5, v8, fractX);\n\n  float j1 = mix(i4, i3, fractZ);\n  float j2 = mix(i2, i1, fractZ);\n\n  return mix(j2, j1, fractY);\n\n}\n\nfloat computeWorley(float x, float y, float numRows, float numCols) {\n    float xPos = x * float(numCols) / 20.f;\n    float yPos = y * float(numRows) / 20.f;\n\n    float minDist = 60.f;\n    vec2 minVec = vec2(0.f, 0.f);\n\n    for (int i = -1; i < 2; i++) {\n        for (int j = -1; j < 2; j++) {\n            vec2 currGrid = vec2(floor(float(xPos)) + float(i), floor(float(yPos)) + float(j));\n            vec2 currNoise = currGrid + random2(currGrid, vec2(2.0, 1.0));\n            float currDist = distance(vec2(xPos, yPos), currNoise);\n            if (currDist <= minDist) {\n                minDist = currDist;\n                minVec = currNoise;\n            }\n        }\n    }\n    return minDist;\n    // return 2.0;\n}\n\nfloat fbmWorley(float x, float y, float height, float xScale, float yScale) {\n  float total = 0.f;\n  float persistence = 0.5f;\n  int octaves = 7;\n  float freq = 2.0;\n  float amp = 1.0;\n  for (int i = 0; i < octaves; i++) {\n    // total += interpNoise2d( (x / xScale) * freq, (y / yScale) * freq) * amp;\n    total += computeWorley( (x / xScale) * freq, (y / yScale) * freq, 2.0, 2.0) * amp;\n    freq *= 2.0;\n    amp *= persistence;\n  }\n  return height * total;\n}\n\nfloat fbmWorley2(float x, float y, float height, float xScale, float yScale) {\n  float total = 0.f;\n  float persistence = 0.5f;\n  int octaves = 7;\n  float freq = 2.0;\n  float amp = 1.0;\n  for (int i = 0; i < octaves; i++) {\n    // total += interpNoise2d( (x / xScale) * freq, (y / yScale) * freq) * amp;\n    total += computeWorley( (x / xScale) * freq, (y / yScale) * freq, 1.0, 1.0) * amp;\n    freq *= 2.0;\n    amp *= persistence;\n  }\n  return height * total;\n}\n\nfloat fbm(float x, float y, float height, float xScale, float yScale) {\n  float total = 0.f;\n  float persistence = 0.5f;\n  int octaves = 8;\n  float freq = 2.0;\n  float amp = 1.0;\n  for (int i = 0; i < octaves; i++) {\n    // total += interpNoise2d( (x / xScale) * freq, (y / yScale) * freq) * amp;\n    total += interpNoise2d( (x / xScale) * freq, (y / yScale) * freq) * amp;\n    freq *= 2.0;\n    amp *= persistence;\n  }\n  return height * total;\n}\n\nfloat fbm3D(float x, float y, float z, float height, float xScale, float yScale, float zScale) {\n  float total = 0.f;\n  float persistence = 0.5f;\n  int octaves = 8;\n  float freq = 2.0;\n  float amp = 1.0;\n  for (int i = 0; i < octaves; i++) {\n    // total += interpNoise2d( (x / xScale) * freq, (y / yScale) * freq) * amp;\n    total += interpNoise3d( (x / xScale) * freq, (y / yScale) * freq, (z / zScale) * freq) * amp;\n    freq *= 2.0;\n    amp *= persistence;\n  }\n  return height * total;\n}\n\nvoid main() {\n\n  float x = 0.5 * (fs_Pos.x + 1.0);\n  float y = 0.5 * (fs_Pos.y + 1.0);\n\n  x /= 1.9;\n  y /= 1.9;\n  x += 0.07;\n  y += 0.18;\n\n  float gray = pow(computeWorley(512.0 * x, 512.0 * y, 0.1, 0.1), 2.0);\n\n  float heightMap = 1.0 - pow(fbmWorley(0.9 * 400.0 * x, 0.9 * 512.0 * y, 0.8, 100.0, 120.0), 1.5);\n  float worleyMap = 0.05 * (1.0 - pow(computeWorley(512.0 * x, 512.0 * y, 1.0, 0.1), 1.0));\n\n  vec3 waterColor = vec3(0.0, 0.0, 1.0);\n  vec3 landColor = vec3(0.4, 1.0, 0.0);\n\n  vec3 terrainColor = mix(landColor, waterColor, heightMap);\n\n  if (heightMap + worleyMap < 0.53) {\n    terrainColor = heightMap * heightMap * waterColor;\n    if (heightMap == 0.0) {\n      terrainColor = waterColor;\n    }\n  } else {\n    terrainColor = heightMap * heightMap* landColor;\n  }\n  terrainColor.r = mix(0.0, 0.4, heightMap * heightMap);\n\n  float population = 2.0 * pow((1.0 - fbmWorley2(512.0 * x - 80.0, 512.0 * y - 60.0, 1.0, 13.0, 13.0)), 1.5);\n  if (heightMap + worleyMap > 0.53 && heightMap + worleyMap < 0.65) {\n    population += mix(0.0, 10.0 * u_ShorePop, 0.65 - (heightMap + worleyMap));\n  }\n  \n  population *= floor(0.9 + terrainColor.g);\n  out_Col = vec4(terrainColor, population);\n\n}\n"
+
+/***/ }),
+/* 86 */
+/***/ (function(module, exports) {
+
+module.exports = "#version 300 es\nprecision highp float;\n\n// The vertex shader used to render the background of the scene\n\nin vec4 vs_Pos;\nuniform mat4 u_ViewProj;\nuniform mat4 u_Model;\nout vec2 fs_Pos;\nuniform sampler2D u_RenderedTexture;\n\n\nvoid main() {\n    fs_Pos = vs_Pos.xz;\n\n    float x = 0.5 * (fs_Pos.x + 4.0) / 4.0;\n    float y = 0.5 * (fs_Pos.y + 4.0) / 4.0;\n\n    vec4 textureColor = texture(u_RenderedTexture, vec2(x,  y));\n\n    vec4 instancedPos = vs_Pos;\n\n    float height = textureColor.r * 12.0;\n    if (height > 1.3) {\n        height = 1.3;\n    }\n    if (height < 1.1) {\n        height = 1.1;\n    }\n\n    instancedPos.y += height;\n\n    // fs_LightVec = lightPos - instancedPos;  // Compute the direction in which the light source lies\n\n    gl_Position = u_ViewProj * vec4(instancedPos.xyz, 1.0);\n}\n"
+
+/***/ }),
+/* 87 */
+/***/ (function(module, exports) {
+
 module.exports = "#version 300 es\nprecision highp float;\n\nuniform vec3 u_Eye, u_Ref, u_Up;\nuniform vec2 u_Dimensions;\nuniform float u_Time;\nuniform sampler2D u_RenderedTexture;\nuniform float u_PopToggle;\nuniform float u_TerrainToggle;\n\n\nin vec2 fs_Pos;\nout vec4 out_Col;\n\nvoid main() {\n\n  float x = 0.5 * (fs_Pos.x + 4.0) / 4.0;\n  float y = 0.5 * (fs_Pos.y + 4.0) / 4.0;\n\n  vec4 textureColor = texture(u_RenderedTexture, vec2(x,  y));\n\n  vec3 finalColor = vec3(0.0);\n  if (u_TerrainToggle == 1.0) {\n    finalColor += textureColor.rgb;\n  }\n  if (u_PopToggle == 1.0) {\n    finalColor += vec3(textureColor.a);\n  }\n  if (u_PopToggle + u_TerrainToggle == 0.0) {\n    finalColor = vec3(1.0);\n  }\n    out_Col = vec4(finalColor, 1.0);\n  // out_Col = vec4(0.0, 0.0, 1.0, 1.0);\n\n}\n"
+
+/***/ }),
+/* 88 */
+/***/ (function(module, exports) {
+
+module.exports = "#version 300 es\nprecision highp float;\n\n// The vertex shader used to render the background of the scene\n\nin vec4 vs_Pos;\nout vec4 fs_Pos;\n\nvoid main() {\n  gl_Position = vs_Pos;\n  fs_Pos = vs_Pos;\n}\n"
+
+/***/ }),
+/* 89 */
+/***/ (function(module, exports) {
+
+module.exports = "#version 300 es\nprecision highp float;\n\nuniform vec2 u_Dimensions;\nuniform float u_Time;\nin vec4 fs_Pos;\n\nout vec4 out_Col;\n\nfloat random1( vec2 p , vec2 seed) {\n  return fract(sin(dot(p + seed, vec2(127.1, 311.7))) * 43758.5453);\n}\n\nfloat random1( vec3 p , vec3 seed) {\n  return fract(sin(dot(p + seed, vec3(987.654, 123.456, 531.975))) * 85734.3545);\n}\n\nvec2 random2( vec2 p , vec2 seed) {\n  return fract(sin(vec2(dot(p + seed, vec2(311.7, 127.1)), dot(p + seed, vec2(269.5, 183.3)))) * 85734.3545);\n}\n\nfloat interpNoise2d(float x, float y) {\n  float intX = floor(x);\n  float fractX = fract(x);\n  float intY = floor(y);\n  float fractY = fract(y);\n\n  float v1 = random1(vec2(intX, intY), vec2(1.f, 1.f));\n  float v2 = random1(vec2(intX + 1.f, intY), vec2(1.f, 1.f));\n  float v3 = random1(vec2(intX, intY + 1.f), vec2(1.f, 1.f));\n  float v4 = random1(vec2(intX + 1.f, intY + 1.f), vec2(1.f, 1.f));\n\n  float i1 = mix(v1, v2, fractX);\n  float i2 = mix(v3, v4, fractX);\n  return mix(i1, i2, fractY);\n  return 2.0;\n\n}\n\n\nfloat interpNoise3d(float x, float y, float z) {\n  float intX = floor(x);\n  float fractX = fract(x);\n  float intY = floor(y);\n  float fractY = fract(y);\n  float intZ = floor(z);\n  float fractZ = fract(z);\n\n  float v1 = random1(vec3(intX, intY, intZ), vec3(1.f, 1.f, 1.f));\n  float v2 = random1(vec3(intX, intY, intZ + 1.0), vec3(1.f, 1.f, 1.f));\n  float v3 = random1(vec3(intX + 1.0, intY, intZ + 1.0), vec3(1.f, 1.f, 1.f));\n  float v4 = random1(vec3(intX + 1.0, intY, intZ), vec3(1.f, 1.f, 1.f));\n  float v5 = random1(vec3(intX, intY + 1.0, intZ), vec3(1.f, 1.f, 1.f));\n  float v6 = random1(vec3(intX, intY + 1.0, intZ + 1.0), vec3(1.f, 1.f, 1.f));\n  float v7 = random1(vec3(intX + 1.0, intY + 1.0, intZ + 1.0), vec3(1.f, 1.f, 1.f));\n  float v8 = random1(vec3(intX + 1.0, intY + 1.0, intZ), vec3(1.f, 1.f, 1.f));\n\n  float i1 = mix(v2, v3, fractX);\n  float i2 = mix(v1, v4, fractX);\n  float i3 = mix(v6, v7, fractX);\n  float i4 = mix(v5, v8, fractX);\n\n  float j1 = mix(i4, i3, fractZ);\n  float j2 = mix(i2, i1, fractZ);\n\n  return mix(j2, j1, fractY);\n\n}\n\nfloat fbm3D(float x, float y, float z, float height, float xScale, float yScale, float zScale) {\n  float total = 0.f;\n  float persistence = 0.5f;\n  int octaves = 8;\n  float freq = 2.0;\n  float amp = 1.0;\n  for (int i = 0; i < octaves; i++) {\n    // total += interpNoise2d( (x / xScale) * freq, (y / yScale) * freq) * amp;\n    total += interpNoise3d( (x / xScale) * freq, (y / yScale) * freq, (z / zScale) * freq) * amp;\n    freq *= 2.0;\n    amp *= persistence;\n  }\n  return height * total;\n}\n\nfloat computeWorley(float x, float y, float numRows, float numCols) {\n    float xPos = x * float(numCols) / 20.f;\n    float yPos = y * float(numRows) / 20.f;\n\n    float minDist = 60.f;\n    vec2 minVec = vec2(0.f, 0.f);\n\n    for (int i = -1; i < 2; i++) {\n        for (int j = -1; j < 2; j++) {\n            vec2 currGrid = vec2(floor(float(xPos)) + float(i), floor(float(yPos)) + float(j));\n            vec2 currNoise = currGrid + random2(currGrid, vec2(2.0, 1.0));\n            float currDist = distance(vec2(xPos, yPos), currNoise);\n            if (currDist <= minDist) {\n                minDist = currDist;\n                minVec = currNoise;\n            }\n        }\n    }\n    return minDist;\n    // return 2.0;\n}\n\nfloat fbm(float x, float y, float height, float xScale, float yScale) {\n  float total = 0.f;\n  float persistence = 0.5f;\n  int octaves = 8;\n  float freq = 2.0;\n  float amp = 1.0;\n  for (int i = 0; i < octaves; i++) {\n    // total += interpNoise2d( (x / xScale) * freq, (y / yScale) * freq) * amp;\n    total += interpNoise2d( (x / xScale) * freq, (y / yScale) * freq) * amp;\n    freq *= 2.0;\n    amp *= persistence;\n  }\n  return height * total;\n}\n\nfloat fbmWorley(float x, float y, float height, float xScale, float yScale) {\n  float total = 0.f;\n  float persistence = 0.5f;\n  int octaves = 8;\n  float freq = 2.0;\n  float amp = 1.0;\n  for (int i = 0; i < octaves; i++) {\n    // total += interpNoise2d( (x / xScale) * freq, (y / yScale) * freq) * amp;\n    total += computeWorley( (x / xScale) * freq, (y / yScale) * freq, 2.0, 2.0) * amp;\n    freq *= 2.0;\n    amp *= persistence;\n  }\n  return height * total;\n}\n\n// display scene\nvoid main() {\n\n    vec3 blueSky = vec3(0.3, 0.7, 1.0);\n    vec3 clouds1 = vec3(1.0, 1.0, 1.0);\n    float yScale = (0.5 * (fs_Pos.y + 1.0));\n    float cloudMap1 = 1.5 - fbm(fs_Pos.x - u_Time / (1000.0 / (yScale * yScale)), fs_Pos.y, 1.0, 1.5 * yScale * yScale, 0.2 * yScale * yScale);\n    cloudMap1 *= (yScale * yScale);\n\n    vec3 clouds2 = vec3(1.0, 0.8, 0.9);\n    float cloudMap2 = 1.0 * (1.0 - fbm(fs_Pos.x - u_Time / (1400.0 / (yScale * yScale)), fs_Pos.y, 1.0, 3.0*  yScale * yScale, 1.0 * yScale * yScale)) ;\n    cloudMap2 *= (yScale * yScale);\n\n    // float cloudMap2 = 0.0;\n\n\n    // vec3 finalColor = cloudMap1 * (clouds1) + (1.0 - cloudMap1) * (cloudMap2 * (clouds2) + (1.0 - cloudMap2) * blueSky);\n    vec3 finalColor = cloudMap1 * (clouds1) + (1.0 - cloudMap1) * (cloudMap2 * (clouds2) + (1.0 - cloudMap2) * blueSky);\n\n\n    out_Col = vec4(finalColor, 1.0);\n\n\n}\n"
 
 /***/ })
 /******/ ]);

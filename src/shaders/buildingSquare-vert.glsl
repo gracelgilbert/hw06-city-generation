@@ -21,12 +21,21 @@ in vec3 vs_Transform3; // Another instance rendering attribute used to position 
 
 out vec4 fs_Col;
 out vec4 fs_Pos;
+out vec4 fs_Nor;
+out vec4 fs_LightVec1;
+out vec4 fs_LightVec2;
+
+out vec3 fs_Translate;
+const vec4 lightPos1 = vec4(50, 10, 50, 1); //The position of our virtual light, which is used to compute the shading of
+const vec4 lightPos2 = vec4(-50, 10, -50, 1); //The position of our virtual light, which is used to compute the shading of
+
 
 void main()
 {
     fs_Col = vs_Col;
     fs_Pos = vs_Pos;
-    // fs_Nor = vec4(0.0, 0.0, 1.0, 0.0);
+    fs_Nor = vs_Nor;
+    fs_Translate = vs_Translate;
 
     // mat3 transformation = mat3(vs_Transform1, vs_Transform2, vs_Transform3);
 
@@ -50,10 +59,15 @@ void main()
     //     height = 1.1;
     // }
 
-    // instancedPos.y += height + 0.06;
+    // if (abs(instancedPos.y - height) < 0.05) {
+    //     instancedPos.y = height;
+    // }
 
 
-    // fs_LightVec = lightPos - instancedPos;  // Compute the direction in which the light source lies
+    fs_LightVec1 = lightPos1 - vec4(instancedPos, 1.0);  // Compute the direction in which the light source lies
+    fs_LightVec2 = lightPos2 - vec4(instancedPos, 1.0);  // Compute the direction in which the light source lies
+
+    instancedPos.y -= 3.0;
 
     gl_Position = u_ViewProj * vec4(instancedPos.xyz, 1.0);
 

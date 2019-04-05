@@ -14,10 +14,10 @@ class ScreenQuad extends Drawable {
 
   this.indices = new Uint32Array([0, 1, 2,
                                   0, 2, 3]);
-  this.positions = new Float32Array([-1, -1, 0.999, 1,
-                                     1, -1, 0.999, 1,
-                                     1, 1, 0.999, 1,
-                                     -1, 1, 0.999, 1]);
+  this.positions = new Float32Array([-1, -1, 0.9999999, 1,
+                                     1, -1, 0.9999999, 1,
+                                     1, 1, 0.9999999, 1,
+                                     -1, 1, 0.9999999, 1]);
 
     this.generateIdx();
     this.generatePos();

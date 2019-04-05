@@ -50,6 +50,7 @@ void main()
     }
 
     rotatedPos.y = height + 0.05;
+    rotatedPos.y -= 3.0;
 
 
     // fs_LightVec = lightPos - instancedPos;  // Compute the direction in which the light source lies

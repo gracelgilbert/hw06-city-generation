@@ -11,8 +11,11 @@ import Road from './Road';
 import Plane from './geometry/Plane';
 import BuildingSystem from './BuildingSystem';
 import Cube from './geometry/Cube';
+import Mesh from './geometry/Mesh';
+
 import Triangle from './geometry/Triangle';
 import Building from './Building';
+import {readTextFile} from './globals';
 
 
 // Define an object with application parameters and button callbacks
@@ -26,9 +29,13 @@ const controls = {
 };
 
 let square: Square;
-let building: Cube;
+let buildingSquare: Cube;
+let buildingPent: Mesh;
+let buildingOct: Cube;
+
 
 let screenQuad: ScreenQuad;
+let skyQuad: ScreenQuad;
 let plane: Plane;
 let time: number = 0.0;
 let road: Road;
@@ -41,8 +48,18 @@ function loadScene(road: Road, buildingSystem: BuildingSystem) {
   square = new Square();
   square.create();
 
-  building = new Cube(vec3.fromValues(0, 0, 0), 2);
-  building.create();
+  buildingSquare = new Cube(vec3.fromValues(0, 0, 0), 2);
+  buildingSquare.create();
+
+  let obj0: string = readTextFile('./treeOBJ.obj');
+  buildingPent = new Mesh(obj0, vec3.fromValues(0, 0, 0));
+  buildingPent.create();
+
+  buildingOct = new Cube(vec3.fromValues(0, 0, 0), 2);
+  buildingOct.create();
+
+
+
 
 
   // Set up instanced rendering data arrays here.
@@ -92,28 +109,70 @@ function loadScene(road: Road, buildingSystem: BuildingSystem) {
 
 
 
-  let offsetsArray = [];
+  let offsetsArraySquare = [];
 
 
-  let nb: number = 0;
+  let nSquare: number = 0;
 
   for(var i = 0; i < buildingSystem.buildings.length; i++) {
-    for (var j = 0; j < buildingSystem.buildings[i].positions.length; j++) {
-      let currPosition = buildingSystem.buildings[i].positions[j];
-      offsetsArray.push(currPosition[0]);
-      offsetsArray.push(currPosition[1]);
-      offsetsArray.push(currPosition[2]);
-      nb++;
+    for (var j = 0; j < buildingSystem.buildings[i].squarePositions.length; j++) {
+      let currPosition = buildingSystem.buildings[i].squarePositions[j];
+      offsetsArraySquare.push(currPosition[0]);
+      offsetsArraySquare.push(currPosition[1]);
+      offsetsArraySquare.push(currPosition[2]);
+      nSquare++;
     }
 
+  }
+  let offsetsSquare: Float32Array = new Float32Array(offsetsArraySquare);
 
-    // console.log(currPosition);
+  buildingSquare.setInstanceVBOs(col1s, col2s, col3s, offsetsSquare);
+  buildingSquare.setNumInstances(nSquare); // grid of "particles"
+
+
+
+  let offsetsArrayPent = [];
+
+
+  let nPent: number = 0;
+
+  for(var i = 0; i < buildingSystem.buildings.length; i++) {
+    for (var j = 0; j < buildingSystem.buildings[i].pentPositions.length; j++) {
+      let currPosition = buildingSystem.buildings[i].pentPositions[j];
+      offsetsArrayPent.push(currPosition[0]);
+      offsetsArrayPent.push(currPosition[1]);
+      offsetsArrayPent.push(currPosition[2]);
+      nPent++;
+    }
 
   }
-  let offsets: Float32Array = new Float32Array(offsetsArray);
+  let offsetsPent: Float32Array = new Float32Array(offsetsArrayPent);
 
-  building.setInstanceVBOs(col1s, col2s, col3s, offsets);
-  building.setNumInstances(nb); // grid of "particles"
+  buildingPent.setInstanceVBOs(col1s, col2s, col3s, offsetsPent);
+  buildingPent.setNumInstances(nPent); // grid of "particles"
+
+
+
+
+  let offsetsArrayOct = [];
+
+
+  let nOct: number = 0;
+
+  for(var i = 0; i < buildingSystem.buildings.length; i++) {
+    for (var j = 0; j < buildingSystem.buildings[i].octPositions.length; j++) {
+      let currPosition = buildingSystem.buildings[i].octPositions[j];
+      offsetsArrayOct.push(currPosition[0]);
+      offsetsArrayOct.push(currPosition[1]);
+      offsetsArrayOct.push(currPosition[2]);
+      nOct++;
+    }
+
+  }
+  let offsetsOct: Float32Array = new Float32Array(offsetsArrayOct);
+
+  buildingOct.setInstanceVBOs(col1s, col2s, col3s, offsetsOct);
+  buildingOct.setNumInstances(nOct); // grid of "particles"
 
 
 
@@ -154,11 +213,13 @@ function main() {
 
   screenQuad = new ScreenQuad();
   screenQuad.create();
-  plane = new Plane(vec3.fromValues(0, 0, 0), vec2.fromValues(8, 8), 20);
+  skyQuad = new ScreenQuad();
+  skyQuad.create();
+  plane = new Plane(vec3.fromValues(0, -3, 0), vec2.fromValues(8, 8), 20);
   plane.create();
 
 
-  const camera = new Camera(vec3.fromValues(10, 20, 0), vec3.fromValues(0, 2, 0));
+  const camera = new Camera(vec3.fromValues(10, 10, 10), vec3.fromValues(0, 0, 0));
 
   const renderer = new OpenGLRenderer(canvas);
   renderer.setClearColor(0.2, 0.2, 0.2, 1);
@@ -186,6 +247,14 @@ function main() {
     new Shader(gl.VERTEX_SHADER, require('./shaders/texture-vert.glsl')),
     new Shader(gl.FRAGMENT_SHADER, require('./shaders/texture-frag.glsl')),
   ]);
+
+  const sky = new ShaderProgram([
+    new Shader(gl.VERTEX_SHADER, require('./shaders/sky-vert.glsl')),
+    new Shader(gl.FRAGMENT_SHADER, require('./shaders/sky-frag.glsl')),
+  ]);
+
+
+
 
   // This function will be called every frame
   const texWidth = window.innerWidth;
@@ -236,7 +305,7 @@ function main() {
       gl.readPixels(0, 0, texWidth, texHeight, gl.RGBA, gl.UNSIGNED_BYTE, pixels);
     }
     road = new Road(pixels, texWidth, texHeight, controls.roadLength, controls.gridDensity);
-    buildingSystem = new BuildingSystem(road, 4);
+    buildingSystem = new BuildingSystem(road, 7);
 
     loadScene(road, buildingSystem);
 
@@ -247,6 +316,7 @@ function main() {
     stats.begin();
     instancedShader.setTime(time);
     flat.setTime(time++);
+    sky.setTime(time++);
 
     if (prevPopSeed != controls.shorePopulation || prevRoadLength != controls.roadLength || prevGridDensity != controls.gridDensity) {
       
@@ -268,7 +338,7 @@ function main() {
       prevRoadLength = controls.roadLength;
       prevGridDensity = controls.gridDensity;
       road = new Road(pixels, texWidth, texHeight, controls.roadLength, controls.gridDensity);
-      buildingSystem = new BuildingSystem(road, 4);
+      buildingSystem = new BuildingSystem(road, 7);
 
       loadScene(road, buildingSystem);
     }
@@ -294,17 +364,22 @@ function main() {
     } else {
       texture.setTerrainToggle(0.0);
     }
-  
 
-    // renderer.render(camera, texture, [screenQuad]);
+
     renderer.render(camera, texture, [plane]);
+    
 
     renderer.render(camera, instancedShader, [
       square,
     ]);
+
     renderer.render(camera, buildingShader, [
-      building,
+      buildingSquare, buildingPent, buildingOct,
     ]);    
+
+    renderer.render(camera, sky,[screenQuad]);
+
+
     stats.end();
 
     

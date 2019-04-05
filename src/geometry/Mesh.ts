@@ -12,10 +12,9 @@ class Mesh extends Drawable {
   center: vec4;
   offsets: Float32Array; // Data for bufTranslate
 
-  col1s: Float32Array; // Data for bufTranslate
-  col2s: Float32Array; // Data for bufTranslate
-  col3s: Float32Array; // Data for bufTranslate
-  col4s: Float32Array; // Data for bufTranslate
+  cols1: Float32Array;
+  cols2: Float32Array;
+  cols3: Float32Array;
 
 
   objString: string;
@@ -66,10 +65,10 @@ class Mesh extends Drawable {
     this.generateUV();
     this.generateTranslate();
 
+
     this.generateTransform1();
     this.generateTransform2();
     this.generateTransform3();
-    // this.generateTransform4();
 
     this.generateCol();
 
@@ -93,30 +92,22 @@ class Mesh extends Drawable {
     this.objString = ""; // hacky clear
   }
 
-  setInstanceVBOs(colors: Float32Array, col1s: Float32Array, col2s: Float32Array, col3s: Float32Array, col4s: Float32Array) {
-    this.colors = colors;
-
-    this.col1s = col1s;
-    this.col2s = col2s;
-    this.col3s = col3s;
-    this.col4s = col4s;
-
-
-    gl.bindBuffer(gl.ARRAY_BUFFER, this.bufCol);
-    gl.bufferData(gl.ARRAY_BUFFER, this.colors, gl.STATIC_DRAW);
-
+  setInstanceVBOs(cols1: Float32Array, cols2: Float32Array, cols3: Float32Array, offsets: Float32Array) {
+    // this.colors = colors;
+    this.offsets = offsets;
+    // this.transforms = transforms;
+    this.cols1 = cols1;
+    this.cols2 = cols2;
+    this.cols3 = cols3;
 
     gl.bindBuffer(gl.ARRAY_BUFFER, this.bufTransform1);
-    gl.bufferData(gl.ARRAY_BUFFER, this.col1s, gl.STATIC_DRAW);
-
+    gl.bufferData(gl.ARRAY_BUFFER, this.cols1, gl.STATIC_DRAW);
     gl.bindBuffer(gl.ARRAY_BUFFER, this.bufTransform2);
-    gl.bufferData(gl.ARRAY_BUFFER, this.col2s, gl.STATIC_DRAW);
-
+    gl.bufferData(gl.ARRAY_BUFFER, this.cols2, gl.STATIC_DRAW);
     gl.bindBuffer(gl.ARRAY_BUFFER, this.bufTransform3);
-    gl.bufferData(gl.ARRAY_BUFFER, this.col3s, gl.STATIC_DRAW);
-
-    // gl.bindBuffer(gl.ARRAY_BUFFER, this.bufTransform4);
-    // gl.bufferData(gl.ARRAY_BUFFER, this.col4s, gl.STATIC_DRAW);
+    gl.bufferData(gl.ARRAY_BUFFER, this.cols3, gl.STATIC_DRAW);
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.bufTranslate);
+    gl.bufferData(gl.ARRAY_BUFFER, this.offsets, gl.STATIC_DRAW);
   }
 };
 
