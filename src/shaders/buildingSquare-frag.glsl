@@ -140,7 +140,7 @@ void main()
         vec3 stripeColor = vec3(0.0, 0.0, 0.0);
         vec3 color11 = vec3(0.7 + 0.3 * computeWorley(x, y, 100.0, 100.0), 0.4 + 0.1 * computeWorley(x, y, 100.0, 100.0), 0.4 + 0.1 * computeWorley(x, y, 100.0, 100.0));
         vec3 color12 = vec3(0.8 + 0.3 * computeWorley(x, y, 100.0, 100.0), 0.6 + 0.3 * computeWorley(x, y, 100.0, 100.0), 0.2 + 0.1 * computeWorley(x, y, 100.0, 100.0));
-        vec3 color13 = vec3(0.4 + 0.1 * computeWorley(x, y, 100.0, 100.0), 0.4 + 0.1 * computeWorley(x, y, 100.0, 100.0), 0.7 + 0.3 * computeWorley(x, y, 100.0, 100.0));
+        vec3 color13 = vec3(0.2 + 0.1 * computeWorley(x, y, 100.0, 100.0), 0.2 + 0.1 * computeWorley(x, y, 100.0, 100.0), 0.7 + 0.3 * computeWorley(x, y, 100.0, 100.0));
 
         vec3 color1 = vec3(0.0);
         float colorProb = computeWorley(x, y, 200.0, 200.0);
@@ -162,7 +162,7 @@ void main()
         }
         // diffuseColor = color1;
 
-        if (textureColor.a > 0.7 || textureColor.a < 0.0000001) {
+        if (textureColor.a > 0.5 || textureColor.a < 0.0000001) {
           if (abs(fs_Nor.z) > 0.001) {
             diffuseColor *= (1.0 - pow(sin(instancedPos.x * 300.0), 5.0));
           } 

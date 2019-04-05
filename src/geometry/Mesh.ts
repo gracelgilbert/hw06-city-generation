@@ -62,7 +62,6 @@ class Mesh extends Drawable {
     this.generateIdx();
     this.generatePos();
     this.generateNor();
-    this.generateUV();
     this.generateTranslate();
 
 
@@ -70,7 +69,6 @@ class Mesh extends Drawable {
     this.generateTransform2();
     this.generateTransform3();
 
-    this.generateCol();
 
     this.count = this.indices.length;
     gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.bufIdx);
@@ -85,8 +83,8 @@ class Mesh extends Drawable {
     // gl.bindBuffer(gl.ARRAY_BUFFER, this.bufCol);
     // gl.bufferData(gl.ARRAY_BUFFER, this.colors, gl.STATIC_DRAW);
 
-    gl.bindBuffer(gl.ARRAY_BUFFER, this.bufUV);
-    gl.bufferData(gl.ARRAY_BUFFER, this.uvs, gl.STATIC_DRAW);
+    // gl.bindBuffer(gl.ARRAY_BUFFER, this.bufUV);
+    // gl.bufferData(gl.ARRAY_BUFFER, this.uvs, gl.STATIC_DRAW);
 
     console.log(`Created Mesh from OBJ`);
     this.objString = ""; // hacky clear

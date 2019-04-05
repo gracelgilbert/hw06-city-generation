@@ -31,7 +31,7 @@ const controls = {
 let square: Square;
 let buildingSquare: Cube;
 let buildingPent: Mesh;
-let buildingOct: Cube;
+let buildingOct: Mesh;
 
 
 let screenQuad: ScreenQuad;
@@ -51,11 +51,13 @@ function loadScene(road: Road, buildingSystem: BuildingSystem) {
   buildingSquare = new Cube(vec3.fromValues(0, 0, 0), 2);
   buildingSquare.create();
 
-  let obj0: string = readTextFile('./treeOBJ.obj');
+  let obj0: string = readTextFile('./src/pentagon.obj');
   buildingPent = new Mesh(obj0, vec3.fromValues(0, 0, 0));
   buildingPent.create();
 
-  buildingOct = new Cube(vec3.fromValues(0, 0, 0), 2);
+
+  let obj1: string = readTextFile('./src/octagon.obj');
+  buildingOct = new Mesh(obj1, vec3.fromValues(0, 0, 0));
   buildingOct.create();
 
 

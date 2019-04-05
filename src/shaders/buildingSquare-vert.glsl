@@ -47,21 +47,19 @@ void main()
     // rotatedPos.z = instancedPos.y;
     // rotatedPos *= 4.0;
 
-    // float x = 0.5 * (instancedPos.x + 4.0) / 4.0;
-    // float y = 0.5 * (instancedPos.z + 4.0) / 4.0;
-    // vec4 textureColor = texture(u_RenderedTexture, vec2(x,  y));
+    float x = 0.5 * (instancedPos.x + 4.0) / 4.0;
+    float y = 0.5 * (instancedPos.z + 4.0) / 4.0;
+    vec4 textureColor = texture(u_RenderedTexture, vec2(x,  y));
 
-    // float height = textureColor.r * 12.0;
-    // if (height > 1.3) {
-    //     height = 1.3;
-    // }
-    // if (height < 1.1) {
-    //     height = 1.1;
-    // }
-
-    // if (abs(instancedPos.y - height) < 0.05) {
-    //     instancedPos.y = height;
-    // }
+    float height = textureColor.r * 12.0;
+    if (height > 1.3) {
+        height = 1.3;
+    }
+    if (height < 1.1) {
+        height = 1.1;
+    }
+    float floatingDist = 1.3 - height;
+    instancedPos.y -= floatingDist;
 
 
     fs_LightVec1 = lightPos1 - vec4(instancedPos, 1.0);  // Compute the direction in which the light source lies

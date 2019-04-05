@@ -140,11 +140,11 @@ void main() {
     vec3 blueSky = vec3(0.3, 0.7, 1.0);
     vec3 clouds1 = vec3(1.0, 1.0, 1.0);
     float yScale = (0.5 * (fs_Pos.y + 1.0));
-    float cloudMap1 = 1.5 - fbm(fs_Pos.x - u_Time / (1000.0 / (yScale * yScale)), fs_Pos.y, 1.0, 1.5 * yScale * yScale, 0.2 * yScale * yScale);
+    float cloudMap1 = 1.5 - fbm(fs_Pos.x - u_Time / (1000.0 / (yScale * yScale * yScale)), fs_Pos.y, 1.0, 1.5 * yScale * yScale, 0.2 * yScale * yScale);
     cloudMap1 *= (yScale * yScale);
 
     vec3 clouds2 = vec3(1.0, 0.8, 0.9);
-    float cloudMap2 = 1.0 * (1.0 - fbm(fs_Pos.x - u_Time / (1400.0 / (yScale * yScale)), fs_Pos.y, 1.0, 3.0*  yScale * yScale, 1.0 * yScale * yScale)) ;
+    float cloudMap2 = 1.0 * (1.0 - fbm(fs_Pos.x - u_Time / (1400.0 / (yScale * yScale * yScale)), fs_Pos.y, 1.0, 3.0*  yScale * yScale, 1.0 * yScale * yScale)) ;
     cloudMap2 *= (yScale * yScale);
 
     // float cloudMap2 = 0.0;
