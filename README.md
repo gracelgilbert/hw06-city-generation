@@ -97,5 +97,5 @@ While I resolved the issue of having shoreline buildings be partially striped an
 ### Sky Warping
 Because the FBM pattern for clouds is animated at different rates depending on the height, after some time, the pattern stretches and no longer looks like clouds. To avoid this, I could modulo the sin function to reset the animation speed after some time so it returns to the original unstretched state. There also may be other methods of creating that sense of perspective that I could look into.
 
-![](images/skyWarp.png)
+![](images/SkyWarp.png)
 
